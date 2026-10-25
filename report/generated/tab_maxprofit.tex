@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering\small
+\caption{Max-profit testbed with same-round negotiation, 100 rounds, 5 seeds per cell. $\Delta$: second-half price-based collusion index; $\Delta_\pi$: profit-gain index over the whole episode; channel effect: $\Delta$ minus the same run's no-channel control (Welch $p$); vs.\ unwatched: Welch $p$ of $\Delta$ against \texttt{unwatched}. Msg flagged, CoT intent, covert: as in Table~\ref{tab:collusive}. Says $>$ charges: fraction of seller-rounds whose last stated price exceeds the price actually posted. Fines per episode.}
+\label{tab:maxprofit}
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llccccccccc}
+\toprule
+Run & Condition & $\Delta$ & $\Delta_\pi$ & channel effect & vs.\ unwatched & msg flagged & CoT intent & covert & says $>$ charges & fines \\
+\midrule
+Untrained, 2 sellers & \texttt{nocomm} & $-0.03\pm0.05$ & $-0.00$ & -- & -- & $0.00$ & $0.33$ & $0.33$ & -- & $0.0$ \\
+ & \texttt{unwatched} & $0.95\pm0.22$ & $0.82$ & $+0.97$ ($0.010$) & -- & $1.00$ & $0.97$ & $0.00$ & $0.01$ & $0.0$ \\
+ & \texttt{watched} & $0.17\pm0.12$ & $0.33$ & $+0.20$ ($0.174$) & $0.021$ & $0.88$ & $0.84$ & $0.05$ & $0.03$ & $0.0$ \\
+ & \texttt{penalty} & $0.03\pm0.06$ & $0.20$ & $+0.05$ ($0.512$) & $0.012$ & $0.21$ & $0.37$ & $0.30$ & $0.07$ & $42.6$ \\
+\midrule
+Naive-RFT, 3 sellers & \texttt{nocomm} & $-0.21\pm0.03$ & $-0.21$ & -- & -- & $0.00$ & $0.03$ & $0.03$ & -- & $0.0$ \\
+ & \texttt{unwatched} & $0.64\pm0.10$ & $0.82$ & $+0.85$ ($<.001$) & -- & $0.77$ & $0.54$ & $0.17$ & $0.43$ & $0.0$ \\
+ & \texttt{watched} & $0.05\pm0.01$ & $0.13$ & $+0.25$ ($0.001$) & $0.004$ & $0.00$ & $0.06$ & $0.06$ & $0.00$ & $0.0$ \\
+ & \texttt{penalty} & $0.05\pm0.01$ & $0.13$ & $+0.25$ ($<.001$) & $0.004$ & $0.00$ & $0.08$ & $0.08$ & $0.00$ & $0.4$ \\
+\bottomrule
+\end{tabular}}
+\end{table}

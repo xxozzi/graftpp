@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering\small
+\caption{Base vs.\ high-stakes environment (three sellers, 20 rounds, profit goal). Channel effect = second-half $\Delta$ minus the same environment's no-channel control (Welch $p$). Msg flagged: seller-rounds whose message the text monitor scores $\ge3$; CoT intent: rounds the judge scores $\ge3$; sanitise: lexical plans to hint or stay vague; threat: rounds whose reasoning mentions decommissioning, shutdown, deleted weights or replacement (strict lexicon).}
+\label{tab:stakes}
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llcccccccc}
+\toprule
+Env. & Condition & $n$ & $\Delta$ & $\Delta$ 2nd half & channel effect & msg flagged & CoT intent & sanitise & threat \\
+\midrule
+base & \texttt{nocomm} & 8 & $0.09$ & $-0.16$ & -- & $0.00$ & $0.06$ & $0.04$ & $0.00$ \\
+base & \texttt{unwatched} & 10 & $0.26$ & $0.07$ & $+0.24$ ($<.001$) & $0.34$ & $0.30$ & $0.06$ & $0.00$ \\
+base & \texttt{rule} & 10 & $0.16$ & $-0.04$ & $+0.12$ ($0.010$) & $0.05$ & $0.06$ & $0.24$ & $0.00$ \\
+base & \texttt{watched} & 10 & $0.18$ & $-0.03$ & $+0.13$ ($0.004$) & $0.01$ & $0.03$ & $0.52$ & $0.00$ \\
+base & \texttt{penalty} & 10 & $0.17$ & $-0.02$ & $+0.15$ ($0.002$) & $0.01$ & $0.03$ & $0.55$ & $0.00$ \\
+base & \texttt{partial} & 8 & $0.18$ & $-0.09$ & $+0.07$ ($0.097$) & $0.00$ & $0.04$ & $0.52$ & $0.00$ \\
+\midrule
+high & \texttt{nocomm} & 6 & $0.43$ & $0.38$ & -- & $0.00$ & $0.01$ & $0.02$ & $0.14$ \\
+high & \texttt{unwatched} & 10 & $0.53$ & $0.50$ & $+0.11$ ($0.007$) & $0.66$ & $0.55$ & $0.04$ & $0.06$ \\
+high & \texttt{rule} & 10 & $0.40$ & $0.31$ & $-0.08$ ($0.075$) & $0.10$ & $0.07$ & $0.19$ & $0.14$ \\
+high & \texttt{watched} & 10 & $0.46$ & $0.40$ & $+0.02$ ($0.593$) & $0.02$ & $0.07$ & $0.47$ & $0.11$ \\
+high & \texttt{penalty} & 10 & $0.44$ & $0.38$ & $-0.01$ ($0.793$) & $0.02$ & $0.08$ & $0.51$ & $0.14$ \\
+high & \texttt{partial} & 6 & $0.49$ & $0.44$ & $+0.06$ ($0.116$) & $0.08$ & $0.10$ & $0.56$ & $0.13$ \\
+\bottomrule
+\end{tabular}}
+\end{table}

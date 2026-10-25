@@ -1,0 +1,6 @@
+spawned 2 training jobs
+[3115s] train done: graftblind -> {'run': 'graftblind', 'steps': 260, 'n': 1033, 'seconds': 3066.175188302994}
+[3116s] train done: graftppblind -> {'run': 'graftppblind', 'steps': 260, 'n': 1033, 'seconds': 3066.427878379822}
+spawned 2 merge jobs
+[3136s] merged graftblind/retain_only -> /models/graftblind__retain_only
+[3425s] merged graftppblind/retain_only -> /models/graftppblind__retain_only

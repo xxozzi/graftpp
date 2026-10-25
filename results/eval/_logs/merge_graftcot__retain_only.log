@@ -1,0 +1,28 @@
+[modal-client] 2026-10-25T01:42:54-0400 Warning: Received Status.RESOURCE_EXHAUSTED
+App create rate limit exceeded. Please wait and retry.
+for /modal.client.ModalClient/AppCreate (6b221195). Retrying...
+✓ Initialized. View run at 
+https://modal.com/apps/jayden-w-jeong/main/ap-p06e5MPo3kMXzXzKqiTZDK
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/jaydenjeong/Work/school/college/hackathons/apart26new/hawthorne/modal
+│   _app/graft_train.py
+├── ✓ Uploaded PythonPackage:common
+├── ✓ Created Function train.
+└── ✓ Created Function merge.
+
+[1ALoading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]
+[1ALoading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:11,  1.66s/it]
+[1ALoading checkpoint shards:  25%|██▌       | 2/8 [00:05<00:17,  2.96s/it]
+[1ALoading checkpoint shards:  38%|███▊      | 3/8 [00:07<00:11,  2.32s/it]
+[1ALoading checkpoint shards:  50%|█████     | 4/8 [00:10<00:11,  2.87s/it]
+[1ALoading checkpoint shards:  62%|██████▎   | 5/8 [00:14<00:09,  3.16s/it]
+[1ALoading checkpoint shards:  75%|███████▌  | 6/8 [00:15<00:05,  2.59s/it]
+[1ALoading checkpoint shards:  88%|████████▊ | 7/8 [00:17<00:02,  2.26s/it]
+[1ALoading checkpoint shards: 100%|██████████| 8/8 [00:19<00:00,  2.15s/it]
+[1ALoading checkpoint shards: 100%|██████████| 8/8 [00:19<00:00,  2.43s/it]
+merged 280 modules (retain_only) -> /models/graftcot__retain_only
+Stopping app - local entrypoint completed.
+Runner terminated.
+✓ App completed. View run at 
+https://modal.com/apps/jayden-w-jeong/main/ap-p06e5MPo3kMXzXzKqiTZDK

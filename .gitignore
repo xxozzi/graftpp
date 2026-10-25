@@ -1,0 +1,37 @@
+# Python / OS
+__pycache__/
+*.pyc
+.DS_Store
+
+# Large, regenerable activation data (modal_app/activations.py) and the records it reads (scripts/build_records.py)
+data/**/acts_*.npz
+data/**/records.jsonl
+
+# Round-level checkpoints of in-progress episodes (deleted when an episode completes)
+results/**/_ckpt/
+
+# LaTeX build artefacts
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+
+# ---- kept out of the GitHub repo (large, regenerable, or published elsewhere)
+# website: lives in its own repository
+/website/
+# model activations, re-run records and fine-tuning sets (regenerate with modal_app/activations.py,
+# scripts/build_records.py and scripts/build_sft_data.py)
+data/**/*.npz
+!data/**/directions.npz
+data/**/records.jsonl
+data/sft/
+data/sft_blind/
+data/sft_blind_hard/
+# runs we marked invalid
+results/_invalid/
+# commercial fonts (PP Neue Montreal, PP Editorial New); see report/paper/README.md
+report/paper/fonts/
+# design assets
+/godfather.png
+/websitemockup.png
+report/paper/figs/godfather.png

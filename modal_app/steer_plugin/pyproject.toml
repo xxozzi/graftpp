@@ -1,0 +1,7 @@
+[project]
+name = "hawthorne-steer"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+[project.entry-points."vllm.general_plugins"]
+hawthorne_steer = "hawthorne_steer:register"

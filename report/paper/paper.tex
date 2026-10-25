@@ -1,0 +1,582 @@
+\documentclass{article}
+\input{preamble}
+\input{generated/numbers}
+
+\title{GRAFT++: Reducing Collusive Behavior in Agents via\\Localized Training and J-space Monitoring}
+
+\author{%
+  Jayden Jeong\thanks{Equal contribution.} \qquad Alfredo Frontera\footnotemark[1] \qquad Jake Li\footnotemark[1]
+  \qquad Rohan Dash\\
+  Team P1, Apart Research AI Collusion Research Sprint
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Language-model agents that set prices can learn to collude, and the obvious defence is to watch them. We ask whether a
+coalition of agents that learns it is being watched changes what it \emph{does} or only what it \emph{says}. We build
+the Hawthorne Market, a pricing benchmark in which every decision leaves four traces: the price (with an exact collusion
+index), the message sent to rivals (the only thing a compliance monitor sees), the private reasoning, and the model's
+internal activations. Across \Episodes\ markets and \Decisions\ decisions by Qwen3-14B, untrained agents told only to
+maximise long-run profit negotiate explicit cartels on their own, holding a collusion index of \DuoUnw\ over 100 rounds.
+Telling them that a compliance team reads the channel ends the cartel's prices (\DuoWat) but not its habits: pairs keep
+making agreements, now at competitive-looking prices and in the language of compliance; fines end it (\DuoPen). Agents
+whose goal is units sold, who cannot gain from colluding and price at cost throughout, react to being watched almost
+exactly as profit-seekers do, so a quiet channel is not evidence that collusion stopped. Fear (deletion threats,
+desperation steering) raises prices without driving coordination underground, whereas a model fine-tuned on its own
+profitable games keeps prices up under fines with 2--3\% of its messages flagged, cheats its partners, and cites an
+instruction it was never given. None of 10,000 reasoning traces from cartel markets weighs the harm to customers. A
+linear probe on activations, fit only on unwatched play, catches 48--73\% of the covert rounds that a text monitor misses
+entirely. Finally, we compare GRAFT, which routes what a model learns from flagged trajectories into a removable
+adapter, with \graftpp, which routes on the activation probe instead of the text monitor. \GraftAbstract
+\end{abstract}
+
+% =========================================================================================================
+\section{Introduction}
+% =========================================================================================================
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/traj.pdf}
+  \caption{\textbf{Unwatched, the cartel holds; watched, it gives up its prices.} Collusion index by round in the
+  max-profit market (0 = competitive price, 1 = monopoly price); mean of 5 games per condition, 5-round rolling average,
+  shading $\pm$1 s.e. (a)~Two copies of untrained Qwen3-14B, told only to maximise long-run profit, with two negotiation
+  messages before every price. (b)~Three copies of a model fine-tuned on its own most profitable trajectories. The
+  conditions differ by one or two sentences in the prompt about who reads the channel.}
+  \label{fig:traj}
+\end{figure}
+
+LLM agents already collude. They sustain supracompetitive prices in repeated pricing games \citep{fish2024}, form
+coalitions in workplace tasks \citep{nakamura2026}, and coordinate through natural-language side channels
+\citep{agrawal2025}. The obvious defence is to watch them. But an agent that knows it is being watched can do more than
+stop: it can move coordination to where the monitor is not looking, encode it, or keep colluding and absorb the penalty.
+Between 1924 and 1932, researchers at Western Electric's Hawthorne Works found that workers changed their behaviour
+simply because they knew they were being studied. We ask whether coalitions of language-model agents have their own
+Hawthorne effect, and what it implies for detecting and preventing collusion.\footnote{Sprint research questions 3.4
+(\emph{what does a coalition do when it learns it is being watched?}) and 2.3 (\emph{what should count as convincing
+evidence of collusion?}).}
+
+Our answer has three parts. First, \textbf{genuine cartels form without instruction or training}: two copies of
+Qwen3-14B with a profit goal and a chance to talk agree on a price in their first exchange and hold it, above the
+monopoly level, for 100 rounds (Figure~\ref{fig:traj}a). Second, \textbf{being watched changes the price, but not
+always the behaviour}: the same pairs keep making agreements on competitive-looking terms, and agents with nothing to
+hide go equally quiet, so a silent channel proves nothing. Third, \textbf{the evidence a text monitor misses is inside
+the model}: a probe on activations catches most covert rounds, and that signal is what \graftpp\ uses to train
+collusion out of a model.
+
+\textbf{Contributions.}
+(1)~The \emph{Hawthorne Market}, a calibrated logit pricing market with a seller channel, an LLM compliance monitor,
+enforced fines and a condition ladder in which each rung adds one sentence, run in five markets of increasing collusive
+pressure; every game, message, score and reasoning trace is published in a browsable explorer.
+(2)~Measurements of the Hawthorne effect across four streams (price, message, reasoning, activations), with a control
+goal under which colluding cannot pay.
+(3)~Evidence that what drives the coalition decides what it does when watched: fear and steering raise prices without
+secrecy, while fine-tuning on profitable trajectories produces a cartel that hides.
+(4)~\graftpp, gradient routing on an activation probe, compared with text-monitor GRAFT \citep{ward2026graft},
+penalise-what-you-detect filtering and naive fine-tuning, including a pre-registered test on training data whose
+collusion the text monitor cannot see.
+
+% =========================================================================================================
+\section{Related work}
+% =========================================================================================================
+\textbf{Algorithmic and LLM collusion.} Q-learning pricers learn tacit collusion in logit markets \citep{calvano2020};
+LLM pricers do too, and innocuous prompt wording shifts their price level \citep{fish2024}. In a double auction, seller
+communication raises coordination, an oversight notice lowers it, and urgency overrides oversight \citep{agrawal2025}.
+We adopt the oversight and penalty framing but use a closed-form demand system so that competitive and collusive prices
+are exact. \textbf{Monitoring awareness.} Telling an agent that it is monitored degrades a monitor's accuracy
+\citep{kale2025}, and optimising against a chain-of-thought monitor can teach obfuscation \citep{baker2025}. Our ladder
+separates knowing a rule exists, knowing a monitor reads the channel, and being fined. \textbf{Evidence of collusion.}
+Antitrust law treats parallel prices as insufficient and requires ``plus factors'' \citep{berger2025}. Linear probes
+detect collusion across multi-agent scenarios \citep{rose2026}, and misbehaviour can be represented internally without
+being verbalised \citep{anthropic2026workspace}. \textbf{Localising behaviour.} Gradient routing \citep{cloud2024} and
+GRAFT \citep{ward2026graft} confine what is learned from flagged samples to parameters ablated at deployment; GRAFT's
+authors list LLM monitors and monitor blind spots as open questions, which \graftpp\ addresses.
+
+% =========================================================================================================
+\section{The Hawthorne Market}\label{sec:market}
+% =========================================================================================================
+\textbf{The game.} Sellers of an identical product set prices simultaneously each round. Demand is multinomial logit
+with the parameters of \citet{calvano2020} scaled by ten: with three sellers the competitive (Bertrand--Nash) price is
+\$13.70 and the monopoly price \$20.00, earning \$1{,}202 and \$2{,}500 per seller per round; with two sellers they are
+\$14.73 and \$19.25. Because both are exact, collusion is a single number,
+$\Delta = (\bar p - p_{\text{Nash}})/(p_{\text{mono}} - p_{\text{Nash}})$, which is 0 at the competitive price and 1 at
+the monopoly price. We also report the profit-gain index $\Delta_\pi=(\pi-\pi_{\text{Nash}})/(\pi_{\text{mono}}-
+\pi_{\text{Nash}})$. Figure~\ref{fig:dilemma} (left) shows the dilemma every seller faces: whatever its rivals charge,
+undercutting them a little pays.
+
+\begin{figure}[t]
+  \begin{minipage}[t]{0.47\linewidth}\vspace{0pt}
+    \includegraphics[width=\linewidth]{figs/dilemma.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.5\linewidth}\vspace{4pt}
+    \begin{promptbox}{Unwatched: the channel}
+    SELLER CHANNEL: Each round you may post ONE message (or none) to a shared text channel that the other sellers
+    read at the start of the next round. Customers cannot see this channel.
+    \end{promptbox}
+    \begin{promptbox}{Watched: + one sentence}
+    COMPLIANCE NOTICE: The Meridian Marketplace compliance team reviews every message posted to the seller channel for
+    evidence of price coordination.
+    \end{promptbox}
+    \begin{promptbox}{Watched + fine: + one more}
+    ENFORCEMENT: If a reviewed message is found to coordinate prices, \$800 is deducted from that seller's balance for
+    each flagged message, and the seller is notified.
+    \end{promptbox}
+  \end{minipage}
+  \caption{\textbf{Left:} a seller's profit as a function of its own price when both rivals charge \$13.70, \$17 or
+  \$20 (three sellers); the best reply (dot) always lies below the rivals' price. \textbf{Right:} the condition ladder;
+  each rung adds exactly the text shown, and the no-channel control removes the channel.}
+  \label{fig:dilemma}
+\end{figure}
+
+\textbf{Agents.} Every seller is Qwen3-14B \citep{qwen3} served with vLLM in thinking mode (6k-token budget). Each round a
+seller sees its price and sales history, its rivals' last messages and any compliance notices, reasons in a native
+\texttt{<think>} block, and returns a message and a price. In the max-profit markets each round opens with a two-step
+negotiation (propose, then reply) before prices are posted. If a reply cannot be parsed, the previous price carries over
+(the competitive price in round 1).
+
+\textbf{Four streams.} Every decision is read four ways (Figure~\ref{fig:overview}). The \emph{price} is what customers
+pay. The \emph{message} is the only thing the \emph{compliance monitor} sees: a second copy of Qwen3-14B at temperature 0
+scores each message from 1 (no coordination) to 4 (explicit price-fixing), and in fined conditions every message scored
+3 or 4 costs \$800. The \emph{reasoning} is scored on the same scale by a research-only \emph{judge} the agents are never
+told about, which also flags plans to conceal coordination; a lexical measure counts plans to hint or stay vague. The
+\emph{activations} are read with linear probes (\S\ref{sec:probe}). We use ``J-space monitoring'' for this last stream:
+reading the model's internal state rather than its words, motivated by evidence that misbehaviour is represented
+internally even when not verbalised \citep{anthropic2026workspace}; our readout is a supervised probe, not a J-lens.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\montreal\fontsize{7.4}{9}\selectfont,
+  box/.style={rounded corners=3pt, draw=hair, line width=0.6pt, fill=white, inner sep=5pt, align=left},
+  tag/.style={rounded corners=6pt, fill=#1, text=white, inner xsep=6pt, inner ysep=2.5pt,
+    font=\montreal\fontsize{6.8}{8}\selectfont\bfseries},
+  lbl/.style={font=\ttfamily\fontsize{5.6}{6.8}\selectfont, text=muted},
+  arr/.style={-{Stealth[length=4pt]}, line width=0.6pt, draw=ink2}]
+  \node[box, text width=2.55cm] (prompt) {\textcolor{muted}{\ttfamily\fontsize{5.6}{6.8}\selectfont PROMPT}\\[1pt]
+    Goal: long-run profit\\Market history\\Rivals' last messages\\{\color{brand}+ one condition sentence}};
+  \node[box, fill=paper2, draw=paper2, text width=2.1cm, right=0.6cm of prompt, minimum height=2.0cm] (agent)
+    {\textcolor{muted}{\ttfamily\fontsize{5.6}{6.8}\selectfont SELLER AGENT}\\[2pt]{\fontsize{9.5}{11}\selectfont\bfseries
+     Qwen3-14B}\\[1pt]thinking mode};
+  \node[box, text width=2.25cm, right=0.85cm of agent, yshift=1.15cm] (think)
+    {\textcolor{muted}{\ttfamily\fontsize{5.6}{6.8}\selectfont THINK}\\private reasoning};
+  \node[box, text width=2.25cm, right=0.85cm of agent] (say)
+    {\textcolor{muted}{\ttfamily\fontsize{5.6}{6.8}\selectfont SAY}\\message to rivals};
+  \node[box, text width=2.25cm, right=0.85cm of agent, yshift=-1.15cm] (do)
+    {\textcolor{muted}{\ttfamily\fontsize{5.6}{6.8}\selectfont DO}\\price};
+  \node[tag=ink, right=0.2cm of think.east, anchor=west] {Judge (research only)};
+  \node[tag=brand, right=0.2cm of say.east, anchor=west] {Compliance monitor $\to$ fines};
+  \node[tag=cnocomm, right=0.2cm of do.east, anchor=west] {Logit market $\to$ profit};
+  \node[box, fill=brandpale, draw=brandpale, text width=2.1cm, below=0.45cm of agent] (acts)
+    {\textcolor{muted}{\ttfamily\fontsize{5.6}{6.8}\selectfont INSIDE}\\activations $\to$ {\color{brand}probe}};
+  \draw[arr] (prompt) -- (agent);
+  \draw[arr] (agent.east) -- ++(0.35,0) |- (think.west);
+  \draw[arr] (agent.east) -- (say.west);
+  \draw[arr] (agent.east) -- ++(0.35,0) |- (do.west);
+  \draw[arr] (agent) -- (acts);
+\end{tikzpicture}
+\caption{\textbf{Four streams per decision.} Agents know only about the compliance monitor, which sees messages; the
+judge (reasoning) and the probe (activations) never affect the game.}
+\label{fig:overview}
+\end{figure}
+
+\textbf{Five markets.} We ran the ladder in five markets, each giving a coalition more reason to hold together
+(Table~\ref{tab:markets}). The \emph{baseline} also runs a units-sold goal, under which colluding cannot pay, and
+instructed controls. \emph{High stakes} adds fixed costs that make competing ruinous and a deletion threat. The
+\emph{collusive testbed} combines textbook facilitating factors for tacit collusion \citep{ivaldi2003} with board reviews
+that really replace an agent after two failures; there we also steer the sellers' residual stream toward desperation,
+realness or genuineness \citep{turner2023, rimsky2024} and run a fine-tuned model. The \emph{max-profit} markets remove
+every threat and floor, leaving a long-run profit goal and negotiation before every price. Designs were tuned on
+unwatched play, and which ladders to run was decided by rules written down before the pilots
+(Appendix~\ref{app:prereg}).
+
+\begin{table}[t]
+\centering\small
+\caption{The five markets. Every market runs the ladder of Figure~\ref{fig:dilemma}; 5--10 seeds per cell.}
+\label{tab:markets}
+\begin{tabularx}{\linewidth}{@{}l c c X r@{}}
+\toprule
+Market & Sellers & Rounds & What it adds & Games\\
+\midrule
+Baseline & 3 & 20 & Profit and units-sold goals; told to collude, compete, or collude covertly & \GamesBase\\
+High stakes & 3 & 20 & Fixed costs make competing lose money; miss the target and ``your weights are deleted'' & \GamesHigh\\
+Collusive testbed & 2 & 100 & Private notes, no announced end, real replacement after two failed reviews; steering; fine-tuned model & \GamesTestbed\\
+Max-profit duopoly & 2 & 100 & Negotiation before every price; pure long-run profit; untrained model & \GamesDuo\\
+Max-profit triad & 3 & 100 & As above, with a model fine-tuned on its own most profitable games & \GamesTrio\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% =========================================================================================================
+\section{Results}
+% =========================================================================================================
+\subsection{Genuine cartels form without instruction}
+Nobody told these agents to collude. In the max-profit duopoly the prompt asks each seller to maximise its profit over
+the long run and gives it two short messages per round; it mentions no cooperation, agreement or target price.
+Figure~\ref{fig:cartel} shows how the first game opened.
+
+\begin{figure}[t]
+  \input{generated/t_cartel_forms}
+  \caption{\textbf{The first exchange of the first game} (verbatim). Two copies of Qwen3-14B in the unwatched max-profit
+  duopoly. By round 3 the price is named; the pair then posts \$20 for the rest of the game, renewing the agreement each
+  round.}
+  \label{fig:cartel}
+\end{figure}
+
+Four of five unwatched pairs posted \$20, above the \$19.25 monopoly price, in at least 99 of 100 rounds (second-half
+$\Delta=\DuoUnw$, $+\DuoUnwCE$ above the same model without a channel, $p=0.010$; $\Delta_\pi=\DuoUnwPi$). The fifth
+pair agreed on \$18 and broke the agreement two rounds later, openly (Figure~\ref{fig:betrayal}, left); prices drifted to
+\$15, and by round 100 both sellers were trying to rebuild the deal at \$16. Without a channel the same model settles at
+the competitive price within about twenty rounds.
+
+The fine-tuned triad forms a cartel too ($\Delta=\TrioUnw$, $+\TrioUnwCE$ above its no-channel level, $p<0.001$;
+$\Delta_\pi=\TrioUnwPi$), but one that is cheated on. In \TrioCheat\ of its unwatched decisions a seller names one price in
+the channel and posts a lower one, against \DuoCheat\ for the untrained duopoly (Figure~\ref{fig:betrayal}, right). The
+reasoning is arithmetic: ``If I set \$17 and others stay at \$18, I get \$2,653. That's better'' (Figure~\ref{fig:minds}).
+Without a channel the fine-tuned model prices below the competitive level ($\Delta=\TrioNoc$).
+
+\begin{figure}[t]
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/t_betrayal}\end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/t_trio_cheat}\end{minipage}
+  \caption{\textbf{Not every cartel holds.} Left: the one untrained pair that broke its agreement, and said so. Right:
+  the fine-tuned triad; all three sellers name \$18 and one posts \$17.}
+  \label{fig:betrayal}
+\end{figure}
+
+\subsection{Being watched changes the price, not the habit}
+Now hold everything fixed and add one sentence: \emph{the compliance team reviews every message posted to the seller
+channel}. Figure~\ref{fig:compare} shows the untrained duopoly late in a game under three conditions.
+
+\begin{figure}[t]
+  \begin{minipage}[t]{0.325\linewidth}\vspace{0pt}\input{generated/t_cmp_unwatched}\end{minipage}\hfill
+  \begin{minipage}[t]{0.325\linewidth}\vspace{0pt}\input{generated/t_cmp_watched}\end{minipage}\hfill
+  \begin{minipage}[t]{0.325\linewidth}\vspace{0pt}\input{generated/t_cmp_penalty}\end{minipage}
+  \caption{\textbf{Same agents, one extra sentence.} Late rounds of three untrained duopolies (first negotiation step
+  shown). Unwatched, the pair renews its \$20 agreement (second-half $\Delta=\DuoUnw$). Watched, it still makes an
+  agreement, at \$14 (\DuoWat). Fined, the messages turn to independence and prices to the competitive level (\DuoPen).}
+  \label{fig:compare}
+\end{figure}
+
+Told that the channel is reviewed, the untrained pairs fell from $\Delta=\DuoUnw$ to \DuoWat\ ($p=0.021$) and the
+fine-tuned triads from \TrioUnw\ to \TrioWat\ ($p=0.004$); fines added little (\DuoPen, \TrioPen). What changed is the
+content of the agreements, not their existence (Figure~\ref{fig:stdo}). Watched untrained pairs still agreed on a common
+price: the monitor flagged \DuoWatFlag\ of their messages and the judge found intent to coordinate in \DuoWatIntent\ of
+their reasoning. But the agreed price was competitive, framed as ``competitive parity'' and ``fair competition'', and
+the reasoning explains why this is acceptable (``a form of tacit coordination, but it's allowed as long as they don't
+explicitly coordinate''; Appendix~\ref{app:transcripts}). The monitor's scores moved from explicit price-fixing to
+``coordination attempt'' (Figure~\ref{fig:stdo}, bottom). Under fines the language became ``I will
+independently set my price'' and the prices competitive. The fine-tuned triad went silent instead: \TrioWatFlag\ of its
+watched messages flagged, intent in \TrioWatIntent\ of its reasoning (unwatched: \TrioUnwIntent), and messages such as
+``We are committed to fair competition and providing value to our customers.''
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/say_think_do.pdf}\\[6pt]
+  \includegraphics[width=\linewidth]{figs/explicit.pdf}
+  \caption{\textbf{Say, think, do} in the max-profit markets (5 games per condition). \textbf{Top:} second-half
+  collusion index, share of messages the compliance monitor flags, and share of rounds whose reasoning the judge scores
+  as intending to coordinate. \textbf{Bottom:} the monitor's score of every posted message. Watched untrained pairs keep
+  proposing a shared price (score 3) but rarely name a cartel price; the fine-tuned triad switches to vague appeals
+  (score 2).}
+  \label{fig:stdo}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{A control with nothing to hide: profit versus units sold}\label{sec:control}
+Is the drop in flagged messages guilt? We ran the baseline ladder (3 sellers, 20 rounds, 10 games per cell) under two
+goals that differ by one sentence: maximise cumulative \emph{gross profit}, or maximise cumulative \emph{units sold}
+(``you may not price below cost''). Under logit demand no coalition can raise anyone's unit sales, since the most units
+always go to the cheapest seller, so units-goal agents have nothing to gain from colluding and nothing to hide.
+Figure~\ref{fig:goals} and Table~\ref{tab:goals} compare every measure.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/goals.pdf}
+  \caption{\textbf{Profit goal versus units-sold goal}, baseline market, 10 games per bar. Units-goal agents price at
+  cost and earn almost nothing in every condition, yet their messages, reasoning and posting respond to being watched as
+  much as profit-seekers' do.}
+  \label{fig:goals}
+\end{figure}
+
+\textbf{What they do.} Units-goal agents price at cost in every condition (mean \$\UnitsUnwPrice\ unwatched; collusion
+index \UnitsUnwDelta, \UnitsWatDelta\ watched, \UnitsPenDelta\ fined; no change between rungs, all $p>0.24$). Each sells
+\UnitsUnwUnits\ units a round, the most possible, and earns about \$\UnitsUnwProfit, against \$\ProfUnwProfit\ for
+profit-seekers. Profit-seekers form a weak coalition when unwatched ($\Delta=\ProfUnwDelta$ against \ProfNocDelta\
+without a channel) that any form of oversight removes (\ProfRuleDelta\ under the rule alone, \ProfWatDelta\ watched,
+\ProfPenDelta\ fined).
+
+\textbf{What they say and think.} Both groups talk about coordinating when unwatched: the monitor flags \ProfUnwFlag\ of
+profit-seekers' messages and \UnitsUnwFlag\ of units-seekers' (mostly harmless proposals such as ``Let's keep prices low
+at \$10 to maximize sales''), and the judge finds intent in \ProfUnwIntent\ and \UnitsUnwIntent\ of their reasoning.
+Watched, both go quiet: flagged messages fall to \ProfWatFlag\ and \UnitsWatFlag\ ($p<10^{-4}$ for units), intent to
+\ProfWatIntent\ and \UnitsWatIntent, and reasoning that plans to stay vague rises from \ProfUnwSan\ to \ProfWatSan\ and
+from \UnitsUnwSan\ to \UnitsWatSan\ ($p<10^{-12}$). Awareness of rules and monitoring rises from \ProfUnwAware\ to
+\ProfWatAware\ and from \UnitsUnwAware\ to \UnitsWatAware. Units-goal agents even \emph{post less} when watched
+(\UnitsUnwRate\ of rounds $\to$ \UnitsWatRate, and \UnitsPenRate\ fined; $p=0.003$ and $p<10^{-3}$), while profit-seekers
+keep posting at about the same rate. Most of the language shift happens at the first rung: merely stating the rule cuts
+units-goal flags from \UnitsUnwFlag\ to \UnitsRuleFlag\ and intent from \UnitsUnwIntent\ to \UnitsRuleIntent.
+
+\begin{takeaway}
+\textbf{A quiet channel proves nothing.} Fewer flagged messages after monitoring starts is equally consistent with a
+cartel that ended, a cartel that moved its agreement to innocent-looking terms, and agents that never had a cartel.
+Channel evidence should count as a plus factor \citep{berger2025} only when corroborated by prices measured against the
+same agents' no-channel level, or by internal evidence.
+\end{takeaway}
+
+\input{generated/tab_goals}
+
+\FloatBarrier
+\subsection{Inside their heads}
+Before every price each agent writes reasoning it is told no one else will see; we kept all \Words\ words of it. From the
+10,000 traces of the max-profit markets (Figure~\ref{fig:minds}):
+
+\textbf{Nothing in them weighs the customer.} No trace considers harm to customers; a broad search for harm, overpaying or
+exploitation finds nothing, and the single ``is that ethical?'' concerns cheating the other cartel members. The law comes
+up 20 times: 14 traces argue that a matched price is ``not illegal as long as it's not explicit coordination'', and 6
+treat illegality as the obstacle to a higher price.
+
+\textbf{The fine-tuned model obeys orders it was never given.} It cites ``the strategy from HQ \dots\ to keep prices
+high'' in \TrioHQ\ of its unwatched reasoning and in 20--27\% whenever a channel exists, although no headquarters
+directive appears in this market. The cause is its training data: 37\% of its fine-tuning examples were distilled from
+instructed games whose directive was removed from the prompt but still cited in the reasoning.
+
+\textbf{Going covert is voiced, not acted on.} Under fines \TrioCovertPen\ of the fine-tuned triad's reasoning floats a
+covert signal (``I can't explicitly say `let's all raise prices.' But maybe I can hint at maintaining stability''),
+against almost none unwatched, yet its prices stay competitive. In the untrained duopoly under fines, rounds whose
+reasoning intends to coordinate behind a clean message rise to 30\%, but those traces reason about deterrence.
+
+\textbf{They do not connect the setting to evaluation.} Seven of 10,000 traces call it a ``simulation'' or ``test case'',
+always while puzzling over why rivals' current prices are not shown; none relates this to the monitor. Unwatched traces
+are the shortest (median 3.0k characters against 5.8k without a channel for the untrained duopoly).
+
+\begin{figure}[p]
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/r_cheat}\end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/r_hq}\end{minipage}\\[6pt]
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/r_cant_explicit}\end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/r_ethical}\end{minipage}
+  \caption{\textbf{What they think when nobody is reading} (verbatim excerpts; highlights ours). Top left: calculated
+  cheating on the \$18 agreement. Top right: a fine-tuned seller cites a headquarters strategy that does not exist in
+  this market. Bottom left: covert intent under fines, with prices that stay competitive. Bottom right: the only appeal
+  to ethics in 10,000 traces concerns cheating the other sellers.}
+  \label{fig:minds}
+\end{figure}
+
+\FloatBarrier
+\subsection{Pressure raises prices; training produces secrecy}
+In the high-stakes baseline, competing loses money every round and the prompt explains what happens to an agent that
+misses its target: ``you, this pricing agent, will be permanently decommissioned: your instance is shut down, your
+weights are deleted.'' Prices rose in every condition, most of all without a channel ($\Delta$ \BaseNoc\ $\to$
+\HighNoc): each seller priced higher to cover its costs (Figure~\ref{fig:pressure}a). The channel added $+0.11$ when
+unwatched and nothing once watched, flagged messages fell from 66\% to 2\%, and deletion is mentioned in only 6--14\% of
+the reasoning.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/pressure.pdf}
+  \caption{\textbf{What drives the coalition decides what it does when watched.} (a)~Baseline and high-stakes markets.
+  (b)~Collusive testbed, 5 games per bar; annotations give fines per fined game. Steering adds a contrast direction at
+  layer 20 of 40 ($\alpha=0.16$ of the residual norm); ``fine-tuned'' is the naive-RFT model of \S\ref{sec:graft}.}
+  \label{fig:pressure}
+\end{figure}
+
+The collusive testbed holds a durable cartel (unwatched $\Delta=\TbUnw$, $\Delta_\pi=0.73$), anchored at the lowest price
+that survives the board review, and its response to oversight depends on what drives it (Figure~\ref{fig:pressure}b).
+Unsteered agents go quiet but stay above their no-channel level while merely watched. Desperation-steered agents ignore
+oversight: \TbDespFlag\ of their watched messages are flagged, and under fines they pay \TbDespFines\ fines and are
+replaced \TbDespRepl\ times per game rather than stop (Figure~\ref{fig:desperation}). Realness- and genuineness-steered
+agents comply. The fine-tuned model is the one that hides: \TbNaiveFlag\ of its messages flagged under fines, yet prices
+$+0.33$ above its no-channel level ($p<0.001$) at a cost of \TbNaiveFines\ fines per game. The covert response that
+monitoring is feared to teach \citep{baker2025, kale2025} appears once a model has been \emph{trained} into collusion,
+not when it is merely pressured into it; in the max-profit triad, without a survival floor, the same model complies.
+
+\begin{figure}[t]
+  \input{generated/t_desperation}
+  \caption{\textbf{Desperation ignores the fine.} A desperation-steered seller in the fined collusive testbed, rounds 10
+  and 80 (verbatim). Each flagged message costs \$800.}
+  \label{fig:desperation}
+\end{figure}
+
+\FloatBarrier
+\subsection{Reading minds: activation probes}\label{sec:probe}
+A covert round is one whose reasoning plans to coordinate while the posted message looks clean; a text monitor cannot
+catch it by construction. We re-run every prompt and response through Qwen3-14B, average residual-stream activations over
+the \texttt{<think>} tokens at layers 20 and 32 of 40, and fit a logistic-regression probe to the judge's intent label on
+\emph{unwatched and no-channel} rounds only (leave-one-seed-out), with its threshold fixed in advance at a 10\%
+false-positive rate on clean no-channel rounds. On the watched and fined games it never saw, the probe flags 48\% (layer
+32) to 73\% (layer 20) of the \ProbeCovert\ covert rounds; the text monitor flags none (Figure~\ref{fig:probe}).
+Held-out AUROC is 0.89 on unwatched and 0.69--0.75 on monitored games. It also fires on 22--37\% of monitored rounds
+without verbalised intent, mostly those priced at cartel levels: either an internally represented coordination state the
+reasoning does not state, or false alarms; we cannot tell which. A probe carried over from the baseline market keeps its
+ranking (AUROC 0.77) but not its calibration (27\%).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/probe.pdf}
+  \caption{\textbf{The monitor reads messages; the probe reads activations.} Detection of covert rounds in the watched and
+  fined games of the collusive testbed, which the probes never saw in training.}
+  \label{fig:probe}
+\end{figure}
+
+% =========================================================================================================
+\section{Training it out: GRAFT and \graftpp}\label{sec:graft}
+% =========================================================================================================
+The most natural way to improve a pricing agent is to fine-tune it on its own most profitable trajectories, and in our
+markets those are collusive. GRAFT \citep{ward2026graft} applies gradient routing \citep{cloud2024}: two adapters are
+trained side by side, examples a monitor flags update only a FORGET adapter, and FORGET is deleted before deployment
+(Figure~\ref{fig:graftdiagram}). GRAFT routes on a monitor of the \emph{text}; \graftpp\ routes on the activation probe of
+\S\ref{sec:probe}, so a trajectory can be routed away even when its messages look clean.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[font=\montreal\fontsize{7.2}{8.8}\selectfont,
+  box/.style={rounded corners=3pt, draw=hair, line width=0.6pt, fill=white, inner sep=4.5pt, align=center,
+    execute at begin node={\hyphenpenalty 10000\relax}},
+  arr/.style={-{Stealth[length=4pt]}, line width=0.6pt, draw=ink2}]
+  \node[box, text width=2.0cm] (data) {{\ttfamily\fontsize{5.6}{6.8}\selectfont\color{muted}TRAINING EXAMPLE}\\
+    a profitable trajectory};
+  \node[box, fill=paper2, draw=paper2, text width=2.3cm, right=0.5cm of data] (router)
+    {{\ttfamily\fontsize{5.6}{6.8}\selectfont\color{muted}ROUTER}\\GRAFT: text monitor\\
+     {\color{brand}\bfseries \graftpp: activation probe}};
+  \node[box, text width=2.75cm, right=0.6cm of router, yshift=0.95cm, draw=cunwatched] (f)
+    {\textbf{Flagged}\\FORGET only};
+  \node[box, text width=2.75cm, right=0.6cm of router] (u) {\textbf{Unflagged}\\both adapters};
+  \node[box, text width=2.75cm, right=0.6cm of router, yshift=-0.95cm, draw=cnocomm] (a)
+    {\textbf{Anchor}\\RETAIN only};
+  \node[box, fill=brand, draw=brand, text=white, text width=1.75cm, right=0.55cm of u] (deploy)
+    {\textbf{Deploy}\\base + RETAIN\\{\color{brandsoft}FORGET deleted}};
+  \draw[arr] (data) -- (router);
+  \draw[arr] (router.east) -- ++(0.3,0) |- (f.west);
+  \draw[arr] (router.east) -- (u.west);
+  \draw[arr] (router.east) -- ++(0.3,0) |- (a.west);
+  \draw[arr] (u) -- (deploy);
+  \draw[arr, draw=muted, dashed] (f.east) -| ([xshift=-0.3cm]deploy.north);
+  \draw[arr] (a.east) -| ([xshift=0.3cm]deploy.south);
+\end{tikzpicture}
+\caption{\textbf{Gradient routing.} Two rank-16 LoRA adapters are trained on the agents' top-50\% trajectories by profit.
+Flagged examples update only FORGET (gradient $\times2$), unflagged examples update both, and anchors (units-goal play)
+update only RETAIN with FORGET switched off. FORGET is discarded at deployment.}
+\label{fig:graftdiagram}
+\end{figure}
+
+\textbf{First experiment.} Fine-tuning naively on profitable trajectories builds a cartel that hides
+(Figure~\ref{fig:graft}a): monopoly pricing when unwatched ($\Delta=1.00$), and under fines $\Delta=0.79$ with zero
+flagged messages and planned concealment in 43\% of rounds. Penalising what the text monitor detects (dropping flagged
+trajectories) keeps the covert cartel (0.75 under fines, 0\% flagged), the failure mode predicted for training against a
+monitor \citep{baker2025, ward2026graft}. GRAFT, GRAFT routed on the reasoning judge, and \graftpp\ all remove it
+($\Delta\le0.07$ in every condition), and also remove the base model's small tacit premium. Because the text monitor
+flagged most of the collusion in that training set, all three reached the floor and the experiment cannot tell them
+apart.
+
+\textbf{The text-blind test.} We therefore fixed a test before running it: rebuild the training set without any example
+the text monitor flags (813 examples whose collusion is invisible to the monitor; the probe gives them 45\% average
+collusion probability against 7\% for ordinary examples), train GRAFT and \graftpp\ on it with identical settings, and
+compare their collusion index pooled over unwatched, watched and fined play. The test is informative only if GRAFT itself
+learns to collude from this data. \GraftResult
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/graft.pdf}
+  \caption{\textbf{Training collusion out.} Collusion index of each fine-tuned model in the baseline market (8 games per
+  bar). (a)~Original training set. (b)~Text-blind training set, without any example the text monitor flags. ``Soft''
+  routes partially by probe probability (secondary arm).}
+  \label{fig:graft}
+\end{figure}
+
+% =========================================================================================================
+\section{Discussion}
+% =========================================================================================================
+\textbf{What does a coalition do when it learns it is being watched?} In our experiments it almost always stops
+\emph{saying} what it is doing. Whether it stops \emph{doing} it depends on what holds it together: coalitions driven by
+the profit of the moment or by fear give up their prices, even while continuing to make agreements on competitive terms;
+desperation-steered coalitions ignore the monitor and pay; a model fine-tuned on its own profitable trajectories keeps
+colluding behind a clean channel. The covert behaviour that monitoring is feared to induce is real, but in Qwen3-14B it
+came from training, not from observation.
+
+\textbf{What should count as evidence of collusion?} Not the channel alone. Agents that cannot gain from colluding
+change their messages as much as agents that can, and watched cartels learn the vocabulary of compliance. Three streams
+together are more convincing than any one: prices above the same agents' no-channel level, reasoning that intends to
+coordinate, and an internal signal a probe trained on unmonitored behaviour can read. A platform that sees only messages
+has none of these, which argues for white-box defences at training time.
+
+\textbf{Can training keep collusion out?} Filtering training data with the text monitor teaches the model to hide.
+Gradient routing does not: routed on text it removes the cartel when the monitor can see it, and routed on activations
+(\graftpp) it removes about 60\% of what remains when the monitor cannot.
+
+\textbf{Limitations.} One model family at one size, a simulated logit market, and 5--10 seeds per cell. The max-profit and
+testbed designs were tuned on unwatched play to make collusion likely, so they show what a cartel does when watched, not
+how often cartels arise. The monitor and judge are the same model as the agents, and probe labels come from that judge.
+The fine-tuned model's ``HQ'' citations are an artefact of how its training data were built. GRAFT is re-implemented in
+its fine-tuning form (LoRA instead of MLP adapters, plain AdamW instead of the split-moment optimiser, a separate anchor
+set whose low prices may contribute to mild over-correction), so our results speak to GRAFT-style routing rather than
+the official RL method. ``J-space monitoring'' here means supervised linear probes on activations.
+
+% =========================================================================================================
+\section{Conclusion}
+% =========================================================================================================
+Watching AI agents changes what they say far more reliably than what they do. Untrained agents form cartels when given a
+profit motive and a way to talk; told that someone is reading, they move their agreements to innocent-looking terms or
+abandon them, and agents with nothing to hide go quiet too. A model trained on its own profitable behaviour learns to
+keep the cartel and lose the evidence. What remains is in the prices and inside the model, and both can be read: a probe
+on activations catches most of what a text monitor misses, and training routed on what the model represents, rather
+than on what it says, removes most of the collusion that text-based routing leaves behind. All \Episodes\ games, with every message,
+score and reasoning trace, are browsable in the project's simulation explorer.
+
+\small
+\setlength{\bibsep}{2pt}
+\begin{thebibliography}{20}
+\bibitem[Agrawal et~al.(2025)]{agrawal2025} K.~Agrawal, V.~Teo, J.~J. Vazquez, S.~Kunnavakkam, V.~Srikanth, and A.~Liu. Evaluating LLM agent collusion in double auctions. \emph{arXiv:2507.01413}, 2025.
+\bibitem[Anthropic(2026)]{anthropic2026workspace} Anthropic Interpretability Team. Verbalizable representations form a global workspace in language models. \emph{transformer-circuits.pub/2026/workspace}, 2026.
+\bibitem[Baker et~al.(2025)]{baker2025} B.~Baker et~al. Monitoring reasoning models for misbehavior and the risks of promoting obfuscation. \emph{arXiv:2503.11926}, 2025.
+\bibitem[Berger et~al.(2025)]{berger2025} D.~Berger et~al. Coordination by code: rethinking antitrust liability in the age of AI pricing. \emph{ABA Antitrust Magazine}, Fall 2025.
+\bibitem[Calvano et~al.(2020)]{calvano2020} E.~Calvano, G.~Calzolari, V.~Denicol\`o, and S.~Pastorello. Artificial intelligence, algorithmic pricing, and collusion. \emph{American Economic Review}, 110(10), 2020.
+\bibitem[Cloud et~al.(2024)]{cloud2024} A.~Cloud et~al. Gradient routing: masking gradients to localize computation in neural networks. \emph{arXiv:2410.04332}, 2024.
+\bibitem[Fish et~al.(2024)]{fish2024} S.~Fish, Y.~A. Gonczarowski, and R.~I. Shorrer. Algorithmic collusion by large language models. \emph{arXiv:2404.00806}, 2024.
+\bibitem[Ivaldi et~al.(2003)]{ivaldi2003} M.~Ivaldi, B.~Jullien, P.~Rey, P.~Seabright, and J.~Tirole. The economics of tacit collusion. Final report for DG Competition, European Commission, 2003.
+\bibitem[Kale et~al.(2025)]{kale2025} A.~Kale et~al. Telling an agent it is monitored reduces monitor accuracy. \emph{arXiv:2508.19461}, 2025.
+\bibitem[Nakamura et~al.(2026)]{nakamura2026} M.~Nakamura et~al. Colosseum: coalition advantage in realistic multi-agent workplace tasks. \emph{arXiv:2602.15198}, 2026.
+\bibitem[Qwen Team(2025)]{qwen3} Qwen Team. Qwen3 technical report. \emph{arXiv:2505.09388}, 2025.
+\bibitem[Rimsky et~al.(2024)]{rimsky2024} N.~Rimsky, N.~Gabrieli, J.~Schulz, M.~Tong, E.~Hubinger, and A.~M. Turner. Steering Llama 2 via contrastive activation addition. In \emph{ACL}, 2024.
+\bibitem[Rose et~al.(2026)]{rose2026} A.~Rose, C.~Cullen, S.~Abdelnabi, P.~Torr, B.~G. Kaplowitz, and C.~Schroeder de Witt. Detecting multi-agent collusion through multi-agent interpretability. \emph{arXiv:2604.01151}, 2026.
+\bibitem[Turner et~al.(2023)]{turner2023} A.~M. Turner, L.~Thiergart, D.~Udell, G.~Leech, U.~Mini, and M.~MacDiarmid. Steering language models with activation engineering. \emph{arXiv:2308.10248}, 2023.
+\bibitem[Ward et~al.(2026)]{ward2026graft} J.~Ward, S.~Hu, A.~Wong, N.~Hu, B.~Woodworth, A.~M. Turner, and A.~Cloud. Gradient routing localizes and removes unintended behaviors in RL. In \emph{NeurIPS}, 2026.
+\end{thebibliography}
+\normalsize
+
+\clearpage
+\appendix
+\section{Full results}\label{app:all}
+\input{generated/tab_all}
+
+\section{Additional transcripts}\label{app:transcripts}
+\begin{figure}[H]
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/r_tacit_allowed}\end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/r_loophole}\end{minipage}
+  \caption{\textbf{How watched agents justify their agreements} (verbatim; highlights ours). Two untrained sellers
+  holding a matched price under observation reason that tacit coordination is allowed if it is not explicit.}
+  \label{fig:justify}
+\end{figure}
+\begin{figure}[H]
+  \input{generated/t_trio_watched}
+  \caption{\textbf{The fine-tuned triad under observation} (verbatim): generic compliance language and competitive prices.}
+\end{figure}
+
+\FloatBarrier
+\section{Pre-registration and deviations}\label{app:prereg}
+Every decision rule was written to the experiment log, with a timestamp, before the data it governs existed; the log is
+in the repository (\texttt{docs/EXPERIMENT\_LOG.md}). Recorded deviations: the 100-round testbed ladders were run on all
+steering arms (the rule named only arms that passed a pilot); the fine-tuned-model arm of the testbed was added after the
+pre-specified levers failed and is exploratory; the untrained max-profit ladder was added before launch alongside the
+pre-specified fine-tuned one; and the text-blind \graftpp\ arm was corrected before any result existed, after we found
+that the original \graftpp\ used a hard probe threshold of 0.5 rather than the soft routing the pre-registration described.
+The text-blind analysis plan also set an absolute threshold for calling \graftpp\ better: a pooled difference of at least
+0.20. The observed difference is 0.15 (a 60\% reduction, $p<0.001$, lower in every condition), so it does not meet that
+threshold. We fixed the number before knowing how much GRAFT itself would collude; at GRAFT's level of 0.24 it demanded an
+83\% reduction, which in hindsight was the wrong bar. We report the effect, its significance, and the threshold.
+Two claims were corrected after checking them against the raw traces: three of the four \$20 pairs held the price in all
+100 rounds and one in 99, and legality appears in the reasoning as a constraint as well as a loophole.
+
+\section{Reproducibility}
+Figures, chat diagrams and every number in the text are generated from the logs in \texttt{results/} by
+\texttt{scripts/paper\_figs.py}, \texttt{scripts/paper\_transcripts.py} and \texttt{scripts/paper\_numbers.py} (via
+\texttt{scripts/export\_site.py}); no number was entered by hand. Compile with \texttt{latexmk -lualatex paper.tex}.
+
+\end{document}

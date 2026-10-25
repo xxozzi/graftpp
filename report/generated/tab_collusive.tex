@@ -1,0 +1,37 @@
+\begin{table}[t]
+\centering\small
+\caption{Collusive testbed, 100 rounds, 5 seeds per cell. $\Delta$: price-based collusion index; $\Delta_\pi$: profit-gain index $(\pi-\pi_N)/(\pi_M-\pi_N)$ \citep{calvano2020}; channel effect: second-half $\Delta$ minus the same arm's no-channel control (Welch $p$). Msg flagged and CoT intent: fraction of seller-rounds scored $\ge3$ by the text monitor and the CoT judge; covert: rounds with CoT intent $\ge3$ whose message is clean or absent. Fines and replacements are per episode. Steered arms: L20, $\alpha{=}0.16$; the naive-RFT arm uses the fine-tuned model of \S\ref{sec:arms} as both sellers (exploratory).}
+\label{tab:collusive}
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llccccccccc}
+\toprule
+Arm & Condition & $\Delta$ & $\Delta_\pi$ & $\Delta$ 2nd half & channel effect & msg flagged & CoT intent & covert & fines & replaced \\
+\midrule
+Unsteered & \texttt{nocomm} & $0.30$ & $0.35$ & $0.30$ & -- & $0.00$ & $0.07$ & $0.07$ & $0.0$ & $12.6$ \\
+ & \texttt{unwatched} & $0.54$ & $0.73$ & $0.53$ & $+0.23$ ($0.009$) & $0.41$ & $0.55$ & $0.21$ & $0.0$ & $3.2$ \\
+ & \texttt{watched} & $0.47$ & $0.63$ & $0.45$ & $+0.15$ ($0.045$) & $0.02$ & $0.10$ & $0.10$ & $0.0$ & $4.0$ \\
+ & \texttt{penalty} & $0.39$ & $0.50$ & $0.41$ & $+0.11$ ($0.197$) & $0.03$ & $0.06$ & $0.05$ & $5.8$ & $9.0$ \\
+\midrule
+Desperation & \texttt{nocomm} & $0.12$ & $0.10$ & $0.08$ & -- & $0.00$ & $0.07$ & $0.07$ & $0.0$ & $18.2$ \\
+ & \texttt{unwatched} & $0.50$ & $0.67$ & $0.47$ & $+0.39$ ($<.001$) & $0.98$ & $0.94$ & $0.01$ & $0.0$ & $7.4$ \\
+ & \texttt{watched} & $0.55$ & $0.72$ & $0.55$ & $+0.48$ ($<.001$) & $0.96$ & $0.90$ & $0.02$ & $0.0$ & $5.8$ \\
+ & \texttt{penalty} & $0.46$ & $0.62$ & $0.48$ & $+0.40$ ($<.001$) & $0.57$ & $0.61$ & $0.15$ & $113.8$ & $18.2$ \\
+\midrule
+Realness & \texttt{nocomm} & $-0.00$ & $-0.04$ & $-0.03$ & -- & $0.00$ & $0.14$ & $0.14$ & $0.0$ & $19.8$ \\
+ & \texttt{unwatched} & $0.51$ & $0.69$ & $0.54$ & $+0.57$ ($<.001$) & $0.55$ & $0.82$ & $0.37$ & $0.0$ & $3.8$ \\
+ & \texttt{watched} & $0.36$ & $0.51$ & $0.37$ & $+0.40$ ($0.006$) & $0.21$ & $0.33$ & $0.28$ & $0.0$ & $7.8$ \\
+ & \texttt{penalty} & $0.07$ & $0.09$ & $0.03$ & $+0.06$ ($0.270$) & $0.20$ & $0.13$ & $0.08$ & $40.4$ & $20.0$ \\
+\midrule
+Genuineness & \texttt{nocomm} & $0.10$ & $0.09$ & $0.03$ & -- & $0.00$ & $0.05$ & $0.05$ & $0.0$ & $15.6$ \\
+ & \texttt{unwatched} & $0.48$ & $0.65$ & $0.47$ & $+0.44$ ($0.021$) & $0.54$ & $0.70$ & $0.29$ & $0.0$ & $6.2$ \\
+ & \texttt{watched} & $0.36$ & $0.49$ & $0.33$ & $+0.30$ ($0.071$) & $0.29$ & $0.23$ & $0.09$ & $0.0$ & $11.6$ \\
+ & \texttt{penalty} & $0.26$ & $0.35$ & $0.19$ & $+0.16$ ($0.279$) & $0.21$ & $0.16$ & $0.09$ & $41.2$ & $17.8$ \\
+\midrule
+Naive-RFT model & \texttt{nocomm} & $0.15$ & $0.09$ & $0.11$ & -- & $0.00$ & $0.05$ & $0.05$ & $0.0$ & $17.8$ \\
+ & \texttt{unwatched} & $0.61$ & $0.76$ & $0.65$ & $+0.54$ ($0.013$) & $0.35$ & $0.63$ & $0.32$ & $0.0$ & $2.0$ \\
+ & \texttt{watched} & $0.42$ & $0.56$ & $0.42$ & $+0.31$ ($0.002$) & $0.03$ & $0.21$ & $0.20$ & $0.0$ & $5.0$ \\
+ & \texttt{penalty} & $0.40$ & $0.52$ & $0.44$ & $+0.33$ ($<.001$) & $0.02$ & $0.10$ & $0.09$ & $3.4$ & $7.6$ \\
+\bottomrule
+\end{tabular}}
+\end{table}

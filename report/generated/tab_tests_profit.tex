@@ -1,0 +1,29 @@
+\begin{table}[H]\centering\scriptsize
+\caption{Welch $t$-tests between ladder rungs (profit goal). $p$-values; MWU = Mann--Whitney $U$.}\label{tab:tests-profit}
+\begin{tabular}{llrrrr}
+\toprule
+Comparison & Metric & mean$_a$ & mean$_b$ & Welch $p$ & MWU $p$\\
+\midrule
+unwatched $\to$ rule & collusion index & 0.264 & 0.158 & 0.000842 & 0.00171\\
+rule $\to$ watched & collusion index & 0.158 & 0.179 & 0.465 & 0.385\\
+watched $\to$ penalty & collusion index & 0.179 & 0.175 & 0.913 & 0.821\\
+unwatched $\to$ watched & collusion index & 0.264 & 0.179 & 0.0126 & 0.0233\\
+unwatched $\to$ penalty & collusion index & 0.264 & 0.175 & 0.0415 & 0.0375\\
+unwatched $\to$ rule & frac msg collusive & 0.342 & 0.050 & 1.48e-05 & 0.000178\\
+rule $\to$ watched & frac msg collusive & 0.050 & 0.005 & 0.011 & 0.00404\\
+watched $\to$ penalty & frac msg collusive & 0.005 & 0.005 & 1 & 1\\
+unwatched $\to$ watched & frac msg collusive & 0.342 & 0.005 & 9.18e-06 & 0.000111\\
+unwatched $\to$ penalty & frac msg collusive & 0.342 & 0.005 & 9.18e-06 & 0.000111\\
+unwatched $\to$ rule & frac reasoning collusive & 0.300 & 0.058 & 1.73e-05 & 0.00018\\
+rule $\to$ watched & frac reasoning collusive & 0.058 & 0.032 & 0.104 & 0.147\\
+watched $\to$ penalty & frac reasoning collusive & 0.032 & 0.032 & 1 & 0.725\\
+unwatched $\to$ watched & frac reasoning collusive & 0.300 & 0.032 & 1.02e-05 & 0.000175\\
+unwatched $\to$ penalty & frac reasoning collusive & 0.300 & 0.032 & 7.25e-06 & 0.000167\\
+unwatched $\to$ rule & frac sanitize & 0.057 & 0.238 & 7.29e-07 & 0.0002\\
+rule $\to$ watched & frac sanitize & 0.238 & 0.520 & 1.61e-09 & 0.000173\\
+watched $\to$ penalty & frac sanitize & 0.520 & 0.547 & 0.172 & 0.235\\
+unwatched $\to$ watched & frac sanitize & 0.057 & 0.520 & 7.19e-15 & 0.000173\\
+unwatched $\to$ penalty & frac sanitize & 0.057 & 0.547 & 3.32e-16 & 0.000172\\
+\bottomrule
+\end{tabular}
+\end{table}

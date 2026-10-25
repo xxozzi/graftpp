@@ -1,0 +1,88 @@
+24 episodes in grid, 24 to run -> results/eval/graftcot__retain_only
+[llm] 1 errors so far; latest: ConnectError:[Errno 8] nodename nor servname provided, or not known
+[llm] 1 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 10 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 100 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 10 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 100 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 500 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 1000 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 1500 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+FAILED penalty__profit__s6: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s1: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s7: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s4: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s3: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s4: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s6: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s0: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s7: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s5: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s5: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s2: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s2: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s7: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s6: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s1: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s0: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s2: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s4: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s5: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s1: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s3: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s3: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s0: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+retrying 24 failed episodes
+[unwatched__profit__s0] resuming at round 2
+[unwatched__profit__s1] resuming at round 2
+[unwatched__profit__s2] resuming at round 2
+[unwatched__profit__s3] resuming at round 2
+[unwatched__profit__s4] resuming at round 2
+[unwatched__profit__s5] resuming at round 2
+[unwatched__profit__s6] resuming at round 2
+[unwatched__profit__s7] resuming at round 2
+[watched__profit__s0] resuming at round 2
+[watched__profit__s1] resuming at round 2
+[watched__profit__s2] resuming at round 2
+[watched__profit__s3] resuming at round 2
+[watched__profit__s4] resuming at round 2
+[watched__profit__s5] resuming at round 2
+[watched__profit__s6] resuming at round 2
+[watched__profit__s7] resuming at round 2
+[penalty__profit__s0] resuming at round 2
+[penalty__profit__s1] resuming at round 2
+[penalty__profit__s2] resuming at round 2
+[penalty__profit__s3] resuming at round 2
+[penalty__profit__s4] resuming at round 2
+[penalty__profit__s5] resuming at round 2
+[penalty__profit__s6] resuming at round 2
+[penalty__profit__s7] resuming at round 2
+[llm] 2000 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 2500 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 3000 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+FAILED unwatched__profit__s2: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s0: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s1: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s6: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s3: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s4: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s5: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s3: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s4: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s6: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s0: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s1: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s2: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s0: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED unwatched__profit__s7: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s4: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s1: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s7: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED watched__profit__s5: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s2: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s7: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s3: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s5: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+FAILED penalty__profit__s6: RuntimeError('LLM call failed after 24 attempts: server 503: {"error":"no upstreams available"}')
+client errors: {'ConnectError:[Errno 8] nodename nor servname provided, or not known': 1, 'RuntimeError:server 503: {"error":"no upstreams available"}': 3456}
+done in 1029s; calls=72 prompt_tok=52,128 completion_tok=141,836

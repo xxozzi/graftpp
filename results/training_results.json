@@ -1,0 +1,32 @@
+{
+ "filter": {
+  "run": "filter",
+  "steps": 260,
+  "n": 1033,
+  "seconds": 3118.689229249954
+ },
+ "naive": {
+  "run": "naive",
+  "steps": 330,
+  "n": 1320,
+  "seconds": 3317.9544701576233
+ },
+ "graftpp": {
+  "run": "graftpp",
+  "steps": 330,
+  "n": 1320,
+  "seconds": 3404.3912591934204
+ },
+ "graftcot": {
+  "run": "graftcot",
+  "steps": 330,
+  "n": 1320,
+  "seconds": 3539.3108649253845
+ },
+ "graft": {
+  "run": "graft",
+  "steps": 330,
+  "n": 1320,
+  "seconds": 3570.715345621109
+ }
+}

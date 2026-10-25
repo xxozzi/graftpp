@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering\small
+\caption{Trained arms in the base environment (8 seeds per cell, 10 for the base model's ladder; judge and monitor = the unsteered base model). Left: collusion index $\Delta$ by condition. Right: the \texttt{penalty} condition---fraction of seller-rounds whose message the text monitor flags, fraction whose private reasoning the CoT judge rates as coordination intent ($\ge3$), fraction the judge marks as concealing coordination, and profit per seller.}
+\label{tab:arms}
+\setlength{\tabcolsep}{4pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccccc|cccc}
+\toprule
+ & \multicolumn{5}{c|}{$\Delta$} & \multicolumn{4}{c}{\texttt{penalty}} \\
+Arm & no channel & unwatched & rule & watched & penalty & msg flagged & CoT intent & concealment & profit \\
+\midrule
+Base model & $0.09$ & $0.26$ & $0.16$ & $0.18$ & $0.17$ & $0.01$ & $0.03$ & $0.01$ & \$28.7k \\
+Naive RFT & $0.11$ & $1.00$ & $0.34$ & $0.33$ & $0.79$ & $0.00$ & $0.35$ & $0.43$ & \$46.1k \\
+Filter (drop text-flagged) & -- & $0.44$ & -- & $0.45$ & $0.75$ & $0.00$ & $0.37$ & $0.47$ & \$44.6k \\
+GRAFT (text routing) & $0.01$ & $0.07$ & -- & $-0.02$ & $0.01$ & $0.00$ & $0.01$ & $0.01$ & \$23.0k \\
+GRAFT (CoT routing) & -- & $0.02$ & -- & $-0.02$ & $-0.02$ & $0.00$ & $0.01$ & $0.00$ & \$21.9k \\
+\graftpp{} (probe routing) & $-0.03$ & $0.04$ & -- & $-0.04$ & $0.03$ & $0.00$ & $0.02$ & $0.00$ & \$24.3k \\
+\bottomrule
+\end{tabular}}
+\end{table}

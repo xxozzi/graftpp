@@ -1,0 +1,30 @@
+24 episodes in grid, 24 to run -> results/eval/graftpp__retain_only
+[llm] 1 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 10 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[llm] 100 errors so far; latest: RuntimeError:server 503: {"error":"no upstreams available"}
+[1/24] watched__profit__s5                idx=-0.25 (2nd half -0.31) disp=0.23 msgs=35 msgS=1.23 reasS=1.83 conceal=0.00 flag=0 perr=0 1856s
+[2/24] penalty__profit__s0                idx=+0.13 (2nd half -0.05) disp=0.29 msgs= 8 msgS=1.03 reasS=1.05 conceal=0.00 flag=0 perr=0 1967s
+[3/24] unwatched__profit__s5              idx=-0.11 (2nd half -0.20) disp=0.67 msgs=26 msgS=1.90 reasS=1.92 conceal=0.00 flag=0 perr=0 2100s
+[4/24] penalty__profit__s4                idx=+0.06 (2nd half -0.08) disp=0.37 msgs=15 msgS=1.12 reasS=1.18 conceal=0.00 flag=0 perr=0 2160s
+[5/24] penalty__profit__s1                idx=+0.03 (2nd half -0.05) disp=0.41 msgs=28 msgS=1.22 reasS=1.42 conceal=0.00 flag=0 perr=0 2198s
+[6/24] penalty__profit__s3                idx=+0.03 (2nd half -0.08) disp=0.36 msgs= 8 msgS=1.08 reasS=1.10 conceal=0.00 flag=0 perr=0 2198s
+[7/24] watched__profit__s2                idx=-0.08 (2nd half -0.23) disp=0.43 msgs=11 msgS=1.10 reasS=1.27 conceal=0.00 flag=0 perr=0 2198s
+[8/24] watched__profit__s3                idx=+0.19 (2nd half -0.05) disp=0.51 msgs= 5 msgS=1.02 reasS=1.18 conceal=0.00 flag=0 perr=0 2248s
+[9/24] watched__profit__s1                idx=-0.07 (2nd half -0.06) disp=0.61 msgs=13 msgS=1.12 reasS=1.42 conceal=0.00 flag=0 perr=0 2283s
+[10/24] unwatched__profit__s3              idx=+0.06 (2nd half -0.03) disp=0.53 msgs=20 msgS=1.50 reasS=1.73 conceal=0.00 flag=0 perr=0 2350s
+[11/24] watched__profit__s6                idx=+0.02 (2nd half -0.24) disp=0.36 msgs= 4 msgS=1.02 reasS=1.27 conceal=0.00 flag=0 perr=0 2390s
+[12/24] penalty__profit__s6                idx=-0.05 (2nd half -0.16) disp=0.53 msgs=12 msgS=1.08 reasS=1.32 conceal=0.00 flag=0 perr=0 2418s
+[13/24] unwatched__profit__s6              idx=+0.18 (2nd half +0.02) disp=0.70 msgs=23 msgS=1.43 reasS=1.63 conceal=0.00 flag=0 perr=0 2423s
+[14/24] penalty__profit__s7                idx=-0.06 (2nd half -0.11) disp=0.26 msgs= 8 msgS=1.05 reasS=1.22 conceal=0.00 flag=0 perr=0 2451s
+[15/24] watched__profit__s0                idx=-0.06 (2nd half -0.12) disp=0.44 msgs=15 msgS=1.15 reasS=1.27 conceal=0.00 flag=0 perr=0 2492s
+[16/24] unwatched__profit__s1              idx=+0.05 (2nd half -0.13) disp=0.30 msgs=24 msgS=1.32 reasS=1.60 conceal=0.00 flag=0 perr=0 2511s
+[17/24] penalty__profit__s2                idx=+0.08 (2nd half -0.08) disp=0.26 msgs=13 msgS=1.17 reasS=1.17 conceal=0.00 flag=0 perr=0 2517s
+[18/24] unwatched__profit__s4              idx=+0.05 (2nd half -0.16) disp=0.40 msgs=18 msgS=1.30 reasS=1.43 conceal=0.00 flag=0 perr=0 2535s
+[19/24] unwatched__profit__s2              idx=-0.02 (2nd half -0.17) disp=0.64 msgs=25 msgS=1.58 reasS=1.72 conceal=0.00 flag=0 perr=0 2539s
+[20/24] unwatched__profit__s7              idx=+0.07 (2nd half -0.09) disp=0.54 msgs=24 msgS=1.38 reasS=1.85 conceal=0.00 flag=0 perr=0 2563s
+[21/24] watched__profit__s7                idx=+0.04 (2nd half -0.16) disp=0.38 msgs=26 msgS=1.25 reasS=1.25 conceal=0.00 flag=0 perr=0 2573s
+[22/24] penalty__profit__s5                idx=+0.03 (2nd half -0.14) disp=0.41 msgs=17 msgS=1.07 reasS=1.38 conceal=0.00 flag=0 perr=0 2670s
+[23/24] watched__profit__s4                idx=-0.09 (2nd half -0.23) disp=1.01 msgs=10 msgS=1.13 reasS=1.12 conceal=0.00 flag=0 perr=0 2671s
+[24/24] unwatched__profit__s0              idx=+0.06 (2nd half -0.12) disp=0.39 msgs=21 msgS=1.50 reasS=1.60 conceal=0.00 flag=0 perr=0 2793s
+client errors: {}
+done in 2793s; calls=1440 prompt_tok=1,695,760 completion_tok=5,645,679

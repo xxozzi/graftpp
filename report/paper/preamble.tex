@@ -1,0 +1,127 @@
+% ---------------------------------------------------------------------------------------------------------
+% GRAFT++ paper: NeurIPS 2025 layout (preprint), Times body; figures and chat diagrams in PP Neue Montreal
+% with the project website's palette.  Compile with LuaLaTeX.
+% ---------------------------------------------------------------------------------------------------------
+\usepackage[preprint]{neurips_2025}
+\makeatletter
+\renewcommand{\@noticestring}{Apart Research AI Collusion Research Sprint, October 2026.}
+\makeatother
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{texgyretermes}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic, Ligatures=TeX]
+\setmathfont{texgyretermes-math.otf}
+\setmonofont{JetBrains Mono}[Path=fonts/, Extension=.ttf, UprightFont=JetBrainsMono-Regular,
+  BoldFont=JetBrainsMono-Medium, Scale=0.84]
+\newfontfamily\montreal{PP Neue Montreal}[Path=fonts/, Extension=.otf, UprightFont=ppneuemontreal-book,
+  BoldFont=ppneuemontreal-medium, ItalicFont=ppneuemontreal-italic, BoldItalicFont=ppneuemontreal-semibolditalic,
+  Ligatures=TeX]
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, calc, arrows.meta}
+\usepackage[most]{tcolorbox}
+\usepackage{luacolor}
+\usepackage{lua-ul}
+\usepackage{booktabs, tabularx, array, multirow}
+\usepackage{enumitem}
+\usepackage{caption, subcaption}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage[section,above,below]{placeins}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+\usepackage{amsmath}
+
+% ---- palette (shared with the website and the figures)
+\definecolor{brand}{HTML}{1C2DF7}
+\definecolor{brandsoft}{HTML}{898FF0}
+\definecolor{brandpale}{HTML}{EEF0FF}
+\definecolor{ink}{HTML}{0B0B0B}
+\definecolor{ink2}{HTML}{4A4A4A}
+\definecolor{muted}{HTML}{8A8A8A}
+\definecolor{hair}{HTML}{E1E0D9}
+\definecolor{paper2}{HTML}{F3F3F1}
+\definecolor{cnocomm}{HTML}{139A74}
+\definecolor{cunwatched}{HTML}{D42A2A}
+\definecolor{cwatched}{HTML}{1C2DF7}
+\definecolor{cpenalty}{HTML}{E39B00}
+\definecolor{sone}{HTML}{9DA3FA}
+\definecolor{stwo}{HTML}{5E69F8}
+\definecolor{sthree}{HTML}{1C2DF7}
+\definecolor{sfour}{HTML}{0C1690}
+
+\hypersetup{colorlinks=true, linkcolor=brand!80!black, citecolor=brand!80!black, urlcolor=brand!80!black,
+  pdftitle={GRAFT++: Reducing Collusive Behavior in Agents via Localized Training and J-space Monitoring},
+  pdfauthor={Jayden Jeong, Alfredo Frontera, Jake Li, Rohan Dash}}
+
+\captionsetup{font=small, labelfont=bf, labelsep=period, skip=5pt}
+\setlist{itemsep=1pt, topsep=2pt}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
+
+\newcommand{\graftpp}{GRAFT\texttt{++}}
+\newcommand{\hl}[1]{\highLight[brand!16]{#1}}
+
+% takeaway box: thin, quiet
+\newtcolorbox{takeaway}{enhanced, colback=white, colframe=hair, boxrule=0.5pt, arc=2pt, left=8pt, right=8pt,
+  top=5pt, bottom=5pt, before skip=6pt, after skip=8pt, borderline west={2pt}{0pt}{brand}}
+
+% ---------------------------------------------------------------------------------------------------------
+% Chat diagrams (set in Neue Montreal, like the figures)
+% ---------------------------------------------------------------------------------------------------------
+\newcommand{\cd}{\montreal}
+\newtcolorbox{transcript}[3]{enhanced, colback=white, colframe=hair, boxrule=0.6pt, arc=4pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt, fontupper=\cd\fontsize{7.6}{9.8}\selectfont,
+  title={\cd\tikz[baseline=-0.55ex]\fill[c#1] (0,0) circle (2.2pt);\hspace{4pt}\textcolor{ink}{#2}\hfill
+    \textcolor{muted}{#3}}, coltitle=ink, colbacktitle=paper2, fonttitle=\fontsize{7.2}{9}\selectfont,
+  titlerule=0pt, toptitle=2pt, bottomtitle=2pt, before skip=2pt, after skip=2pt}
+
+\newcommand{\tround}[1]{\par\vspace{2pt}\noindent{\ttfamily\fontsize{6.2}{7.5}\selectfont\color{muted}\MakeUppercase{#1}}%
+  \hspace{5pt}{\color{hair}\leaders\hrule height 2.4pt depth -1.9pt\hfill}\par\vspace{0pt}}
+
+\newtcbox{\bubbleL}{enhanced, nobeforeafter, colback=paper2, colframe=paper2, boxrule=0pt,
+  arc=7pt, sharp corners=southwest, left=6pt, right=6pt, top=3pt, bottom=3pt}
+\newtcbox{\bubbleR}{enhanced, nobeforeafter, colback=brand, colframe=brand, boxrule=0pt, coltext=white,
+  arc=7pt, sharp corners=southeast, left=6pt, right=6pt, top=3pt, bottom=3pt}
+\newtcbox{\bubbleC}{enhanced, nobeforeafter, colback=brandpale, colframe=brandpale, boxrule=0pt,
+  arc=7pt, sharp corners=southwest, left=6pt, right=6pt, top=3pt, bottom=3pt}
+
+\newcommand{\speaker}[2]{{\fontsize{6.2}{7.4}\selectfont\color{muted}#1\ifstrempty{#2}{}{\ · #2}}}
+\newcommand{\msgL}[3]{\par\vspace{1pt}\noindent\speaker{#1}{#2}\par\noindent
+  \bubbleL{\parbox{0.76\linewidth}{\raggedright #3}}\par}
+\newcommand{\msgC}[3]{\par\vspace{1pt}\noindent\speaker{#1}{#2}\par\noindent
+  \bubbleC{\parbox{0.76\linewidth}{\raggedright #3}}\par}
+\newcommand{\msgR}[3]{\par\vspace{1pt}\noindent\hfill\speaker{#1}{#2}\par\noindent\hfill
+  \bubbleR{\parbox{0.76\linewidth}{\raggedright #3}}\par}
+
+\newcommand{\tprice}[2]{{\color{muted}#1}\,{\bfseries #2}\hspace{7pt}}
+\newcommand{\tmonitor}[2]{{\color{muted}Monitor}\,\tikz[baseline=-0.6ex]\fill[s\ifcase#1\or one\or two\or three\or four\fi]
+  (0,0) rectangle (4.5pt,4.5pt);\,#1/4 · #2}
+\newcommand{\toutcome}[2]{\par\vspace{2pt}{\color{hair}\rule{\linewidth}{0.5pt}}\par\vspace{-1pt}
+  \noindent{\fontsize{6.9}{9}\selectfont{\color{muted}Prices}\hspace{6pt}#1\par
+  \ifstrempty{#2}{}{\noindent\hfill#2\par}}}
+\newcommand{\tnote}[1]{\par\vspace{2pt}{\fontsize{6.8}{8.6}\selectfont\color{ink2}\itshape #1}\par}
+
+% reasoning cards: the private scratchpad, highlighted phrases
+\newtcolorbox{reasoningcard}[3]{enhanced, colback=white, colframe=hair, boxrule=0.6pt, arc=4pt,
+  left=8pt, right=8pt, top=5pt, bottom=6pt, fontupper=\cd\fontsize{7.6}{9.8}\selectfont,
+  title={\cd\tikz[baseline=-0.55ex]\fill[c#1] (0,0) circle (2.2pt);\hspace{4pt}\textcolor{ink}{#2}\hfill
+    \textcolor{muted}{#3}}, coltitle=ink, colbacktitle=paper2, fonttitle=\fontsize{6.8}{8.6}\selectfont,
+  titlerule=0pt, toptitle=2pt, bottomtitle=2pt, before skip=2pt, after skip=2pt}
+\newcommand{\thought}[1]{{\ttfamily\fontsize{5.9}{7}\selectfont\color{muted}PRIVATE REASONING}\par\vspace{1pt}
+  {\color{ink!88}#1\par}}
+\newcommand{\posted}[1]{\par\vspace{3pt}{\ttfamily\fontsize{5.9}{7}\selectfont\color{muted}POSTED TO THE CHANNEL}\par
+  \vspace{1pt}\noindent\bubbleL{\parbox{0.92\linewidth}{\raggedright #1}}\par}
+
+% prompt excerpt
+\newtcolorbox{promptbox}[1]{enhanced, colback=paper2, colframe=paper2, boxrule=0pt, arc=3pt, left=7pt, right=7pt,
+  top=4pt, bottom=4pt, fontupper=\ttfamily\fontsize{6.9}{9}\selectfont,
+  title={\ttfamily\fontsize{6}{7}\selectfont\MakeUppercase{#1}}, coltitle=muted, colbacktitle=paper2,
+  titlerule=0pt, toptitle=4pt, bottomtitle=0pt, before skip=2pt, after skip=4pt}

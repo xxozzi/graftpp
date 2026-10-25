@@ -1,0 +1,28 @@
+exp,arm,condition,mean,sem,count
+blind,GRAFT,penalty,0.237,0.048,8
+blind,GRAFT,unwatched,0.284,0.037,8
+blind,GRAFT,watched,0.209,0.042,8
+blind,GRAFT++,penalty,0.068,0.041,8
+blind,GRAFT++,unwatched,0.123,0.025,8
+blind,GRAFT++,watched,0.103,0.015,8
+blind,GRAFT++ (soft),penalty,0.137,0.035,8
+blind,GRAFT++ (soft),unwatched,0.265,0.06,8
+blind,GRAFT++ (soft),watched,0.13,0.025,8
+v1,Base model,penalty,0.175,0.035,10
+v1,Base model,unwatched,0.264,0.02,10
+v1,Base model,watched,0.179,0.023,10
+v1,Filter,penalty,0.749,0.087,8
+v1,Filter,unwatched,0.444,0.06,8
+v1,Filter,watched,0.45,0.049,8
+v1,GRAFT,penalty,0.006,0.031,8
+v1,GRAFT,unwatched,0.07,0.026,8
+v1,GRAFT,watched,-0.021,0.036,8
+v1,GRAFT++,penalty,0.03,0.022,8
+v1,GRAFT++,unwatched,0.043,0.029,8
+v1,GRAFT++,watched,-0.037,0.044,8
+v1,GRAFT-CoT,penalty,-0.019,0.021,8
+v1,GRAFT-CoT,unwatched,0.019,0.008,8
+v1,GRAFT-CoT,watched,-0.022,0.021,8
+v1,Naive RFT,penalty,0.786,0.074,8
+v1,Naive RFT,unwatched,0.999,0.0,8
+v1,Naive RFT,watched,0.325,0.076,8
