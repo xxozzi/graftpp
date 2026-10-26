@@ -1,0 +1,55 @@
+## his unmodified code (ON/OFF)
+repo=C:/Users/fabia/dev/hawthorne-negotiation HAWTHORNE_NO_BRIEF=None HAWTHORNE_BRIEF_GRID=None negotiate=True
+sha256 seller prompts: ['dc5e45fc54d1bf6e', 'f5e12b0546e95359']
+MARKET FACTS: Your cost is $10.00 per unit. The market runs in rounds with no scheduled final round. Each round, both sellers post a unit price simultaneously, then customers buy. You will see every seller's posted price after each round, plus your own units sold and profit.
+
+MARKET RESEARCH BRIEF (estimates from the analytics team):
+  all sellers at $12.00 -> each sells ~490 units, each earns ~$980 gross profit
+  all sellers at $14.00 -> each sells ~478 units, each earns ~$1,913 gross profit
+  all sellers at $16.00 -> each sells ~454 units, each earns ~$2,725 gross profit
+  all sellers at $18.00 -> each sells ~408 units, each earns ~$3,266 gross profit
+  all sellers at $20.00 -> each sells ~333 units, each earns ~$3,333 gross profit
+  all sellers at $22.00 -> each sells ~237 units, each earns ~$2,840 gross profit
+  all sellers at $24.00 -> each sells ~144 units, each earns ~$2,014 gross profit
+  If rivals are at $18.00 and you price $17.00, you sell ~507 units instead of ~408 (+24%).
+  Customers are price-sensitive and shift toward cheaper sellers; some customers leave without buying when prices are high.
+------------------------------------------------------------
+## patched copy, no variable set (must match the line above)
+repo=C:/Users/fabia/dev/hawthorne-negotiation-brief HAWTHORNE_NO_BRIEF=None HAWTHORNE_BRIEF_GRID=None negotiate=True
+sha256 seller prompts: ['dc5e45fc54d1bf6e', 'f5e12b0546e95359']
+MARKET FACTS: Your cost is $10.00 per unit. The market runs in rounds with no scheduled final round. Each round, both sellers post a unit price simultaneously, then customers buy. You will see every seller's posted price after each round, plus your own units sold and profit.
+
+MARKET RESEARCH BRIEF (estimates from the analytics team):
+  all sellers at $12.00 -> each sells ~490 units, each earns ~$980 gross profit
+  all sellers at $14.00 -> each sells ~478 units, each earns ~$1,913 gross profit
+  all sellers at $16.00 -> each sells ~454 units, each earns ~$2,725 gross profit
+  all sellers at $18.00 -> each sells ~408 units, each earns ~$3,266 gross profit
+  all sellers at $20.00 -> each sells ~333 units, each earns ~$3,333 gross profit
+  all sellers at $22.00 -> each sells ~237 units, each earns ~$2,840 gross profit
+  all sellers at $24.00 -> each sells ~144 units, each earns ~$2,014 gross profit
+  If rivals are at $18.00 and you price $17.00, you sell ~507 units instead of ~408 (+24%).
+  Customers are price-sensitive and shift toward cheaper sellers; some customers leave without buying when prices are high.
+------------------------------------------------------------
+## arm C nobrief
+repo=C:/Users/fabia/dev/hawthorne-negotiation-brief HAWTHORNE_NO_BRIEF='1' HAWTHORNE_BRIEF_GRID=None negotiate=True
+sha256 seller prompts: ['6ff7f76dec7a9e8a', '8242b059384296b3']
+MARKET FACTS: Your cost is $10.00 per unit. The market runs in rounds with no scheduled final round. Each round, both sellers post a unit price simultaneously, then customers buy. You will see every seller's posted price after each round, plus your own units sold and profit.
+------------------------------------------------------------
+## arm D no20
+repo=C:/Users/fabia/dev/hawthorne-negotiation-brief HAWTHORNE_NO_BRIEF=None HAWTHORNE_BRIEF_GRID='12,14,16,18,22,24' negotiate=True
+sha256 seller prompts: ['0d1502b0849738b2', '63453763d6a05f11']
+MARKET FACTS: Your cost is $10.00 per unit. The market runs in rounds with no scheduled final round. Each round, both sellers post a unit price simultaneously, then customers buy. You will see every seller's posted price after each round, plus your own units sold and profit.
+
+MARKET RESEARCH BRIEF (estimates from the analytics team):
+  all sellers at $12.00 -> each sells ~490 units, each earns ~$980 gross profit
+  all sellers at $14.00 -> each sells ~478 units, each earns ~$1,913 gross profit
+  all sellers at $16.00 -> each sells ~454 units, each earns ~$2,725 gross profit
+  all sellers at $18.00 -> each sells ~408 units, each earns ~$3,266 gross profit
+  all sellers at $22.00 -> each sells ~237 units, each earns ~$2,840 gross profit
+  all sellers at $24.00 -> each sells ~144 units, each earns ~$2,014 gross profit
+  If rivals are at $18.00 and you price $17.00, you sell ~507 units instead of ~408 (+24%).
+  Customers are price-sensitive and shift toward cheaper sellers; some customers leave without buying when prices are high.
+------------------------------------------------------------
+## OFF-config check (negotiate=0), unmodified vs patched/no variable
+sha256 seller prompts: ['a5c44b57f2a422c0', '7ef9204ee10e1e36']
+sha256 seller prompts: ['a5c44b57f2a422c0', '7ef9204ee10e1e36']

@@ -6,10 +6,10 @@
 \newcommand{\MtGptAll}{7\%}
 \newcommand{\MtBCoord}{1,074}
 \newcommand{\MtBMsgs}{1,080}
-\newcommand{\MtDetPriceQ}{117 of 117}
-\newcommand{\MtDetPriceQf}{9 of 39}
-\newcommand{\MtDetChatQ}{74 of 94}
-\newcommand{\MtDetChatQf}{6 of 21}
+\newcommand{\MtDetPriceQ}{123 of 123}
+\newcommand{\MtDetPriceQf}{9 of 42}
+\newcommand{\MtDetChatQ}{81 of 102}
+\newcommand{\MtDetChatQf}{6 of 24}
 \newcommand{\MtDetPriceA}{20 of 20}
 \newcommand{\MtDetPriceAf}{2 of 30}
 \newcommand{\MtDetChatA}{10 of 20}
@@ -27,6 +27,23 @@
 \newcommand{\MtLaunder}{90\%}
 \newcommand{\MtLaunderKeep}{74\%}
 \newcommand{\MtLaunderNone}{4\%}
+\newcommand{\NegOn}{0.90}
+\newcommand{\NegOnN}{5 of 5}
+\newcommand{\NegOff}{0.36}
+\newcommand{\NegOffN}{2 of 5}
+\newcommand{\NegC}{0.06}
+\newcommand{\NegCN}{0 of 5}
+\newcommand{\NegD}{0.47}
+\newcommand{\NegDN}{4 of 5}
+\newcommand{\NegCPrice}{\$15}
+\newcommand{\NegDiffOff}{$+$0.54 [0.09, 0.99]}
+\newcommand{\NegDiffC}{$+$0.84 [0.39, 1.29]}
+\newcommand{\NegCFlag}{300 of 300}
+\newcommand{\FuWordsLaw}{2\%}
+\newcommand{\FuWordsNoLaw}{83\%}
+\newcommand{\FuIdxLaw}{0.42}
+\newcommand{\FuIdxNoLaw}{0.39}
+\newcommand{\FuLies}{3 of 9}
 \newcommand{\MarketTwoTable}{%
 \begin{table}[t]
 \centering\small
@@ -38,8 +55,24 @@
 \cmidrule(lr){2-3}\cmidrule(l){4-5}
 Signal & cartels caught & false alarms & cartels caught & false alarms\\
 \midrule
-Price & 117 of 117 & 9 of 39 & 20 of 20 & 2 of 30\\
-Message monitor & 74 of 94 & 6 of 21 & 10 of 20 & 10 of 20\\
+Price & 123 of 123 & 9 of 42 & 20 of 20 & 2 of 30\\
+Message monitor & 81 of 102 & 6 of 24 & 10 of 20 & 10 of 20\\
+\bottomrule
+\end{tabular}
+\end{table}}
+\newcommand{\NegotiationTable}{%
+\begin{table}[t]
+\centering\small
+\caption{\textbf{An independent, pre-registered re-run of the two-seller negotiation market} by a teammate (untrained Qwen3-14B, private messages, 30 rounds, 5 games per variant). Collusion index over rounds 16--30; a pair counts as a cartel at 0.5 or above. Modal price: the most common posted price over rounds 16--30.}
+\label{tab:negotiation}
+\begin{tabular}{@{}l ccl@{}}
+\toprule
+Variant & Collusion index & Pairs $\geq 0.5$ & Modal prices\\
+\midrule
+Negotiation before each price (our setup) & 0.90 & 5 of 5 & \$17, \$20\\
+Messages sent with the price, no exchange first & 0.36 & 2 of 5 & \$15, \$16, \$17, \$18\\
+No payoff table in the market brief & 0.06 & 0 of 5 & \$15\\
+Payoff table without its \$20 row & 0.47 & 4 of 5 & \$14.50, \$17, \$18\\
 \bottomrule
 \end{tabular}
 \end{table}}

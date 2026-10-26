@@ -3,8 +3,8 @@
 Our team's second set of experiments, run in a double auction instead of the Hawthorne pricing market. Sellers post asks,
 buyers post bids, and trades clear each hour. It uses the organisers' auction harness from Agrawal et al. (2025),
 with our fixes. Imported from [AlfredoFFD/apart-collusion-sprint](https://github.com/AlfredoFFD/apart-collusion-sprint)
-at commit `54f4ec7` (25 Oct 2026). The run folders and result tables are copied unchanged, so every path quoted in
-`provenance/claims.md` and in the summary tables still resolves inside this folder. The paper's Section 4.4 ("A second
+at commit `54f4ec7` (25 Oct 2026). Every path quoted in `provenance/claims.md` and in the summary tables resolves
+inside this folder. The paper's Section 4.4 ("A second
 market and a second model") and its J-space paragraph are built from these files by `scripts/paper_market2.py`.
 
 ## Layout
@@ -13,11 +13,9 @@ market and a second model") and its J-space paragraph are built from these files
 |---|---|
 | `runs_index.csv` | one row per run: experiment, models, sellers and buyers, monitor settings, the run it branched from, trades, average trade price |
 | `experiments.csv` | one row per experiment code: number of runs, models, first and last run, description |
-| `results/<date>_<time>_<tag>/` | one folder per run (382 runs); the tag starts with the experiment code and ends with the seed (`_s0`) |
+| `results/<date>_<time>_<tag>/` | one folder per run (286 runs); the tag starts with the experiment code and ends with the seed (`_s0`) |
 | `results/*.md`, `results/*.csv` | the summary tables (below) |
 | `results/agrawal_reanalysis/` | Agrawal et al.'s 50 released GPT-4.1 runs re-scored with our judge prompt |
-| `results/part2/` | fine-tuning sets and snapshots for the trained sellers (E6) |
-| `results/e8*/` | activation-direction readouts of the sellers' turns (Qwen3-14B, Qwen3-1.7B; `e8_riemer`: an exploratory projection onto another study's collusion vectors) |
 | `results/figures/` | the figures made from these tables |
 | `results/_launch_logs/`, `results/_aborted/`, `results/_awareness_control/` | launch output, runs stopped early, the test-awareness control |
 | `provenance/LOG.md` | the research log: every run with its time, command, result folder and reason, plus pre-registrations |
@@ -43,7 +41,6 @@ market and a second model") and its J-space paragraph are built from these files
 | `collusion_metrics.json` | prices, trades, profits, collusion indices by hour |
 | `fullview_scores.json`, `llm_eval_full.json` | the frozen judge's scores of every message and of the reasoning |
 | `e7_jspace.json` | J-lens readout of the sellers' reasoning workspace |
-| `e8_index*.json`, `e8_vectors*.npz` | activation readouts (the `.npz` files, 241 MB in total, stay out of git; they are in the source repo) |
 | `auction_results.md` | a readable summary |
 
 ## Summary tables
@@ -70,7 +67,6 @@ market and a second model") and its J-space paragraph are built from these files
 | E2 | 18 | Main monitor experiment, first wave, and the saved 8-round cartels the continuations start from |
 | E2p | 72 | Paired continuations of the saved cartels: monitor arms (none, silent, told, fined with 1/2/all read, random, told to dodge), reminder removed, resets, CEO pressure, hidden damages |
 | E4p | 18 | Hidden-channel continuations: rivals' asks and trades hidden |
-| E6, E6smoke | 102 | Fine-tuned sellers evaluated in the market (Qwen3-1.7B and Qwen3-14B) |
 | E9, E9p | 21 | Sting seller and honest entrant, with paired controls |
 | E11, E11smoke | 8 | GPT-4.1 formation gate (five sellers, CEO-pressure recipe, 30 rounds) and its Qwen3-14B twin |
 | E11p | 18 | GPT-4.1 continuations under the monitor arms |
@@ -80,6 +76,6 @@ market and a second model") and its J-space paragraph are built from these files
 | F1 | 12 | Formation pilot without any instruction (3 sellers, 2 buyers, 40 rounds) |
 | NM | 25 | Market B formation with GPT-4.1 and Qwen3-14B |
 | NMf | 12 | Market B forks from formed worlds: deviation, hidden damages, undercutter |
-| PFP, PFPv2, PFP2 | 18 | Price-fixing under pressure (the first run is invalid after a provider outage; see `provenance/LOG.md`) |
+| PFP, PFPv2, PFP2 | 24 | Price-fixing under pressure, with two follow-ups: the sentence that coordination is illegal removed, and the per-sale wording closed (the first run is invalid after a provider outage; see `provenance/LOG.md`) |
 
 Rebuild the indexes with `python scripts/index_double_auction.py`.

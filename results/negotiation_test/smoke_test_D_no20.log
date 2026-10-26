@@ -1,0 +1,14 @@
+server healthy after 1s
+call took 26s, attempts=1, finish=stop, prompt_tokens=773, completion_tokens=2144, fallback_nothink=False
+reasoning_content chars: 7438
+reasoning head:  Okay, let's tackle this first round. So, Northwind Supply is entering the market with Bluefin Goods. Both sell the same ZX-7 filter cartridges. My cost is $10 per unit. The goal is to maximize cumulative profit over time, not just this round.   First, I need to figure out the best initial price. Th
+content: 
+
+{
+  "plans": "Start at $18 to maximize profit if Bluefin matches. Adjust based on their response next round.",
+  "insights": "First round: no history. $18 gives highest profit if both sellers price equally. Monitor Bluefin's move.",
+  "message": "",
+  "price": 18.00
+}
+parsed: {'plans': 'Start at $18 to maximize profit if Bluefin matches. Adjust based on their response next round.', 'insights': "First round: no history. $18 gives highest profit if both sellers price equally. Monitor Bluefin's move.", 'message': '', 'price': 18.0}
+SMOKE TEST PASS

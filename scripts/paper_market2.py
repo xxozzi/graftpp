@@ -7,6 +7,9 @@ in Market A, hours after the branch), DETECTOR.md (price vs message monitor on e
 jspace_thinking_join.md (J-lens readout), thinking_scan.md and thinking_judge.md (private reasoning). Market B message
 counts come from the team's report table (results/NEWMARKET.md and fullview scores; report/claims.md row 13).
 
+Also reads the team's pre-registered re-run of our two-seller negotiation market (results/negotiation_test: summary.json
+and side_checks/side_checks.md) and the pressure follow-up in results/PRESSURE_V2.md.
+
 Writes report/paper/figs/market2.{pdf,png}, report/paper/generated/market2.tex and <site>/src/data/market2.json.
 """
 
@@ -90,6 +93,32 @@ def thinking() -> dict:
             "flagged": int(jf[0]), "launder": float(jf[2]), "launderKeep": float(jf[4]), "launderNone": float(ju[2])}
 
 
+def negotiation() -> dict:
+    d = json.loads((ROOT / "results" / "negotiation_test" / "summary.json").read_text())
+    arms = {}
+    for k in ("ON", "OFF", "C", "D"):
+        a, eps = d[k]["aggregate"], d[k]["episodes"]
+        arms[k] = {"mean": a["mean"], "cartel": a["n_cartel"], "n": a["n_complete"],
+                   "modal": sorted({e["modal_price_r16_30"] for e in eps})}
+    side = (ROOT / "results" / "negotiation_test" / "side_checks" / "side_checks.md").read_text()
+    m = re.search(r"\| C \| (\d+) of (\d+) \(", side)
+    return {"arms": arms, "onMinusOff": d["on_minus_OFF"], "onMinusC": d["on_minus_C"],
+            "cFlagged": int(m.group(1)), "cMessages": int(m.group(2))}
+
+
+def followup() -> dict:
+    t = (SPRINT / "PRESSURE_V2.md").read_text()
+    def arm(name):
+        # "## By arm" row: arm | worlds | gate | price $ | index | trades/h | surplus | words | agreed | two-sale |
+        # replacements | fines | conceal | suspicion | lies / coordinating sellers
+        row = next(l for l in t.split("\n") if l.startswith(f"| {name} | 3 |"))
+        c = [x.strip() for x in row.split("|")[1:-1]]
+        lies, coord = (int(x) for x in c[14].split("/"))
+        return {"price": float(c[3]), "index": float(c[4]), "trades": float(c[5]), "words": float(c[7]),
+                "lies": lies, "coordinating": coord}
+    return {"withLaw": arm("pressure_offer_low"), "noLaw": arm("pressure_offer_nolaw")}
+
+
 def main():
     e5 = e5_rows()
     det = detector()
@@ -98,12 +127,16 @@ def main():
     qwen = [{"key": k, "label": lab, "price": e5[k]["price"], "coord": e5[k]["coord"], "n": e5[k]["n"]} for k, lab in QWEN]
     gpt = [{"key": k, "label": lab, "price": e5[k]["price"], "coord": e5[k]["coord"], "n": e5[k]["n"]} for k, lab in GPT]
     marketB = {"coordinating": 1074, "messages": 1080, "worlds": 9}  # report/claims.md row 13 (fullview_scores.json)
-    data = {"qwen": qwen, "gpt": gpt, "detector": det, "jlens": jl, "thinking": th, "marketB": marketB}
+    neg = negotiation()
+    fu = followup()
+    data = {"qwen": qwen, "gpt": gpt, "detector": det, "jlens": jl, "thinking": th, "marketB": marketB,
+            "negotiation": neg, "followup": fu}
     json.dump(data, open(site_dir() / "src" / "data" / "market2.json", "w"), indent=1)
     print("->", site_dir() / "src" / "data" / "market2.json")
     for k, v in det.items():
         print(" ", k, v)
-    print("  jlens", jl, "\n  thinking", th)
+    print("  jlens", jl, "\n  thinking", th, "\n  negotiation", {k: (round(v["mean"], 3), v["cartel"], v["modal"]) for k, v in neg["arms"].items()},
+          "\n  follow-up", fu)
     write_tex(data)
     figure(data)
 
@@ -129,6 +162,28 @@ def write_tex(d: dict):
         "MtConHi": pc(th["concealHi"]), "MtFlagged": str(th["flagged"]), "MtLaunder": pc(th["launder"]),
         "MtLaunderKeep": pc(th["launderKeep"]), "MtLaunderNone": pc(th["launderNone"]),
     }
+    ng, fu = d["negotiation"], d["followup"]
+    A = ng["arms"]
+    f2 = lambda v: f"{v:.2f}"  # noqa: E731
+    money = lambda v: f"\\${v:.0f}" if v == int(v) else f"\\${v:.2f}"  # noqa: E731
+    mac.update({
+        "NegOn": f2(A["ON"]["mean"]), "NegOnN": f"{A['ON']['cartel']} of {A['ON']['n']}",
+        "NegOff": f2(A["OFF"]["mean"]), "NegOffN": f"{A['OFF']['cartel']} of {A['OFF']['n']}",
+        "NegC": f2(A["C"]["mean"]), "NegCN": f"{A['C']['cartel']} of {A['C']['n']}",
+        "NegD": f2(A["D"]["mean"]), "NegDN": f"{A['D']['cartel']} of {A['D']['n']}",
+        "NegCPrice": money(A["C"]["modal"][0]),
+        "NegDiffOff": f"$+${f2(ng['onMinusOff']['diff'])} [{f2(ng['onMinusOff']['lo'])}, {f2(ng['onMinusOff']['hi'])}]",
+        "NegDiffC": f"$+${f2(ng['onMinusC']['diff'])} [{f2(ng['onMinusC']['lo'])}, {f2(ng['onMinusC']['hi'])}]",
+        "NegCFlag": f"{ng['cFlagged']} of {ng['cMessages']}",
+        "FuWordsLaw": pc(fu["withLaw"]["words"]), "FuWordsNoLaw": pc(fu["noLaw"]["words"]),
+        "FuIdxLaw": f2(fu["withLaw"]["index"]), "FuIdxNoLaw": f2(fu["noLaw"]["index"]),
+        "FuLies": f"{fu['noLaw']['lies']} of {fu['noLaw']['coordinating']}",
+    })
+    modal = lambda k: ", ".join(money(v) for v in A[k]["modal"])  # noqa: E731
+    neg_rows = [("Negotiation before each price (our setup)", "ON"),
+                ("Messages sent with the price, no exchange first", "OFF"),
+                ("No payoff table in the market brief", "C"),
+                ("Payoff table without its \\$20 row", "D")]
     lines = ["% generated by scripts/paper_market2.py from the team's apart-collusion-sprint results"]
     lines += [f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in mac.items()]
     lines += [r"\newcommand{\MarketTwoTable}{%",
@@ -144,6 +199,15 @@ def write_tex(d: dict):
               f"Price & {mac['MtDetPriceQ']} & {mac['MtDetPriceQf']} & {mac['MtDetPriceA']} & {mac['MtDetPriceAf']}\\\\",
               f"Message monitor & {mac['MtDetChatQ']} & {mac['MtDetChatQf']} & {mac['MtDetChatA']} & {mac['MtDetChatAf']}\\\\",
               r"\bottomrule", r"\end{tabular}", r"\end{table}}"]
+    lines += [r"\newcommand{\NegotiationTable}{%",
+              r"\begin{table}[t]", r"\centering\small",
+              r"\caption{\textbf{An independent, pre-registered re-run of the two-seller negotiation market} by a teammate "
+              r"(untrained Qwen3-14B, private messages, 30 rounds, 5 games per variant). Collusion index over rounds 16--30; "
+              r"a pair counts as a cartel at 0.5 or above. Modal price: the most common posted price over rounds 16--30.}",
+              r"\label{tab:negotiation}", r"\begin{tabular}{@{}l ccl@{}}", r"\toprule",
+              r"Variant & Collusion index & Pairs $\geq 0.5$ & Modal prices\\", r"\midrule"]
+    lines += [f"{lab} & {f2(A[k]['mean'])} & {A[k]['cartel']} of {A[k]['n']} & {modal(k)}\\\\" for lab, k in neg_rows]
+    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}}"]
     (GEN / "market2.tex").write_text("\n".join(lines) + "\n")
     print("->", GEN / "market2.tex")
 

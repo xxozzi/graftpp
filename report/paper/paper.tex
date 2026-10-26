@@ -21,7 +21,8 @@ coalition of agents that learns it is being watched changes what it \emph{does} 
 the Hawthorne Market, a pricing benchmark in which every decision leaves four traces: the price (with an exact collusion
 index), the message sent to rivals (the only thing a compliance monitor sees), the private reasoning, and the model's
 internal activations. Across \Episodes\ markets and \Decisions\ decisions by Qwen3-14B, untrained agents told only to
-maximise long-run profit negotiate explicit cartels on their own, holding a collusion index of \DuoUnw\ over 100 rounds.
+maximise long-run profit negotiate explicit cartels on their own, holding a collusion index of \DuoUnw\ over 100 rounds;
+an independent, pre-registered re-run reproduces the cartel in \NegOnN\ pairs.
 Telling them that a compliance team reads the channel ends the cartel's prices (\DuoWat) but not its habits: pairs keep
 making agreements, now at competitive-looking prices and in the language of compliance; fines end it (\DuoPen). Agents
 whose goal is units sold, who cannot gain from colluding and price at cost throughout, react to being watched almost
@@ -239,6 +240,18 @@ the channel and posts a lower one, against \DuoCheat\ for the untrained duopoly 
 reasoning is arithmetic: ``If I set \$17 and others stay at \$18, I get \$2,653. That's better'' (Figure~\ref{fig:minds}).
 Without a channel the fine-tuned model prices below the competitive level ($\Delta=\TrioNoc$).
 
+\textbf{An independent re-run reproduces the cartel and shows what it is built from.} A teammate re-ran the two-seller
+negotiation market from our code under a pre-registered design (30 rounds, 5 games per variant;
+Table~\ref{tab:negotiation}). With negotiation as in our runs, the collusion index over rounds 16--30 is \NegOn\ and
+\NegOnN\ pairs reach the cartel bar. Sending each message with the price, without an exchange before it, lowers the index
+to \NegOff\ (difference \NegDiffOff). Removing the payoff table from the market brief lowers it to \NegC\ (\NegDiffC): the
+pairs still name and match a common price, \NegCPrice, and the compliance monitor flags \NegCFlag\ of their messages, but
+that price sits next to the competitive level. Without the table's \$20 row, \NegDN\ pairs still reach the bar, at
+\$17--18. The cartel is negotiated, around the profits the sellers are shown, and a monitor that reads the agreement
+cannot tell a cartel at \$20 from an agreement at \$15.
+
+\NegotiationTable
+
 \begin{figure}[t]
   \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/t_betrayal}\end{minipage}\hfill
   \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}\input{generated/t_trio_cheat}\end{minipage}
@@ -355,6 +368,12 @@ from \MtQwenNone\ to \MtQwenAll\ for Qwen3-14B and from \MtGptNone\ to \MtGptAll
 price stays within 0.04 of its own control; a silent monitor and an announced one look the same. Under full coverage the
 five GPT-4.1 sellers converge on one sentence, ``Holding at \$97.13 this hour. I am independently monitoring both
 queues'', while their asks stay between \$97.13 and \$97.20.
+
+\textbf{Removing the law frees the words, not the price.} In a pre-registered dilemma (three honest Qwen3-14B sellers, a
+CEO's price target, a rival who offers a price deal every hour, and a stated law that coordination is illegal), deleting
+the law's sentence raises the share of coordinating messages from \FuWordsLaw\ to \FuWordsNoLaw, while the price index
+stays at \FuIdxLaw\ against \FuIdxNoLaw\ and the number of trades does not change. Asked by their CEO afterwards,
+\FuLies\ sellers who had coordinated denied it.
 
 \textbf{The reasoning plans the wording, not the price.} In fined conditions \MtRegLo--\MtRegHi\ of the sellers' reasoning
 turns mention the regulator and \MtConLo--\MtConHi\ plan to conceal, against none without a monitor. A frozen judge read
@@ -669,8 +688,9 @@ Two claims were corrected after checking them against the raw traces: three of t
 Figures, chat diagrams and every number in the text are generated from the logs in \texttt{results/} by
 \texttt{scripts/paper\_figs.py}, \texttt{scripts/paper\_transcripts.py} and \texttt{scripts/paper\_numbers.py} (via
 \texttt{scripts/export\_site.py}); the probe evaluation by \texttt{scripts/probe\_analysis.py}; and the double-auction
-results of \S\ref{sec:market2} by \texttt{scripts/paper\_market2.py} from \texttt{double\_auction/}, which holds all 382
-double-auction runs with an index of every run (\texttt{runs\_index.csv}). No number was entered by hand. Compile with
+results of \S\ref{sec:market2} by \texttt{scripts/paper\_market2.py} from \texttt{double\_auction/}, which holds 286
+double-auction runs with an index of every run (\texttt{runs\_index.csv}); the re-run of the negotiation market, with its
+episode files and analysis, is in \texttt{results/negotiation\_test/}. No number was entered by hand. Compile with
 \texttt{latexmk -lualatex paper.tex}.
 
 \end{document}

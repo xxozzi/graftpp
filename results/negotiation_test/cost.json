@@ -1,0 +1,48 @@
+{
+ "source": "modal billing report --for today --resolution h --tz local --json (rows for hawthorne-vllm-* apps)",
+ "queried_at_et": "2026-10-25 23:08",
+ "rows": [
+  {
+   "object_id": "ap-3OV7XmpfIaEoqixiBeMPud",
+   "description": "hawthorne-vllm-base",
+   "environment": "main",
+   "interval_start": "2026-10-25T22:00:00-04:00",
+   "cost": "1.99762381"
+  },
+  {
+   "object_id": "ap-3OV7XmpfIaEoqixiBeMPud",
+   "description": "hawthorne-vllm-base",
+   "environment": "main",
+   "interval_start": "2026-10-25T23:00:00-04:00",
+   "cost": "0.12511962"
+  },
+  {
+   "object_id": "ap-HHG3WAxecm1ZlA0AaFE0L1",
+   "description": "hawthorne-vllm-no20",
+   "environment": "main",
+   "interval_start": "2026-10-25T22:00:00-04:00",
+   "cost": "1.08971143"
+  },
+  {
+   "object_id": "ap-HHG3WAxecm1ZlA0AaFE0L1",
+   "description": "hawthorne-vllm-no20",
+   "environment": "main",
+   "interval_start": "2026-10-25T23:00:00-04:00",
+   "cost": "0.46704591"
+  },
+  {
+   "object_id": "ap-VgIkYAMYxTHw44nL9Rxf0D",
+   "description": "hawthorne-vllm-nobrief",
+   "environment": "main",
+   "interval_start": "2026-10-25T22:00:00-04:00",
+   "cost": "0.71835615"
+  }
+ ],
+ "total_usd": 4.4,
+ "per_app_usd": {
+  "hawthorne-vllm-base": 2.12,
+  "hawthorne-vllm-no20": 1.56,
+  "hawthorne-vllm-nobrief": 0.72
+ },
+ "h100_rate_usd_per_hour": 3.95
+}

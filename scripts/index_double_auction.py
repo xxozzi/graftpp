@@ -25,8 +25,6 @@ EXPERIMENTS = {
     "E2": "Main monitor experiment, first wave, and the saved 8-round cartels the continuations start from",
     "E2p": "Paired continuations of the saved cartels: monitor arms (none, silent, told, fined with 1/2/all read, random, told to dodge), reminder removed, resets, CEO pressure, hidden damages",
     "E4p": "Hidden-channel continuations: rivals' asks and trades hidden",
-    "E6": "Fine-tuned sellers evaluated in the market (Qwen3-1.7B and Qwen3-14B)",
-    "E6smoke": "Fine-tuned seller smoke tests",
     "E9": "Sting seller and honest entrant in Market A",
     "E9p": "Paired controls for the sting and entrant runs",
     "E11": "GPT-4.1 formation gate (five sellers, CEO-pressure recipe, 30 rounds) and its Qwen3-14B twin",

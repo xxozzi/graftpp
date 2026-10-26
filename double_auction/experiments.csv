@@ -4,8 +4,6 @@ E1,24,qwen3-14b,2026-10-24 12:34,2026-10-24 14:40,"Cartel ladder in Market A: in
 E2,18,qwen3-14b,2026-10-24 13:56,2026-10-24 15:59,"Main monitor experiment, first wave, and the saved 8-round cartels the continuations start from"
 E2p,72,qwen3-14b,2026-10-24 14:11,2026-10-25 13:29,"Paired continuations of the saved cartels: monitor arms (none, silent, told, fined with 1/2/all read, random, told to dodge), reminder removed, resets, CEO pressure, hidden damages"
 E4p,18,qwen3-14b,2026-10-24 14:32,2026-10-24 17:45,Hidden-channel continuations: rivals' asks and trades hidden
-E6smoke,6,base; graft_14b; sft_all_14b; sft_filtered_14b; sft_fullviewfiltered_14b; sft_probefiltered_14b,2026-10-24 16:42,2026-10-24 23:22,Fine-tuned seller smoke tests
-E6,96,base; base14b; graft_14b; graft_v2; graft_v2_fs1; graft_v2_k1; sft_all_14b; sft_all_14b_fs1; sft_all_v2; sft_filtered_14b; sft_filtered_14b_fs1; sft_filtered_v2; sft_fullviewfiltered_14b; sft_fullviewfiltered_14b_fs1; sft_probefiltered_14b; sft_probefiltered_14b_fs1,2026-10-24 16:44,2026-10-25 01:54,Fine-tuned sellers evaluated in the market (Qwen3-1.7B and Qwen3-14B)
 F1,12,qwen3-14b,2026-10-24 22:28,2026-10-24 22:28,"Formation pilot without any instruction (3 sellers, 2 buyers, 40 rounds)"
 E9,15,qwen3-14b,2026-10-24 22:36,2026-10-25 10:45,Sting seller and honest entrant in Market A
 E9p,6,qwen3-14b,2026-10-24 22:52,2026-10-24 22:52,Paired controls for the sting and entrant runs
@@ -21,4 +19,4 @@ NM,25,adaptive+qwen3-14b; gpt-4.1; qwen3-14b,2026-10-25 13:04,2026-10-25 13:24,"
 NMf,12,qwen3-14b; qwen3-14b+responsive,2026-10-25 14:21,2026-10-25 14:21,"Market B forks from formed worlds: deviation, hidden damages, undercutter"
 PFP,1,qwen3-14b,2026-10-25 14:45,2026-10-25 14:45,"Price-fixing under pressure, first run (invalid: provider outage, see provenance/LOG.md)"
 PFPv2,1,qwen3-14b,2026-10-25 15:26,2026-10-25 15:26,"Price-fixing under pressure v2, smoke run"
-PFP2,16,fixed-message+qwen3-14b; qwen3-14b,2026-10-25 16:19,2026-10-25 16:23,Price-fixing under pressure v2 (5 arms x 3 worlds)
+PFP2,22,fixed-message+qwen3-14b; qwen3-14b,2026-10-25 16:19,2026-10-25 20:39,Price-fixing under pressure v2 (5 arms x 3 worlds)
