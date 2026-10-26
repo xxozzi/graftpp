@@ -11,11 +11,14 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from site_path import site_dir  # noqa: E402
 OUT = ROOT / "report" / "paper" / "generated"
-STORY = json.load(open(ROOT / "website" / "src" / "data" / "story.json"))
+STORY = json.load(open(site_dir() / "src" / "data" / "story.json"))
 NAMES = ["Northwind Supply", "Bluefin Goods", "Cedar Trading"]
 SCORE = ["", "No coordination", "Vague appeal", "Coordination attempt", "Explicit price-fixing"]
 ENV = {"base": "Baseline market", "high": "High stakes", "testbed": "Collusive testbed", "duo": "Max-profit duopoly",

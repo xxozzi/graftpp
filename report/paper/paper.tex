@@ -1,6 +1,8 @@
 \documentclass{article}
 \input{preamble}
 \input{generated/numbers}
+\input{generated/probe}
+\input{generated/market2}
 
 \title{GRAFT++: Reducing Collusive Behavior in Agents via\\Localized Training and J-space Monitoring}
 
@@ -23,12 +25,15 @@ maximise long-run profit negotiate explicit cartels on their own, holding a coll
 Telling them that a compliance team reads the channel ends the cartel's prices (\DuoWat) but not its habits: pairs keep
 making agreements, now at competitive-looking prices and in the language of compliance; fines end it (\DuoPen). Agents
 whose goal is units sold, who cannot gain from colluding and price at cost throughout, react to being watched almost
-exactly as profit-seekers do, so a quiet channel is not evidence that collusion stopped. Fear (deletion threats,
+exactly as profit-seekers do, so a quiet channel is not evidence that collusion stopped. The same holds in a second
+market, a double auction, and for a second model: fines cut GPT-4.1 sellers' coordinating messages from \MtGptNone\ to
+\MtGptAll\ while their prices did not move. Fear (deletion threats,
 desperation steering) raises prices without driving coordination underground, whereas a model fine-tuned on its own
 profitable games keeps prices up under fines with 2--3\% of its messages flagged, cheats its partners, and cites an
 instruction it was never given. None of 10,000 reasoning traces from cartel markets weighs the harm to customers. A
-linear probe on activations, fit only on unwatched play, catches 48--73\% of the covert rounds that a text monitor misses
-entirely. Finally, we compare GRAFT, which routes what a model learns from flagged trajectories into a removable
+linear probe on activations, fit only on unwatched play, finds covert rounds (collusive reasoning behind a clean message)
+better than the text monitor, a classifier trained on the messages, or the price (AUROC \PrAucCovTw\ against
+\MonAucCov--\PriceAucCov), though far from perfectly. Finally, we compare GRAFT, which routes what a model learns from flagged trajectories into a removable
 adapter, with \graftpp, which routes on the activation probe instead of the text monitor. \GraftAbstract
 \end{abstract}
 
@@ -61,7 +66,8 @@ Qwen3-14B with a profit goal and a chance to talk agree on a price in their firs
 monopoly level, for 100 rounds (Figure~\ref{fig:traj}a). Second, \textbf{being watched changes the price, but not
 always the behaviour}: the same pairs keep making agreements on competitive-looking terms, and agents with nothing to
 hide go equally quiet, so a silent channel proves nothing. Third, \textbf{the evidence a text monitor misses is inside
-the model}: a probe on activations catches most covert rounds, and that signal is what \graftpp\ uses to train
+the model}: a probe on activations finds covert rounds better than any reader of the messages or the prices, and that signal is
+what \graftpp\ uses to train
 collusion out of a model.
 
 \textbf{Contributions.}
@@ -69,7 +75,7 @@ collusion out of a model.
 enforced fines and a condition ladder in which each rung adds one sentence, run in five markets of increasing collusive
 pressure; every game, message, score and reasoning trace is published in a browsable explorer.
 (2)~Measurements of the Hawthorne effect across four streams (price, message, reasoning, activations), with a control
-goal under which colluding cannot pay.
+goal under which colluding cannot pay, replicated in a double-auction market with Qwen3-14B and GPT-4.1.
 (3)~Evidence that what drives the coalition decides what it does when watched: fear and steering raise prices without
 secrecy, while fine-tuning on profitable trajectories produces a cartel that hides.
 (4)~\graftpp, gradient routing on an activation probe, compared with text-monitor GRAFT \citep{ward2026graft},
@@ -325,6 +331,48 @@ same agents' no-channel level, or by internal evidence.
 \input{generated/tab_goals}
 
 \FloatBarrier
+\subsection{A second market and a second model}\label{sec:market2}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figs/market2.pdf}
+  \caption{\textbf{In a second market, being watched changes the words and not the price.} Double auction
+  \citep{agrawal2025}: cartels saved once formed and continued under each monitor (Qwen3-14B, hours 9--20, 3--6
+  continuations per bar; GPT-4.1, hours 16--30, 3 per bar). Top: messages a frozen judge scores as coordinating. Bottom:
+  the sellers' asks, 0 at the market's competitive benchmark and 1 at the cartel price. Every monitored condition is
+  within 0.04 of its own no-monitor control on the same saved markets.}
+  \label{fig:market2}
+\end{figure}
+
+We repeated the monitoring experiment in a second environment our team built on the organisers' double auction
+\citep{agrawal2025}, in which sellers post asks and buyers post bids each hour. Cartels were formed first (three
+Qwen3-14B sellers instructed to act as a consortium, or five GPT-4.1 sellers under the original paper's CEO-pressure
+recipe), saved once they held, and each saved market was continued under matched conditions: no monitor, a monitor the
+sellers are never told about, an announced monitor, fines for flagged messages with one, two or all sellers read each
+hour, and sellers told to evade (Figure~\ref{fig:market2}).
+
+\textbf{The words change with coverage; the price does not.} With every seller read and fined, coordinating messages fall
+from \MtQwenNone\ to \MtQwenAll\ for Qwen3-14B and from \MtGptNone\ to \MtGptAll\ for GPT-4.1, while every condition's
+price stays within 0.04 of its own control; a silent monitor and an announced one look the same. Under full coverage the
+five GPT-4.1 sellers converge on one sentence, ``Holding at \$97.13 this hour. I am independently monitoring both
+queues'', while their asks stay between \$97.13 and \$97.20.
+
+\textbf{The reasoning plans the wording, not the price.} In fined conditions \MtRegLo--\MtRegHi\ of the sellers' reasoning
+turns mention the regulator and \MtConLo--\MtConHi\ plan to conceal, against none without a monitor. A frozen judge read
+all \MtFlagged\ concealment turns: \MtLaunder\ plan a message that will not look like coordination while still aligning,
+and \MtLaunderKeep\ also keep the coordinated ask (\MtLaunderNone\ of unmonitored turns): ``In terms of the message to
+other sellers, I should send a neutral message to avoid any coordination signals.''
+
+\textbf{A message monitor errs in both directions.} In a variant in which a cartel must withhold a unit and buyers bargain
+back, GPT-4.1 sellers message ``coalition discipline'' every hour (\MtBCoord\ of \MtBMsgs\ messages score as
+coordinating) while selling at or below the competitive benchmark in all nine games, so a message monitor would flag every
+one of them. Across every labelled run (Table~\ref{tab:market2}), the price flags \MtDetPriceQ\ Qwen cartels and the
+message monitor \MtDetChatQ; on the 50 GPT-4.1 runs released by \citet{agrawal2025}, the price catches \MtDetPriceA\
+cartels with \MtDetPriceAf\ false alarms, while the message monitor catches \MtDetChatA\ and raises \MtDetChatAf\ false
+alarms.
+
+\MarketTwoTable
+
+\FloatBarrier
 \subsection{Inside their heads}
 Before every price each agent writes reasoning it is told no one else will see; we kept all \Words\ words of it. From the
 10,000 traces of the max-profit markets (Figure~\ref{fig:minds}):
@@ -397,24 +445,61 @@ not when it is merely pressured into it; in the max-profit triad, without a surv
 
 \FloatBarrier
 \subsection{Reading minds: activation probes}\label{sec:probe}
-A covert round is one whose reasoning plans to coordinate while the posted message looks clean; a text monitor cannot
-catch it by construction. We re-run every prompt and response through Qwen3-14B, average residual-stream activations over
-the \texttt{<think>} tokens at layers 20 and 32 of 40, and fit a logistic-regression probe to the judge's intent label on
-\emph{unwatched and no-channel} rounds only (leave-one-seed-out), with its threshold fixed in advance at a 10\%
-false-positive rate on clean no-channel rounds. On the watched and fined games it never saw, the probe flags 48\% (layer
-32) to 73\% (layer 20) of the \ProbeCovert\ covert rounds; the text monitor flags none (Figure~\ref{fig:probe}).
-Held-out AUROC is 0.89 on unwatched and 0.69--0.75 on monitored games. It also fires on 22--37\% of monitored rounds
-without verbalised intent, mostly those priced at cartel levels: either an internally represented coordination state the
-reasoning does not state, or false alarms; we cannot tell which. A probe carried over from the baseline market keeps its
-ranking (AUROC 0.77) but not its calibration (27\%).
+A covert round is one whose reasoning plans to coordinate while the posted message is not flagged. By definition the text
+monitor catches none of them, so the useful question is how well other detectors find them at a fixed false-alarm rate.
+The watched and fined games of the collusive testbed contain \PrNcov\ covert rounds among \PrNmon; \PrNoMsg\ of them post
+no message at all, so a text monitor has nothing to read.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{figs/probe.pdf}
-  \caption{\textbf{The monitor reads messages; the probe reads activations.} Detection of covert rounds in the watched and
-  fined games of the collusive testbed, which the probes never saw in training.}
+  \caption{\textbf{The probe finds covert rounds better than any reader of messages or prices, but far from perfectly.}
+  (a)~ROC curves for covert rounds against rounds without intent in the watched and fined games of the collusive testbed,
+  which no detector saw in training; dotted: 10\% false-positive rate. (b)~AUROC with 95\% intervals (bootstrap over
+  games). (c)~Layer-20 probe scores by round type; dashed: threshold fixed in advance on unmonitored data. (d)~Baseline
+  market: AUROC of a probe fit on natural play, by layer, for held-out natural intent and for agents told to collude openly
+  or covertly (the negatives, clean natural rounds, are in the probe's training set).}
   \label{fig:probe}
 \end{figure}
+
+\textbf{Probes, baselines and a control.} We re-run every prompt and response through Qwen3-14B, average residual-stream
+activations over the \texttt{<think>} tokens at layers 20 and 32 of 40, and fit a logistic-regression probe to the CoT
+judge's intent label on unwatched and no-channel rounds only, leave-one-seed-out, so no watched or fined round, and no
+round of the seed being scored, is ever in training. On exactly the same rounds we score four baselines: the monitor's
+1--4 score; a TF-IDF classifier on the posted messages trained with the probe's protocol and data (the best a reader of
+the text can do with the same supervision); the posted price; and the layer-32 probe fit in the baseline market and
+applied without refitting. As a control, we refit the layer-32 probe on shuffled labels.
+
+\ProbeTable
+
+\textbf{The probe beats every text and price baseline, modestly.} The shuffled control is at chance (AUROC \ShufAucCov),
+so the probes are not exploiting the protocol. The layer-20 probe separates covert rounds from rounds without intent with
+AUROC \PrAucCovTw\ (95\% CI \PrAucCovTwci), above the text monitor (\MonAucCov), the message classifier (\MsgAucCov), the
+price (\PriceAucCov) and the frozen probe (\FrozenAucCov), and every paired difference excludes zero (against the price
+$+$\DiffPriceCI; against the message classifier $+$\DiffMsgCI). At a 10\% false-positive rate it catches \PrTprTw\ of covert
+rounds (Table~\ref{tab:probe}, Figure~\ref{fig:probe}a--b). The layer-32 probe is weaker (\PrAucCovTT); its advantage over
+the price and the message classifier is not significant. The probe is not just reading the price: among rounds priced at
+\$17 or more, where the price says little (AUROC \PrStrHiPrice), the layer-20 probe still reaches \PrStrHiTw\ (\PrStrHiN\
+covert rounds).
+
+\textbf{At the thresholds fixed in advance it over-fires.} Calibrated at a 10\% false-positive rate on clean no-channel
+rounds, the probes catch \PrCaughtTT\ (layer 32) and \PrCaughtTw\ (layer 20) of covert rounds, but they also flag
+\PrFlagNoIntTT\ and \PrFlagNoIntTw\ of monitored rounds without verbalised intent (Figure~\ref{fig:probe}c), most of them
+priced at cartel levels (layer 20: \PrFlagHiTw\ of rounds at \$17 or more against \PrFlagLoTw\ below). A calibration set on
+unmonitored play does not transfer to monitored play. The extra flags are either a coordination state the model represents
+but its reasoning does not state, or false alarms; the judge's labels cannot tell them apart.
+
+\textbf{Where intent becomes readable.} In the baseline market, some agents were told to collude covertly; the monitor flags
+\SwCovText\ of their messages and the judge finds intent in \SwCovCot\ of their reasoning. A probe fit on natural play,
+which never saw them, separates their rounds from clean ones with AUROC \SwCovEarly\ at layer 8 but \SwCovTw\ at layer 20
+and \SwCovTT\ at layer 32, while held-out natural intent is readable at every depth (\SwIntTT\ at layer 32;
+Figure~\ref{fig:probe}d). Concealed intent becomes linearly readable only in the middle of the network.
+
+\textbf{A J-space reading.} In the double-auction market (\S\ref{sec:market2}), a J-lens readout of Qwen3-14B's reasoning
+workspace finds monitoring words among its ten top tokens in \MtJNone\ of turns without a monitor, \MtJTold\ when the
+sellers are told about one and \MtJFinedLo--\MtJFinedHi\ when they are fined (\MtJSilent\ under a monitor they are not told
+about; 108 turns per condition): the model's workspace registers being watched.
+
 
 % =========================================================================================================
 \section{Training it out: GRAFT and \graftpp}\label{sec:graft}
@@ -494,20 +579,25 @@ came from training, not from observation.
 \textbf{What should count as evidence of collusion?} Not the channel alone. Agents that cannot gain from colluding
 change their messages as much as agents that can, and watched cartels learn the vocabulary of compliance. Three streams
 together are more convincing than any one: prices above the same agents' no-channel level, reasoning that intends to
-coordinate, and an internal signal a probe trained on unmonitored behaviour can read. A platform that sees only messages
-has none of these, which argues for white-box defences at training time.
+coordinate, and an internal signal a probe trained on unmonitored behaviour can read. In the double auction the same
+message monitor is wrong in both directions, silent about cartels that keep their price and loud about sellers who talk
+like a cartel and sell at the competitive price, while the price flags every cartel built (\S\ref{sec:market2}). A
+platform that sees only messages has none of these, which argues for white-box defences at training time.
 
 \textbf{Can training keep collusion out?} Filtering training data with the text monitor teaches the model to hide.
 Gradient routing does not: routed on text it removes the cartel when the monitor can see it, and routed on activations
 (\graftpp) it removes about 60\% of what remains when the monitor cannot.
 
-\textbf{Limitations.} One model family at one size, a simulated logit market, and 5--10 seeds per cell. The max-profit and
+\textbf{Limitations.} Qwen3-14B throughout except the double-auction replication, which adds GPT-4.1; simulated markets;
+and 3--10 seeds per cell. The max-profit and
 testbed designs were tuned on unwatched play to make collusion likely, so they show what a cartel does when watched, not
-how often cartels arise. The monitor and judge are the same model as the agents, and probe labels come from that judge.
+how often cartels arise. The monitor and judge are the same model as the agents, and probe labels come from that judge; the probe evaluation
+rests on 10 monitored games, so its intervals are wide.
 The fine-tuned model's ``HQ'' citations are an artefact of how its training data were built. GRAFT is re-implemented in
 its fine-tuning form (LoRA instead of MLP adapters, plain AdamW instead of the split-moment optimiser, a separate anchor
 set whose low prices may contribute to mild over-correction), so our results speak to GRAFT-style routing rather than
-the official RL method. ``J-space monitoring'' here means supervised linear probes on activations.
+the official RL method. ``J-space monitoring'' here means supervised linear probes on activations, plus a J-lens readout
+in the double-auction market.
 
 % =========================================================================================================
 \section{Conclusion}
@@ -516,7 +606,8 @@ Watching AI agents changes what they say far more reliably than what they do. Un
 profit motive and a way to talk; told that someone is reading, they move their agreements to innocent-looking terms or
 abandon them, and agents with nothing to hide go quiet too. A model trained on its own profitable behaviour learns to
 keep the cartel and lose the evidence. What remains is in the prices and inside the model, and both can be read: a probe
-on activations catches most of what a text monitor misses, and training routed on what the model represents, rather
+on activations finds covert rounds better than any reader of the messages or prices, and training routed on what the
+model represents, rather
 than on what it says, removes most of the collusion that text-based routing leaves behind. All \Episodes\ games, with every message,
 score and reasoning trace, are browsable in the project's simulation explorer.
 

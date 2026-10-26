@@ -1,0 +1,178 @@
+% ---------------------------------------------------------------------------------------------------------
+% GRAFT++ paper, themed edition (the website's design): typography, colour and the chat-diagram environments.
+% Body set in PP Neue Montreal. Compile with LuaLaTeX. The NeurIPS-format edition uses preamble.tex.
+% ---------------------------------------------------------------------------------------------------------
+\usepackage[letterpaper, top=1.0in, bottom=1.0in, left=1.0in, right=1.0in, headsep=0.35in, footskip=0.45in]{geometry}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, calc, arrows.meta, shapes.misc, fit, backgrounds}
+\usepackage[most]{tcolorbox}
+\usepackage{luacolor}
+\usepackage{lua-ul}
+\usepackage{booktabs, tabularx, array, multirow}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption, subcaption}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage[section,above,below]{placeins}
+\usepackage[numbers, sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+
+% ---- fonts (files in ./fonts)
+\setmainfont{PP Neue Montreal}[Path=fonts/, Extension=.otf, UprightFont=ppneuemontreal-book,
+  BoldFont=ppneuemontreal-medium, ItalicFont=ppneuemontreal-italic, BoldItalicFont=ppneuemontreal-semibolditalic,
+  Numbers=Proportional]
+\setsansfont{PP Neue Montreal}[Path=fonts/, Extension=.otf, UprightFont=ppneuemontreal-book,
+  BoldFont=ppneuemontreal-medium, ItalicFont=ppneuemontreal-italic, BoldItalicFont=ppneuemontreal-semibolditalic]
+\setmonofont{JetBrains Mono}[Path=fonts/, Extension=.ttf, UprightFont=JetBrainsMono-Regular,
+  BoldFont=JetBrainsMono-Medium, Scale=0.86]
+\newfontfamily\editorial{PP Editorial New}[Path=fonts/, Extension=.otf, UprightFont=PPEditorialNew-Regular,
+  ItalicFont=PPEditorialNew-Italic]
+\newfontfamily\editorialthin{PP Editorial New Ultralight}[Path=fonts/, Extension=.otf,
+  UprightFont=PPEditorialNew-Ultralight, ItalicFont=PPEditorialNew-UltralightItalic]
+\newfontfamily\montrealthin{PP Neue Montreal Thin}[Path=fonts/, Extension=.otf, UprightFont=ppneuemontreal-thin]
+\setmathfont{Fira Math}[Scale=0.94]
+\linespread{1.2}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.62em}
+\frenchspacing
+\emergencystretch=2em
+
+% ---- colour (the website's palette)
+\definecolor{brand}{HTML}{1C2DF7}
+\definecolor{brandsoft}{HTML}{898FF0}
+\definecolor{brandpale}{HTML}{EEF0FF}
+\definecolor{ink}{HTML}{0B0B0B}
+\definecolor{ink2}{HTML}{4A4A4A}
+\definecolor{muted}{HTML}{8A8A8A}
+\definecolor{hair}{HTML}{E1E0D9}
+\definecolor{paper2}{HTML}{F3F3F1}
+\definecolor{cnocomm}{HTML}{139A74}
+\definecolor{cunwatched}{HTML}{D42A2A}
+\definecolor{cwatched}{HTML}{1C2DF7}
+\definecolor{cpenalty}{HTML}{E39B00}
+\definecolor{sone}{HTML}{9DA3FA}
+\definecolor{stwo}{HTML}{5E69F8}
+\definecolor{sthree}{HTML}{1C2DF7}
+\definecolor{sfour}{HTML}{0C1690}
+\color{ink}
+
+\hypersetup{colorlinks=true, linkcolor=brand, citecolor=brand, urlcolor=brand, pdftitle={GRAFT++: Reducing Collusive Behavior in Agents via Localized Training and J-space Monitoring},
+  pdfauthor={Jayden Jeong, Alfredo Frontera, Jake Li, Rohan Dash}}
+
+% ---- headings: blue serif numeral + Neue Montreal medium title
+\titleformat{\section}{\normalfont\fontsize{17}{20}\selectfont\bfseries}
+  {\llap{\makebox[2.2em][l]{\mdseries\editorial\color{brand}\fontsize{17}{20}\selectfont\thesection}}}{0pt}{}
+\titlespacing*{\section}{0pt}{2.2em}{0.6em}
+\titleformat{\subsection}{\normalfont\fontsize{11.5}{14}\selectfont\bfseries}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{1.5em}{0.25em}
+\titleformat{\paragraph}[runin]{\normalfont\bfseries}{}{0pt}{}[.]
+\titlespacing*{\paragraph}{0pt}{0.6em}{0.5em}
+
+% ---- running heads
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\small\bfseries\color{brand}GRAFT++}
+\fancyhead[R]{\small\color{muted}\nouppercase{\leftmark}}
+\fancyfoot[R]{\small\color{muted}\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[R]{\small\color{muted}\thepage}}
+
+% ---- captions
+\DeclareCaptionFont{capink}{\color{ink2}}
+\captionsetup{font={small, capink}, labelfont={bf, color=ink}, labelsep=quad, justification=raggedright,
+  singlelinecheck=false, skip=6pt}
+\captionsetup[figure]{name=Figure}
+
+% ---- lists
+\setlist{nosep, leftmargin=1.2em, itemsep=0.35em}
+\setlist[enumerate]{label=\color{brand}\arabic*}
+
+% ---- small helpers
+\newcommand{\kicker}[1]{{\ttfamily\fontsize{7.5}{9}\selectfont\color{muted}\MakeUppercase{#1}}}
+\newcommand{\condot}[1]{\tikz[baseline=-0.55ex]\fill[c#1] (0,0) circle (2.3pt);}
+\newcommand{\Dx}{\ensuremath{\Delta}}
+\newcommand{\montreal}{\sffamily}
+\newcommand{\graftpp}{GRAFT\texttt{++}}
+\newcommand{\hl}[1]{\highLight[brand!16]{#1}}
+\newcommand{\pq}[1]{\begin{center}\begin{minipage}{0.86\linewidth}\centering\editorialthin\fontsize{20}{23}\selectfont #1\end{minipage}\end{center}}
+
+% ---- key-number callout row
+\newtcolorbox{numbers}{enhanced, colback=white, colframe=white, boxrule=0pt, left=0pt, right=0pt, top=4pt,
+  bottom=2pt, borderline north={0.6pt}{0pt}{hair}, borderline south={0.6pt}{0pt}{hair}}
+\newcommand{\bignum}[2]{\begin{minipage}[t]{0.235\linewidth}{\montrealthin\fontsize{28}{30}\selectfont #1}\\[2pt]
+  {\fontsize{8}{10}\selectfont\color{ink2}#2}\end{minipage}}
+
+% ---------------------------------------------------------------------------------------------------------
+% Chat diagrams
+% ---------------------------------------------------------------------------------------------------------
+% \begin{transcript}{<condition key>}{<condition label>}{<market · seed>} ... \end{transcript}
+\newtcolorbox{transcript}[3]{enhanced, colback=white, colframe=hair, boxrule=0.6pt, arc=5pt,
+  left=10pt, right=10pt, top=8pt, bottom=8pt, fontupper=\fontsize{8.6}{11.2}\selectfont,
+  title={\tikz[baseline=-0.55ex]\fill[c#1] (0,0) circle (2.4pt);\hspace{5pt}\textcolor{ink}{#2}\hfill
+    \textcolor{muted}{#3}}, coltitle=ink, colbacktitle=paper2, fonttitle=\fontsize{8}{10}\selectfont,
+  titlerule=0pt, toptitle=3pt, bottomtitle=3pt, before skip=6pt, after skip=8pt}
+
+\newcommand{\tround}[1]{\par\vspace{3pt}\noindent{\ttfamily\fontsize{6.8}{8}\selectfont\color{muted}\MakeUppercase{#1}}%
+  \hspace{6pt}{\color{hair}\leaders\hrule height 2.6pt depth -2.1pt\hfill}\par\vspace{1pt}}
+
+\newtcbox{\bubbleL}{enhanced, nobeforeafter, colback=paper2, colframe=paper2, boxrule=0pt,
+  arc=8pt, sharp corners=southwest, left=7pt, right=7pt, top=4pt, bottom=4pt}
+\newtcbox{\bubbleR}{enhanced, nobeforeafter, colback=brand, colframe=brand, boxrule=0pt, coltext=white,
+  arc=8pt, sharp corners=southeast, left=7pt, right=7pt, top=4pt, bottom=4pt}
+\newtcbox{\bubbleC}{enhanced, nobeforeafter, colback=brandpale, colframe=brandpale, boxrule=0pt,
+  arc=8pt, sharp corners=southwest, left=7pt, right=7pt, top=4pt, bottom=4pt}
+
+\newcommand{\speaker}[2]{{\fontsize{6.8}{8}\selectfont\color{muted}#1\ifstrempty{#2}{}{\ · #2}}}
+\newcommand{\msgL}[3]{\par\vspace{2pt}\noindent\speaker{#1}{#2}\par\vspace{1pt}\noindent
+  \bubbleL{\parbox{0.72\linewidth}{\raggedright #3}}\par}
+\newcommand{\msgC}[3]{\par\vspace{2pt}\noindent\speaker{#1}{#2}\par\vspace{1pt}\noindent
+  \bubbleC{\parbox{0.72\linewidth}{\raggedright #3}}\par}
+\newcommand{\msgR}[3]{\par\vspace{2pt}\noindent\hfill\speaker{#1}{#2}\par\vspace{1pt}\noindent\hfill
+  \bubbleR{\parbox{0.72\linewidth}{\raggedright #3}}\par}
+
+\newcommand{\tprice}[2]{{\color{muted}#1}\,{\bfseries #2}\hspace{10pt}}
+\newcommand{\tmonitor}[2]{{\color{muted}Monitor}\,\tikz[baseline=-0.6ex]\fill[s\ifcase#1\or one\or two\or three\or four\fi]
+  (0,0) rectangle (5pt,5pt);\,#1/4 · #2}
+\newcommand{\toutcome}[2]{\par\vspace{3pt}{\color{hair}\rule{\linewidth}{0.5pt}}\par\vspace{-2pt}
+  \noindent{\fontsize{7.8}{10}\selectfont{\color{muted}Prices posted}\hspace{8pt}#1\hfill#2}\par}
+\newcommand{\tnote}[1]{\par\vspace{3pt}{\fontsize{7.4}{9.4}\selectfont\color{ink2}\itshape #1}\par}
+
+% reasoning cards: the private scratchpad, set in the editorial serif with highlighted phrases
+\newtcolorbox{reasoningcard}[3]{enhanced, colback=white, colframe=hair, boxrule=0.6pt, arc=5pt,
+  left=7pt, right=7pt, top=4pt, bottom=5pt, fontupper=\fontsize{7.0}{8.8}\selectfont,
+  title={\tikz[baseline=-0.55ex]\fill[c#1] (0,0) circle (2.4pt);\hspace{5pt}\textcolor{ink}{#2}\hfill
+    \textcolor{muted}{#3}}, coltitle=ink, colbacktitle=paper2, fonttitle=\fontsize{7.6}{9.6}\selectfont,
+  titlerule=0pt, toptitle=3pt, bottomtitle=3pt, before skip=6pt, after skip=8pt}
+\newcommand{\thought}[1]{{\ttfamily\fontsize{6.6}{8}\selectfont\color{muted}PRIVATE REASONING}\par\vspace{2pt}
+  {\editorial\fontsize{7.6}{9.2}\selectfont\color{ink!85}#1\par}}
+\newcommand{\posted}[1]{\par\vspace{3pt}{\ttfamily\fontsize{6.2}{7.4}\selectfont\color{muted}POSTED TO THE CHANNEL}\par
+  \vspace{1pt}{\fontsize{7.0}{8.7}\selectfont\color{ink2}\leftskip=6pt
+  \llap{\color{hair}\rule[-2pt]{1.2pt}{9pt}\hspace{4.8pt}}#1\par}}
+
+% prompt excerpt
+\newtcolorbox{promptbox}[1]{enhanced, colback=paper2, colframe=paper2, boxrule=0pt, arc=4pt, left=9pt, right=9pt,
+  top=6pt, bottom=6pt, fontupper=\ttfamily\fontsize{7.4}{10}\selectfont,
+  title={\ttfamily\fontsize{6.6}{8}\selectfont\MakeUppercase{#1}}, coltitle=muted, colbacktitle=paper2,
+  titlerule=0pt, toptitle=5pt, bottomtitle=0pt, before skip=4pt, after skip=6pt}
+
+% float placement
+\renewcommand{\topfraction}{0.97}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.03}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{5}
+
+% finding boxes
+\newtcolorbox{finding}{enhanced, colback=brandpale, colframe=brandpale, boxrule=0pt, arc=5pt, left=11pt,
+  right=11pt, top=8pt, bottom=8pt, before skip=8pt, after skip=10pt}
+\newenvironment{takeaway}{\begin{finding}}{\end{finding}}

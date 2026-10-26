@@ -1,4 +1,4 @@
-"""Export simulation data for the website (website/).
+"""Export simulation data for the website (scripts/site_path.py: ../hawthorne-site, or $HAWTHORNE_SITE).
 
     python scripts/export_site.py
 
@@ -23,11 +23,13 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from site_path import site_dir  # noqa: E402
 sys.path.insert(0, str(ROOT))
 from hawthorne.market import MarketParams, equilibria  # noqa: E402
 from hawthorne.metrics import load_episodes  # noqa: E402
 
-SITE = ROOT / "website"
+SITE = site_dir()
 OUT_EP = SITE / "public" / "data" / "ep"
 
 GROUPS = [  # (results dir, group id, label)

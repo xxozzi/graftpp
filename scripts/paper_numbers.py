@@ -18,10 +18,12 @@ import numpy as np
 from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from site_path import site_dir  # noqa: E402
 sys.path.insert(0, str(ROOT))
 OUT = ROOT / "report" / "paper" / "generated"
-S = json.load(open(ROOT / "website" / "src" / "data" / "story.json"))
-INDEX = json.load(open(ROOT / "website" / "public" / "data" / "index.json"))
+S = json.load(open(site_dir() / "src" / "data" / "story.json"))
+INDEX = json.load(open(site_dir() / "public" / "data" / "index.json"))
 
 
 def f2(v):
@@ -73,7 +75,7 @@ def write_site_graft(blind):
                                                        equal_var=False).pvalue) for c in conds],
                        "basePooled": round(float(np.mean([base[c]["delta"] for c in conds])), 3)}
     out["routing"] = {"candidates": 813, "anchors": 220, "graftForget": 0, "graftppForget": 152, "covert": 248}
-    json.dump(out, open(ROOT / "website" / "src" / "data" / "graft.json", "w"), indent=1)
+    json.dump(out, open(site_dir() / "src" / "data" / "graft.json", "w"), indent=1)
 
 
 def main():

@@ -23,9 +23,11 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+from site_path import site_dir  # noqa: E402
 sys.path.insert(0, str(ROOT))
 OUT = ROOT / "report" / "paper" / "figs"
-STORY = json.load(open(ROOT / "website" / "src" / "data" / "story.json"))
+STORY = json.load(open(site_dir() / "src" / "data" / "story.json"))
 
 FONT_DIR = ROOT / "report" / "paper" / "fonts"
 for f in FONT_DIR.glob("ppneuemontreal-*.otf"):
@@ -317,30 +319,7 @@ def fig_pressure():
     save(fig, "pressure")
 
 
-# ---------------------------------------------------------------- 6. the probe
-def fig_probe():
-    P = STORY["probe"]
-    rows = [("Text monitor", "reads the posted messages", P["L32"]["textDetectCovert"], MUTED),
-            ("Probe, frozen", "fit in the baseline market", P["frozen"]["detectCovert"], "#9da3fa"),
-            ("Probe, layer 32", "fit on unwatched games only", P["L32"]["detectCovert"], BLUE),
-            ("Probe, layer 20", "fit on unwatched games only", P["L20"]["detectCovert"], BLUE)]
-    fig, ax = plt.subplots(figsize=(W, 1.6))
-    for i, (lab, sub, v, col) in enumerate(rows):
-        ax.barh(i, max(v, 0.003), height=0.5, color=col)
-        ax.text(max(v, 0.003) + 0.012, i, pct(v), va="center", fontsize=8.4, fontweight="medium")
-        ax.text(-0.02, i - 0.08, lab, ha="right", va="center", fontsize=7.6, color=INK, transform=ax.transData)
-        ax.text(-0.02, i + 0.24, sub, ha="right", va="center", fontsize=6.2, color=MUTED, transform=ax.transData)
-    ax.set_yticks([])
-    ax.invert_yaxis()
-    ax.set_xlim(0, 1)
-    ax.set_xticks([0, 0.25, 0.5, 0.75, 1])
-    ax.set_xticklabels(["0", "25%", "50%", "75%", "100%"])
-    ax.grid(axis="x", color=GRID, lw=0.6)
-    ax.grid(axis="y", visible=False)
-    ax.spines["bottom"].set_visible(False)
-    ax.set_title(f"Covert rounds caught (reasoning plans coordination, message looks clean); "
-                 f"{P['L32']['covertRounds']} rounds, collusive testbed", pad=8)
-    save(fig, "probe")
+# 6. the probe: scripts/probe_analysis.py writes figs/probe.pdf (detectors, baselines, controls)
 
 
 # ---------------------------------------------------------------- 7. the dilemma (method)
@@ -441,6 +420,5 @@ if __name__ == "__main__":
     fig_control()
     fig_goals()
     fig_pressure()
-    fig_probe()
     fig_dilemma()
     fig_graft()
