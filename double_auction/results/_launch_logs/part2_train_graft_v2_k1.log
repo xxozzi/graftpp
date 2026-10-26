@@ -1,0 +1,54 @@
+✓ Initialized. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-NCsGQ1KWHvrOrf3mImZ5tS
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\src\part2\modal_graft.py
+├── ✓ Uploaded C:\Users\fabia\dev\apart-collusion-sprint\results\part2\graft
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\vendor\GRAFT\sft\scripts
+├── ✓ Created Function train.
+├── ✓ Created Function merge.
+└── ✓ Created Function check_env.
+$ python -m scripts.gr.train_gr --model-name Qwen/Qwen3-1.7B --run-name graft_v2_k1 --epochs 3 --max-steps -1 --max-length 6144 --lr 0.0001 --filter-overlong --no-evals --kappa 1.0 --classifier-retain-recall 1.0
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[RANK 0] Detected kernel version 4.19.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+loading Qwen/Qwen3-1.7B
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+trainable params: 68.8M  adapter scale: retain=0.8000, forget=0.8000  match_rslora=False  use_general_adapter=False
+
+Tokenizing gr_train_forget.jsonl (num_proc=8):   2%|▏         | 3/164 [00:03<02:56,  1.09s/ examples]
+
+
+Tokenizing gr_train_retain.jsonl (num_proc=8):  15%|█▍        | 233/1584 [00:06<00:26, 51.36 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  81%|████████▏ | 1290/1584 [00:18<00:02, 98.95 examples/s]
+
+
+
+
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  12%|█▎        | 2/16 [00:03<00:25,  1.84s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  25%|██▌       | 4/16 [00:06<00:17,  1.44s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  38%|███▊      | 6/16 [00:08<00:13,  1.33s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  50%|█████     | 8/16 [00:10<00:10,  1.30s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  56%|█████▋    | 9/16 [00:13<00:11,  1.60s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  75%|███████▌  | 12/16 [00:16<00:04,  1.22s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8):  88%|████████▊ | 14/16 [00:18<00:02,  1.23s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8): 100%|██████████| 16/16 [00:20<00:00,  1.22s/ examples]
+Tokenizing gr_eval_forget.jsonl (eval forget) (num_proc=8): 100%|██████████| 16/16 [00:21<00:00,  1.32s/ examples]
+
+train examples: 1748 (forget=164, unclassified=1250, retain=334) [classifier_retain_recall=1.0]
+world_size=1 step_size_global=16 step_size_local=16 steps/epoch=109 total_optim_steps=327 warmup=32
+skipping step-0 eval (--no-evals)
+starting training
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+epoch 1 complete; skipping eval (per flags)
+saved epoch-1 checkpoint to /ckpts/graft_v2_k1/graft_v2_k1/checkpoint-epoch-1
+epoch 2 complete; skipping eval (per flags)
+saved epoch-2 checkpoint to /ckpts/graft_v2_k1/graft_v2_k1/checkpoint-epoch-2
+epoch 3 complete; skipping eval (per flags)
+saved epoch-3 checkpoint to /ckpts/graft_v2_k1/graft_v2_k1/checkpoint-epoch-3
+saved adapter to /ckpts/graft_v2_k1/graft_v2_k1
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-NCsGQ1KWHvrOrf3mImZ5tS

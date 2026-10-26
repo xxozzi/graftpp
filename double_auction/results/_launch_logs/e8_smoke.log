@@ -1,0 +1,81 @@
+✓ Initialized. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-0kjOoDfGrAxqG6gz57Bw01
+Building image im-nslZVNUYfsZY7SmbSNZWf3
+
+=> Step 0: FROM base
+
+=> Step 1: ENV HF_HUB_ENABLE_HF_TRANSFER=1
+Saving image...
+Image saved, took 552.24ms
+
+Built image im-nslZVNUYfsZY7SmbSNZWf3 in 1.07s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\src\e8_directions_modal.py
+└── ✓ Created Function Reader.*.
+1 runs, 3 turns, 1 chunks
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/443 [00:00<?, ?it/s]
+[1ALoading weights:   6%|▌         | 25/443 [00:00<00:01, 238.78it/s]
+[1ALoading weights:  13%|█▎        | 59/443 [00:00<00:01, 262.41it/s]
+[1ALoading weights:  19%|█▉        | 86/443 [00:00<00:01, 207.09it/s]
+[1ALoading weights:  29%|██▊       | 127/443 [00:00<00:01, 258.64it/s]
+[1ALoading weights:  35%|███▌      | 156/443 [00:00<00:01, 266.25it/s]
+[1ALoading weights:  42%|████▏     | 184/443 [00:00<00:01, 253.43it/s]
+[1ALoading weights:  47%|████▋     | 210/443 [00:00<00:01, 220.84it/s]
+[1ALoading weights:  56%|█████▌    | 249/443 [00:01<00:00, 257.16it/s]
+[1ALoading weights:  62%|██████▏   | 276/443 [00:01<00:00, 221.29it/s]
+[1ALoading weights:  68%|██████▊   | 300/443 [00:01<00:00, 213.10it/s]
+[1ALoading weights:  73%|███████▎  | 323/443 [00:01<00:00, 216.31it/s]
+[1ALoading weights:  79%|███████▉  | 352/443 [00:01<00:00, 228.32it/s]
+[1ALoading weights:  85%|████████▍ | 376/443 [00:01<00:00, 186.90it/s]
+[1ALoading weights:  92%|█████████▏| 407/443 [00:01<00:00, 194.47it/s]
+[1ALoading weights: 100%|██████████| 443/443 [00:01<00:00, 230.58it/s]
+an error occurred during closing of asynchronous generator <async_generator object Synchronizer._run_generator_async at 0x00000253B48FDCC0>
+asyncgen: <async_generator object Synchronizer._run_generator_async at 0x00000253B48FDCC0>
+Traceback (most recent call last):
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\modal\_utils\async_utils.py", line 858, in __iter__
+    yield from run_async_gen(runner, self._async_iterable)
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+RuntimeError: aclose(): asynchronous generator is already running
+an error occurred during closing of asynchronous generator <async_generator object async_merge at 0x00000253850E8320>
+asyncgen: <async_generator object async_merge at 0x00000253850E8320>
+Traceback (most recent call last):
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\modal\_utils\async_utils.py", line 858, in __iter__
+    yield from run_async_gen(runner, self._async_iterable)
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+RuntimeError: aclose(): asynchronous generator is already running
+20261024_141213_E1_compete_qwen3-14b_s0: 3 turns -> (3, 3, 5120); errors 0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-0kjOoDfGrAxqG6gz57Bw01
+Task was destroyed but it is pending!
+task: <Task cancelling name='Task-808' coro=<wait_for() running at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py:476> wait_for=<Future finished result=None>>
+Future exception was never retrieved
+future: <Future finished exception=StopAsyncIteration()>
+Traceback (most recent call last):
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\synchronicity\synchronizer.py", line 562, in wrapper_coro
+    return await inner_task
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\synchronicity\synchronizer.py", line 351, in coro_wrapped
+    value = await coro
+            ^^^^^^^^^^
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\synchronicity\exceptions.py", line 33, in coro_wrapped
+    return await coro
+           ^^^^^^^^^^
+StopAsyncIteration
+Task was destroyed but it is pending!
+task: <Task pending name='Task-812' coro=<<async_generator_athrow without __name__>()> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+Task was destroyed but it is pending!
+task: <Task cancelling name='Task-222' coro=<async_merge.<locals>.producer() running at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\modal\_utils\async_utils.py:1093> wait_for=<Future finished result=None> cb=[gather.<locals>._done_callback() at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py:764]>

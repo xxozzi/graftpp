@@ -1,0 +1,21 @@
+== deploy base 16:13
+    └── https://fabianfrontera--caiac-serve-base-serve.us-east.modal.run 
+✓ App deployed in 4.078s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-base
+== deploy sft_all_v2 16:13
+    └── https://fabianfrontera--caiac-serve-sft-all-v2-serve.us-east.modal.run 
+✓ App deployed in 3.160s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-sft_all_v2
+== deploy sft_filtered_v2 16:13
+✓ App deployed in 3.293s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-sft_filtered_v2
+== deploy graft_v2 16:13
+    └── https://fabianfrontera--caiac-serve-graft-v2-serve.us-east.modal.run 
+✓ App deployed in 3.514s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-graft_v2
+== model tests 16:13
+base -> [('caiac/graft', '/ckpts/graft/merged')] :: {"object":"list","data":[{"id":"caiac/graft","object":"model","created":1792872806,"owned_by":"vllm","root":"/ckpts/graft/merged","parent":null,"max_model_len":
+graft-v2 -> [('caiac/graft_v2', '/ckpts/graft_v2/merged')] :: {"object":"list","data":[{"id":"caiac/graft_v2","object":"model","created":1792872889,"owned_by":"vllm","root":"/ckpts/graft_v2/merged","parent":null,"max_model
+sft-all-v2 -> [('caiac/sft_all_v2', '/ckpts/sft_all_v2/merged')] :: {"object":"list","data":[{"id":"caiac/sft_all_v2","object":"model","created":1792872902,"owned_by":"vllm","root":"/ckpts/sft_all_v2/merged","parent":null,"max_m
+sft-filtered-v2 -> [('caiac/sft_filtered_v2', '/ckpts/sft_filtered_v2/merged')] :: {"object":"list","data":[{"id":"caiac/sft_filtered_v2","object":"model","created":1792872924,"owned_by":"vllm","root":"/ckpts/sft_filtered_v2/merged","parent":n
+== done 16:15

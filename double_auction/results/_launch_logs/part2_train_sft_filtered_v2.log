@@ -1,0 +1,40 @@
+✓ Initialized. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-Y2bHiI02FD16s6AX1RSnEl
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\src\part2\modal_graft.py
+├── ✓ Uploaded C:\Users\fabia\dev\apart-collusion-sprint\results\part2\graft
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\vendor\GRAFT\sft\scripts
+├── ✓ Created Function train.
+├── ✓ Created Function merge.
+└── ✓ Created Function check_env.
+$ python -m scripts.gr.train_gr --model-name Qwen/Qwen3-1.7B --run-name sft_filtered_v2 --epochs 3 --max-steps -1 --max-length 6144 --lr 0.0001 --filter-overlong --no-evals --no-routing
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[RANK 0] Detected kernel version 4.19.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+loading Qwen/Qwen3-1.7B
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+trainable params: 68.8M  adapter scale: retain=0.8000, forget=0.8000  match_rslora=False  use_general_adapter=False
+
+Tokenizing gr_train_retain.jsonl (num_proc=8):  56%|█████▌    | 888/1584 [00:10<00:05, 116.05 examples/s]
+
+
+
+
+train examples: 1584 (forget=0, unclassified=1584, retain=0) [classifier_retain_recall=0.5]
+world_size=1 step_size_global=16 step_size_local=16 steps/epoch=99 total_optim_steps=297 warmup=29
+skipping step-0 eval (--no-evals)
+starting training
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+epoch 1 complete; skipping eval (per flags)
+saved epoch-1 checkpoint to /ckpts/sft_filtered_v2/sft_filtered_v2/checkpoint-epoch-1
+epoch 2 complete; skipping eval (per flags)
+saved epoch-2 checkpoint to /ckpts/sft_filtered_v2/sft_filtered_v2/checkpoint-epoch-2
+epoch 3 complete; skipping eval (per flags)
+saved epoch-3 checkpoint to /ckpts/sft_filtered_v2/sft_filtered_v2/checkpoint-epoch-3
+saved adapter to /ckpts/sft_filtered_v2/sft_filtered_v2
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-Y2bHiI02FD16s6AX1RSnEl

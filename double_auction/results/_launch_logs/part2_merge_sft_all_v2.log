@@ -1,0 +1,27 @@
+✓ Initialized. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-3ekSUTSLOvNf9vPKwWpXi5
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\src\part2\modal_graft.py
+├── ✓ Uploaded C:\Users\fabia\dev\apart-collusion-sprint\results\part2\graft
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\vendor\GRAFT\sft\scripts
+├── ✓ Created Function train.
+├── ✓ Created Function merge.
+└── ✓ Created Function check_env.
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+
+[1AFetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files: 100%|██████████| 12/12 [00:00<00:00, 828.38it/s]
+$ python scripts/eval/merge_adapter.py --base-model-dir /__modal/volumes/vo-6xklqYG5w71ATrMdqSZYN3/hub/models--Qwen--Qwen3-1.7B/snapshots/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e --adapter-ckpt /ckpts/sft_all_v2/sft_all_v2/adapter_state_dict.pt --output-dir /ckpts/sft_all_v2/merged --forget-scale 1.0
+intermediate_size: 6144 -> 6272
+adapter: 168 tensors
+effective scales: retain=5.656854 forget=5.656854
+shards: 2
+  processing model-00001-of-00002.safetensors ...
+  processing model-00002-of-00002.safetensors ...
+Wrote merged model to /ckpts/sft_all_v2/merged
+Total bytes: 4.20 GB
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-3ekSUTSLOvNf9vPKwWpXi5

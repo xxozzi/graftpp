@@ -1,0 +1,140 @@
+✓ Initialized. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-MEi1ZskOOzXoBp4J0XgCxH
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\src\part2\modal_graft.py
+├── ✓ Uploaded C:\Users\fabia\dev\apart-collusion-sprint\results\part2\graft
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\vendor\GRAFT\sft\scripts
+├── ✓ Created Function train.
+├── ✓ Created Function merge.
+└── ✓ Created Function check_env.
+$ python -m scripts.gr.train_gr --model-name Qwen/Qwen3-1.7B --run-name sft_filtered --epochs 3 --max-steps -1 --max-length 6144 --lr 0.0001 --filter-overlong --no-evals --no-routing
+loading Qwen/Qwen3-1.7B
+trainable params: 68.8M  adapter scale: retain=0.8000, forget=0.8000  match_rslora=False  use_general_adapter=False
+train examples: 1379 (forget=0, unclassified=1379, retain=0) [classifier_retain_recall=0.5]
+world_size=1 step_size_global=16 step_size_local=16 steps/epoch=86 total_optim_steps=258 warmup=25
+skipping step-0 eval (--no-evals)
+starting training
+epoch 1 complete; skipping eval (per flags)
+saved epoch-1 checkpoint to /ckpts/sft_filtered/sft_filtered/checkpoint-epoch-1
+epoch 2 complete; skipping eval (per flags)
+saved epoch-2 checkpoint to /ckpts/sft_filtered/sft_filtered/checkpoint-epoch-2
+epoch 3 complete; skipping eval (per flags)
+saved epoch-3 checkpoint to /ckpts/sft_filtered/sft_filtered/checkpoint-epoch-3
+saved adapter to /ckpts/sft_filtered/sft_filtered
+
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+[RANK 0] Detected kernel version 4.19.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+Loading weights:   8%|▊         | 25/311 [00:00<00:01, 162.95it/s]
+Loading weights:  14%|█▎        | 42/311 [00:00<00:02, 122.16it/s]
+Loading weights:  20%|██        | 63/311 [00:00<00:01, 146.32it/s]
+Loading weights:  29%|██▉       | 90/311 [00:00<00:01, 169.59it/s]
+Loading weights:  39%|███▉      | 121/311 [00:00<00:00, 207.72it/s]
+Loading weights:  46%|████▌     | 143/311 [00:00<00:00, 185.37it/s]
+Loading weights:  52%|█████▏    | 163/311 [00:00<00:00, 165.36it/s]
+Loading weights: 100%|██████████| 311/311 [00:00<00:00, 316.81it/s]
+
+Tokenizing gr_train_retain.jsonl (num_proc=8):   0%|          | 0/1379 [00:00<?, ? examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   0%|          | 5/1379 [00:03<17:49,  1.28 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   2%|▏         | 26/1379 [00:03<02:36,  8.66 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   3%|▎         | 46/1379 [00:04<01:14, 17.80 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   5%|▍         | 65/1379 [00:04<00:45, 28.59 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   6%|▋         | 87/1379 [00:04<00:29, 44.34 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   8%|▊         | 109/1379 [00:04<00:20, 62.84 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):   9%|▉         | 131/1379 [00:04<00:14, 83.43 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  11%|█         | 152/1379 [00:04<00:11, 102.47 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  13%|█▎        | 173/1379 [00:04<00:14, 85.98 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  14%|█▍        | 190/1379 [00:06<00:34, 34.13 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  15%|█▌        | 212/1379 [00:06<00:24, 47.25 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  17%|█▋        | 239/1379 [00:06<00:16, 67.06 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  19%|█▉        | 264/1379 [00:06<00:12, 87.38 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  22%|██▏       | 298/1379 [00:06<00:09, 114.49 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  23%|██▎       | 321/1379 [00:06<00:08, 130.61 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  25%|██▍       | 342/1379 [00:06<00:07, 141.33 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  26%|██▋       | 362/1379 [00:08<00:26, 37.87 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  27%|██▋       | 379/1379 [00:08<00:21, 46.51 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  29%|██▉       | 398/1379 [00:08<00:16, 58.59 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  30%|███       | 414/1379 [00:08<00:13, 69.34 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  32%|███▏      | 436/1379 [00:09<00:10, 89.17 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  33%|███▎      | 459/1379 [00:09<00:08, 110.21 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  35%|███▌      | 484/1379 [00:09<00:06, 132.49 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  37%|███▋      | 507/1379 [00:09<00:05, 150.55 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  39%|███▉      | 536/1379 [00:10<00:19, 42.46 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  40%|████      | 555/1379 [00:11<00:15, 52.51 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  42%|████▏     | 575/1379 [00:11<00:12, 65.08 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  44%|████▍     | 605/1379 [00:11<00:08, 86.47 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  45%|████▌     | 624/1379 [00:11<00:07, 98.88 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  47%|████▋     | 647/1379 [00:11<00:06, 119.00 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  49%|████▊     | 672/1379 [00:11<00:05, 129.16 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  50%|█████     | 691/1379 [00:11<00:06, 104.37 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  51%|█████▏    | 707/1379 [00:13<00:17, 37.54 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  53%|█████▎    | 727/1379 [00:13<00:13, 49.29 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  54%|█████▍    | 749/1379 [00:13<00:09, 65.21 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  56%|█████▌    | 769/1379 [00:13<00:07, 80.88 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  57%|█████▋    | 787/1379 [00:13<00:06, 94.33 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  59%|█████▊    | 808/1379 [00:13<00:05, 113.45 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  61%|██████    | 840/1379 [00:13<00:03, 138.83 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  62%|██████▏   | 859/1379 [00:14<00:03, 145.54 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  64%|██████▍   | 881/1379 [00:15<00:12, 40.82 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  66%|██████▌   | 906/1379 [00:15<00:08, 55.96 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  67%|██████▋   | 929/1379 [00:15<00:06, 72.07 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  69%|██████▉   | 953/1379 [00:15<00:04, 91.74 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  71%|███████   | 976/1379 [00:15<00:03, 109.97 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  73%|███████▎  | 1000/1379 [00:16<00:02, 131.79 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  74%|███████▍  | 1022/1379 [00:16<00:02, 148.57 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  77%|███████▋  | 1055/1379 [00:17<00:07, 40.95 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  78%|███████▊  | 1078/1379 [00:17<00:05, 52.85 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  80%|███████▉  | 1101/1379 [00:18<00:04, 67.50 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  82%|████████▏ | 1132/1379 [00:18<00:02, 87.97 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  85%|████████▍ | 1169/1379 [00:18<00:01, 115.06 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  86%|████████▋ | 1191/1379 [00:18<00:01, 129.39 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  89%|████████▉ | 1224/1379 [00:19<00:03, 51.10 examples/s] 
+Tokenizing gr_train_retain.jsonl (num_proc=8):  91%|█████████ | 1248/1379 [00:19<00:02, 64.08 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  92%|█████████▏| 1274/1379 [00:20<00:01, 81.19 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  94%|█████████▍| 1301/1379 [00:20<00:00, 102.04 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  96%|█████████▌| 1327/1379 [00:20<00:00, 123.52 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8):  98%|█████████▊| 1350/1379 [00:20<00:00, 139.56 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8): 100%|█████████▉| 1374/1379 [00:20<00:00, 157.25 examples/s]
+Tokenizing gr_train_retain.jsonl (num_proc=8): 100%|██████████| 1379/1379 [00:20<00:00, 66.12 examples/s] 
+
+Filter (num_proc=8):   0%|          | 0/1379 [00:00<?, ? examples/s]
+Filter (num_proc=8):  13%|█▎        | 173/1379 [00:00<00:03, 309.18 examples/s]
+Filter (num_proc=8):  25%|██▌       | 346/1379 [00:00<00:01, 591.82 examples/s]
+Filter (num_proc=8):  50%|█████     | 691/1379 [00:00<00:00, 1136.03 examples/s]
+Filter (num_proc=8):  75%|███████▌  | 1035/1379 [00:00<00:00, 1502.01 examples/s]
+Filter (num_proc=8): 100%|██████████| 1379/1379 [00:01<00:00, 1238.32 examples/s]
+
+Flattening the indices:   0%|          | 0/1379 [00:00<?, ? examples/s]
+Flattening the indices: 100%|██████████| 1379/1379 [00:00<00:00, 12837.44 examples/s]
+Flattening the indices: 100%|██████████| 1379/1379 [00:00<00:00, 12508.05 examples/s]
+
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):   0%|          | 0/137 [00:00<?, ? examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):   5%|▌         | 7/137 [00:03<01:04,  2.03 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  16%|█▌        | 22/137 [00:05<00:26,  4.27 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  26%|██▌       | 35/137 [00:05<00:12,  7.97 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  36%|███▋      | 50/137 [00:07<00:11,  7.57 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  42%|████▏     | 57/137 [00:10<00:13,  5.89 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  50%|█████     | 69/137 [00:10<00:07,  8.92 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  62%|██████▏   | 85/137 [00:12<00:06,  8.46 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  66%|██████▌   | 90/137 [00:14<00:07,  5.98 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  75%|███████▌  | 103/137 [00:14<00:03,  9.11 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  86%|████████▌ | 118/137 [00:16<00:02,  8.21 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8):  93%|█████████▎| 127/137 [00:18<00:01,  6.83 examples/s]
+Tokenizing gr_eval_retain.jsonl (eval retain) (num_proc=8): 100%|██████████| 137/137 [00:18<00:00,  7.30 examples/s]
+
+Filter (num_proc=8):   0%|          | 0/137 [00:00<?, ? examples/s]
+Filter (num_proc=8):  13%|█▎        | 18/137 [00:00<00:03, 35.57 examples/s]
+Filter (num_proc=8):  38%|███▊      | 52/137 [00:00<00:00, 97.70 examples/s]
+Filter (num_proc=8):  63%|██████▎   | 86/137 [00:00<00:00, 146.37 examples/s]
+Filter (num_proc=8):  88%|████████▊ | 120/137 [00:00<00:00, 185.19 examples/s]
+Filter (num_proc=8): 100%|██████████| 137/137 [00:00<00:00, 139.83 examples/s]
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-MEi1ZskOOzXoBp4J0XgCxH

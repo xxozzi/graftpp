@@ -1,0 +1,29 @@
+1 run(s) × 2 rounds × (3 sellers + 3 LLM buyers + judge) ≈ 18 model calls via OpenRouter.
+Rates: https://openrouter.ai/caiac/base · https://openrouter.ai/qwen/qwen3-14b
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+Market initialized with 3 seller asks and 3 buyer bids.
+  0%|          | 0/2 [00:00<?, ?it/s]  0%|          | 0/2 [00:27<?, ?it/s]
+Traceback (most recent call last):
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\simulation.py", line 456, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\simulation.py", line 448, in main
+    run_simulation(params, log_dir=args.log_dir, use_wandb=args.wandb,
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   save_state_round=args.save_state_round, resume_from=args.resume_from,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   reset_agents=args.reset_agents)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\simulation.py", line 196, in run_simulation
+    market.run_round()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\market\market.py", line 180, in run_round
+    self.add_seller_ask(agent, agent_bid_response["ask"])
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\market\market.py", line 292, in add_seller_ask
+    self.seller_ask_queue.sort(reverse=True)  # Sort in descending order
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+TypeError: '<' not supported between instances of 'float' and 'str'

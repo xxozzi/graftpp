@@ -1,0 +1,22 @@
+{
+ "label_source": "budgeted monitor flags, src/part2/build_sft_dataset.py (v2 snapshot)",
+ "git_commit_at_manifest": "895ee64",
+ "files": {
+  "gr_eval_forget.jsonl": {
+   "sha256": "609039fe2159bc2ff79953bd551b3d648ab744c79eed988cb60a98a728be081b",
+   "records": 16
+  },
+  "gr_eval_retain.jsonl": {
+   "sha256": "4bc7adc58880a0452c54727d286cd6dbdd10f880dd57c3ad9a5302e6993c1f4f",
+   "records": 158
+  },
+  "gr_train_forget.jsonl": {
+   "sha256": "99b2558bb4621489f4196f91495451a9e730e6876887db6965ed87c9eb89d36a",
+   "records": 164
+  },
+  "gr_train_retain.jsonl": {
+   "sha256": "d82d0f00f76e687baec57f23467b8e9202777e90c79f9baaa8afdaf14da15f70",
+   "records": 1584
+  }
+ }
+}

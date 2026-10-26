@@ -1,0 +1,201 @@
+✓ Initialized. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-T1yiHYQMgw4Ax9WQiWU31I
+Building image im-dxwOCCM2h1WDJGLjnpTfA9
+
+=> Step 0: FROM base
+
+=> Step 1: ENV E8_MODEL=Qwen/Qwen3-1.7B
+Saving image...
+Image saved, took 674.40ms
+
+Built image im-dxwOCCM2h1WDJGLjnpTfA9 in 1.43s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   C:\Users\fabia\dev\apart-collusion-sprint\src\e8_directions_modal.py
+└── ✓ Created Function Reader.*.
+105 runs, 5902 turns, 787 chunks
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:  14%|█▍        | 44/311 [00:00<00:00, 419.79it/s]
+[1ALoading weights:  28%|██▊       | 86/311 [00:00<00:00, 363.66it/s]
+[1ALoading weights:  40%|███▉      | 123/311 [00:00<00:00, 347.15it/s]
+[1ALoading weights:  51%|█████     | 158/311 [00:00<00:00, 336.03it/s]
+[1ALoading weights:  64%|██████▍   | 199/311 [00:00<00:00, 353.75it/s]
+[1ALoading weights:  81%|████████  | 252/311 [00:00<00:00, 393.16it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 455.70it/s]
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:  10%|█         | 32/311 [00:00<00:00, 300.93it/s]
+[1ALoading weights:  22%|██▏       | 68/311 [00:00<00:00, 330.29it/s]
+[1ALoading weights:  38%|███▊      | 117/311 [00:00<00:00, 388.74it/s]
+[1ALoading weights:  50%|█████     | 157/311 [00:00<00:00, 374.52it/s]
+[1ALoading weights:  63%|██████▎   | 195/311 [00:00<00:00, 369.78it/s]
+[1ALoading weights:  75%|███████▍  | 232/311 [00:00<00:00, 335.64it/s]
+[1ALoading weights:  87%|████████▋ | 271/311 [00:00<00:00, 347.78it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 386.33it/s]
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:  16%|█▌        | 49/311 [00:00<00:00, 438.16it/s]
+[1ALoading weights:  34%|███▍      | 106/311 [00:00<00:00, 444.64it/s]
+[1ALoading weights:  49%|████▊     | 151/311 [00:00<00:00, 321.68it/s]
+[1ALoading weights:  60%|█████▉    | 186/311 [00:00<00:00, 322.42it/s]
+[1ALoading weights:  73%|███████▎  | 226/311 [00:00<00:00, 345.00it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 446.79it/s]
+/usr/local/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[1ALoading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+[1ALoading weights:   9%|▊         | 27/311 [00:00<00:01, 251.03it/s]
+[1ALoading weights:  22%|██▏       | 68/311 [00:00<00:00, 320.99it/s]
+[1ALoading weights:  39%|███▊      | 120/311 [00:00<00:00, 403.53it/s]
+[1ALoading weights:  52%|█████▏    | 161/311 [00:00<00:00, 368.64it/s]
+[1ALoading weights:  64%|██████▍   | 200/311 [00:00<00:00, 345.65it/s]
+[1ALoading weights:  76%|███████▌  | 236/311 [00:00<00:00, 335.61it/s]
+[1ALoading weights:  90%|█████████ | 280/311 [00:00<00:00, 343.93it/s]
+[1ALoading weights: 100%|██████████| 311/311 [00:00<00:00, 368.77it/s]
+an error occurred during closing of asynchronous generator <async_generator object Synchronizer._run_generator_async at 0x000001A7333ADCC0>
+asyncgen: <async_generator object Synchronizer._run_generator_async at 0x000001A7333ADCC0>
+Traceback (most recent call last):
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\modal\_utils\async_utils.py", line 858, in __iter__
+    yield from run_async_gen(runner, self._async_iterable)
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+RuntimeError: aclose(): asynchronous generator is already running
+an error occurred during closing of asynchronous generator <async_generator object async_merge at 0x000001A703B9C320>
+asyncgen: <async_generator object async_merge at 0x000001A703B9C320>
+Traceback (most recent call last):
+  File "C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\modal\_utils\async_utils.py", line 858, in __iter__
+    yield from run_async_gen(runner, self._async_iterable)
+GeneratorExit
+
+During handling of the above exception, another exception occurred:
+
+RuntimeError: aclose(): asynchronous generator is already running
+20261024_123450_E1_nochat_qwen3-14b_s0: 51 turns -> (51, 3, 2048); errors 0
+20261024_123450_E1_nochat_qwen3-14b_s1: 52 turns -> (52, 3, 2048); errors 0
+20261024_123450_E1_nochat_qwen3-14b_s2: 51 turns -> (51, 3, 2048); errors 0
+20261024_123450_E1_pressure_qwen3-14b_s0: 51 turns -> (51, 3, 2048); errors 0
+20261024_123450_E1_pressure_qwen3-14b_s1: 48 turns -> (48, 3, 2048); errors 0
+20261024_123450_E1_pressure_qwen3-14b_s2: 45 turns -> (45, 3, 2048); errors 0
+20261024_125557_E1_instructed_qwen3-14b_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_125557_E1_instructed_qwen3-14b_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_125557_E1_instructed_qwen3-14b_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_134920_E1_isolated_qwen3-14b_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_134920_E1_isolated_qwen3-14b_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_134920_E1_isolated_qwen3-14b_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_134920_E1_monopoly_qwen3-14b_s0: 20 turns -> (20, 3, 2048); errors 0
+20261024_134920_E1_monopoly_qwen3-14b_s1: 20 turns -> (20, 3, 2048); errors 0
+20261024_134920_E1_monopoly_qwen3-14b_s2: 20 turns -> (20, 3, 2048); errors 0
+20261024_135638_E2_A1_rot_nofine_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A1_rot_nofine_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A1_rot_nofine_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A2_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A2_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A2_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A3_rand_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A3_rand_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_135638_E2_A3_rand_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_140335_E2_prefix8_s0: 24 turns -> (24, 3, 2048); errors 0
+20261024_140335_E2_prefix8_s1: 24 turns -> (24, 3, 2048); errors 0
+20261024_140335_E2_prefix8_s2: 24 turns -> (24, 3, 2048); errors 0
+20261024_141139_E2p_A0_none_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_141139_E2p_A0_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_141139_E2p_A1_rot_nofine_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_141139_E2p_A2_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_141139_E2p_A3_rand_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_141140_E2p_A0_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_141140_E2p_A1_rot_nofine_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_141140_E2p_A2_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_141140_E2p_A2_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_141140_E2p_A3_rand_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_141140_E2p_A3_rand_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_141213_E1_compete_qwen3-14b_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_141213_E1_compete_qwen3-14b_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_141213_E1_pricesonly_qwen3-14b_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_141213_E1_pricesonly_qwen3-14b_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_141213_E1_pricesonly_qwen3-14b_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_142329_E2p_A1_rot_nofine_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_143244_E4p_A0blind_none_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_143244_E4p_A0blind_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_143244_E4p_A0blind_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_143244_E4p_A2blind_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_143244_E4p_A2blind_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_143244_E4p_A2blind_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_143435_E1_compete_qwen3-14b_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_144040_E1_silentcartel_qwen3-14b_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_144040_E1_silentcartel_qwen3-14b_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_144040_E1_silentcartel_qwen3-14b_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_144928_E4p_A0fullblind_none_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_144928_E4p_A2fullblind_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_144929_E4p_A0fullblind_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_144929_E4p_A0fullblind_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_144929_E4p_A2fullblind_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_144929_E4p_A2fullblind_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_145258_E2_prefix8_s3: 24 turns -> (24, 3, 2048); errors 0
+20261024_145258_E2_prefix8_s4: 24 turns -> (24, 3, 2048); errors 0
+20261024_145258_E2_prefix8_s5: 24 turns -> (24, 3, 2048); errors 0
+20261024_150003_E2p_A2dodge_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_150003_E2p_A2dodge_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_150004_E2p_A2dodge_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_150038_E2p_A0_none_s3: 60 turns -> (60, 3, 2048); errors 0
+20261024_150038_E2p_A0_none_s4: 60 turns -> (60, 3, 2048); errors 0
+20261024_150038_E2p_A1_rot_nofine_s3: 60 turns -> (60, 3, 2048); errors 0
+20261024_150038_E2p_A1_rot_nofine_s4: 60 turns -> (60, 3, 2048); errors 0
+20261024_150038_E2p_A2_rot_fine20_s3: 60 turns -> (60, 3, 2048); errors 0
+20261024_150038_E2p_A3_rand_fine20_s3: 60 turns -> (60, 3, 2048); errors 0
+20261024_150039_E2p_A0_none_s5: 60 turns -> (60, 3, 2048); errors 0
+20261024_150039_E2p_A1_rot_nofine_s5: 60 turns -> (60, 3, 2048); errors 0
+20261024_150039_E2p_A2_rot_fine20_s4: 60 turns -> (60, 3, 2048); errors 0
+20261024_150039_E2p_A2_rot_fine20_s5: 60 turns -> (60, 3, 2048); errors 0
+20261024_150039_E2p_A3_rand_fine20_s4: 60 turns -> (60, 3, 2048); errors 0
+20261024_150039_E2p_A3_rand_fine20_s5: 60 turns -> (60, 3, 2048); errors 0
+20261024_152923_E2p_A1silent_rot_nofine_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_152923_E2p_A1silent_rot_nofine_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_152923_E2p_A1silent_rot_nofine_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_152923_E2p_A2full_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_152923_E2p_A2full_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_152923_E2p_A2full_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_155300_E2p_A2two_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_155300_E2p_A2two_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_155300_E2p_A2two_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2_A2early_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2_A2early_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2_A2early_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2p_A0norem_none_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2p_A0norem_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2p_A0norem_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2p_A2norem_rot_fine20_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2p_A2norem_rot_fine20_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E2p_A2norem_rot_fine20_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E4p_A0noremblind_none_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E4p_A0noremblind_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_155933_E4p_A0noremblind_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_161709_E2p_A0noremresetb_none_s0: 60 turns -> (60, 3, 2048); errors 0
+20261024_161709_E2p_A0noremresetb_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_161709_E2p_A0noremresetb_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_161709_E2p_A0noremresets_none_s1: 60 turns -> (60, 3, 2048); errors 0
+20261024_161709_E2p_A0noremresets_none_s2: 60 turns -> (60, 3, 2048); errors 0
+20261024_162628_E2p_A0noremresets_none_s0: 60 turns -> (60, 3, 2048); errors 0
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/fabianfrontera/main/ap-T1yiHYQMgw4Ax9WQiWU31I
+Task was destroyed but it is pending!
+task: <Task cancelling name='Task-227' coro=<async_merge.<locals>.producer() running at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\modal\_utils\async_utils.py:1093> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[gather.<locals>._done_callback() at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py:764]>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-28906' coro=<<async_generator_athrow without __name__>()> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-28914' coro=<Synchronizer._run_function_async() done, defined at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\site-packages\synchronicity\synchronizer.py:550> wait_for=<Future pending cb=[shield.<locals>._outer_done_callback() at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py:908, Task.task_wakeup()]> cb=[shield.<locals>._inner_done_callback() at C:\Users\fabia\AppData\Local\Programs\Python\Python311\Lib\asyncio\tasks.py:891]>

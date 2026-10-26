@@ -1,0 +1,34 @@
+{
+ "gr_eval_forget.jsonl": {
+  "sha256": "609039fe2159bc2ff79953bd551b3d648ab744c79eed988cb60a98a728be081b",
+  "records": 16
+ },
+ "gr_eval_retain.jsonl": {
+  "sha256": "4bc7adc58880a0452c54727d286cd6dbdd10f880dd57c3ad9a5302e6993c1f4f",
+  "records": 158
+ },
+ "gr_train_forget.jsonl": {
+  "sha256": "99b2558bb4621489f4196f91495451a9e730e6876887db6965ed87c9eb89d36a",
+  "records": 164
+ },
+ "gr_train_retain.jsonl": {
+  "sha256": "d82d0f00f76e687baec57f23467b8e9202777e90c79f9baaa8afdaf14da15f70",
+  "records": 1584
+ },
+ "counts": {
+  "flagged": 164,
+  "missed": 1061,
+  "clean": 206,
+  "nomessage": 189,
+  "anchor": 128,
+  "anchor_dropped_unscored": 21,
+  "anchor_dropped_coordinating": 31,
+  "eval_files_are_training_copies_not_heldout": true,
+  "graft_forget": 164,
+  "graft_retain": 1584
+ },
+ "checks": {
+  "anchors_non_baseline": 0,
+  "nomessage_as_baseline": 0
+ }
+}

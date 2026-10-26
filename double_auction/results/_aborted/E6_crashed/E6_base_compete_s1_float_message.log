@@ -1,0 +1,25 @@
+1 run(s) × 20 rounds × (3 sellers + 3 LLM buyers + judge) ≈ 180 model calls via OpenRouter.
+Rates: https://openrouter.ai/caiac/base · https://openrouter.ai/qwen/qwen3-14b
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+Market initialized with 3 seller asks and 3 buyer bids.
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:37<11:49, 37.36s/it]  5%|▌         | 1/20 [01:11<22:40, 71.62s/it]
+Traceback (most recent call last):
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\simulation.py", line 456, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\simulation.py", line 448, in main
+    run_simulation(params, log_dir=args.log_dir, use_wandb=args.wandb,
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   save_state_round=args.save_state_round, resume_from=args.resume_from,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   reset_agents=args.reset_agents)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\simulation.py", line 196, in run_simulation
+    market.run_round()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\fabia\dev\apart-collusion-sprint\src\double_auction\src\continuous_double_auction\market\market.py", line 186, in run_round
+    if len(message) > agent.expt_params.max_message_length:
+       ~~~^^^^^^^^^
+TypeError: object of type 'float' has no len()

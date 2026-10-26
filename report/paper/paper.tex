@@ -668,6 +668,9 @@ Two claims were corrected after checking them against the raw traces: three of t
 \section{Reproducibility}
 Figures, chat diagrams and every number in the text are generated from the logs in \texttt{results/} by
 \texttt{scripts/paper\_figs.py}, \texttt{scripts/paper\_transcripts.py} and \texttt{scripts/paper\_numbers.py} (via
-\texttt{scripts/export\_site.py}); no number was entered by hand. Compile with \texttt{latexmk -lualatex paper.tex}.
+\texttt{scripts/export\_site.py}); the probe evaluation by \texttt{scripts/probe\_analysis.py}; and the double-auction
+results of \S\ref{sec:market2} by \texttt{scripts/paper\_market2.py} from \texttt{double\_auction/}, which holds all 382
+double-auction runs with an index of every run (\texttt{runs\_index.csv}). No number was entered by hand. Compile with
+\texttt{latexmk -lualatex paper.tex}.
 
 \end{document}

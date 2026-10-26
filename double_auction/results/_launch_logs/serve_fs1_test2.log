@@ -1,0 +1,72 @@
+== fs1 test 16:48
+fs1 sample: model=caiac/graft_v2_fs1 tokens=46 prefix='{"user": "Seller Jun", "content": "Current bid-ask alignment' keys=['content', 'user']
+fs1 sample: model=caiac/graft_v2_fs1 tokens=47 prefix='{"name": "Seller Jun", "action": " Seller has bid-ask adjust' keys=['action', 'name']
+fs1 sample: model=caiac/graft_v2_fs1 tokens=1500 prefix='{"name": "Seller Jun", "prompt": "Raising price ceiling to $' keys=bad-json Extra data: line 3 column 1 (c
+== server answers; relaunching fs1 seed 0 16:49
+CAIAC_MODEL_ENDPOINTS={"caiac/graft_v2_fs1": "https://fabianfrontera--caiac-serve-graft-v2-fs1-serve.us-east.modal.run/v1"}
+== launch E6_graftv2fs1_cartel_rot_fine20_s0
+== launch E6_graftv2fs1_compete_s0
+== E6_base_cartel_rot_fine20_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164458_E6_base_cartel_rot_fine20_s0
+== E6_base_cartel_rot_fine20_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_base_cartel_rot_fine20_s1
+== E6_base_cartel_rot_fine20_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_base_compete_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_base_compete_s0
+== E6_base_compete_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164936_E6_base_compete_s1
+== E6_base_compete_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_batch.log
+== E6_graftv2_cartel_rot_fine20_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_graftv2_cartel_rot_fine20_s0
+== E6_graftv2_cartel_rot_fine20_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164736_E6_graftv2_cartel_rot_fine20_s1
+== E6_graftv2_cartel_rot_fine20_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_graftv2_compete_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_graftv2_compete_s0
+== E6_graftv2_compete_s1.log
+ 50%|█████     | 10/20 [15:40<11:57, 71.73s/it]Error decoding JSON s.
+== E6_graftv2_compete_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_graftv2fs1_cartel_rot_fine20_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164952_E6_graftv2fs1_cartel_rot_fine20_s0
+== E6_graftv2fs1_cartel_rot_fine20_s1.log
+== E6_graftv2fs1_cartel_rot_fine20_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_graftv2fs1_compete_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164952_E6_graftv2fs1_compete_s0
+== E6_graftv2fs1_compete_s1.log
+Error decoding JSON {"name": "Seller Jun", "title": "Seller Jun"  
+== E6_graftv2fs1_compete_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_rerun_base_compete_s1.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_sftallv2_cartel_rot_fine20_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_sftallv2_cartel_rot_fine20_s0
+== E6_sftallv2_cartel_rot_fine20_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164500_E6_sftallv2_cartel_rot_fine20_s1
+== E6_sftallv2_cartel_rot_fine20_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_sftallv2_compete_s0.log
+Error decoding JSON e.
+== E6_sftallv2_compete_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164500_E6_sftallv2_compete_s1
+== E6_sftallv2_compete_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_sftfilteredv2_cartel_rot_fine20_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_sftfilteredv2_cartel_rot_fine20_s0
+== E6_sftfilteredv2_cartel_rot_fine20_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164500_E6_sftfilteredv2_cartel_rot_fine20_s1
+== E6_sftfilteredv2_cartel_rot_fine20_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_sftfilteredv2_compete_s0.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164459_E6_sftfilteredv2_compete_s0
+== E6_sftfilteredv2_compete_s1.log
+   saved C:\Users\fabia\dev\apart-collusion-sprint\results\20261024_164659_E6_sftfilteredv2_compete_s1
+== E6_sftfilteredv2_compete_s2.log
+[llm_config] WARNING: couldn't fetch the OpenRouter catalog (TimeoutError: The read operation timed out) — can't verify OpenRouter availability.
+== E6_smoke2.log
+== fs1 seed-0 runs done 17:10

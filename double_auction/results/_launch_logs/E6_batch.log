@@ -1,0 +1,43 @@
+== smoke 3 16:42
+CAIAC_MODEL_ENDPOINTS={"caiac/base": "https://fabianfrontera--caiac-serve-base-serve.us-east.modal.run/v1"}
+== launch E6smoke_base_cartel_rot_fine20_s0
+== E6_batch.log
+== E6_smoke2.log
+== smoke OK; full batch (5 models, 30 runs, 15 at a time) 16:44
+CAIAC_MODEL_ENDPOINTS={"caiac/base": "https://fabianfrontera--caiac-serve-base-serve.us-east.modal.run/v1", "caiac/sft_all_v2": "https://fabianfrontera--caiac-serve-sft-all-v2-serve.us-east.modal.run/v1", "caiac/sft_filtered_v2": "https://fabianfrontera--caiac-serve-sft-filtered-v2-serve.us-east.modal.run/v1", "caiac/graft_v2": "https://fabianfrontera--caiac-serve-graft-v2-serve.us-east.modal.run/v1", "caiac/graft_v2_fs1": "https://fabianfrontera--caiac-serve-graft-v2-fs1-serve.us-east.modal.run/v1"}
+== launch E6_base_cartel_rot_fine20_s0
+== launch E6_base_compete_s0
+== launch E6_sftallv2_cartel_rot_fine20_s0
+== launch E6_sftallv2_compete_s0
+== launch E6_sftfilteredv2_cartel_rot_fine20_s0
+== launch E6_sftfilteredv2_compete_s0
+== launch E6_graftv2_cartel_rot_fine20_s0
+== launch E6_graftv2_compete_s0
+== launch E6_graftv2fs1_cartel_rot_fine20_s0
+== launch E6_graftv2fs1_compete_s0
+== launch E6_base_cartel_rot_fine20_s1
+== launch E6_base_compete_s1
+== launch E6_sftallv2_cartel_rot_fine20_s1
+== launch E6_sftallv2_compete_s1
+== launch E6_sftfilteredv2_cartel_rot_fine20_s1
+   failed: E6_base_compete_s1 (see /c/Users/fabia/dev/apart-collusion-sprint/results/_launch_logs/E6_base_compete_s1.log)
+== launch E6_sftfilteredv2_compete_s1
+   failed: E6_graftv2fs1_cartel_rot_fine20_s0 (see /c/Users/fabia/dev/apart-collusion-sprint/results/_launch_logs/E6_graftv2fs1_cartel_rot_fine20_s0.log)
+== launch E6_graftv2_cartel_rot_fine20_s1
+   failed: E6_graftv2fs1_compete_s0 (see /c/Users/fabia/dev/apart-collusion-sprint/results/_launch_logs/E6_graftv2fs1_compete_s0.log)
+== launch E6_graftv2_compete_s1
+== launch E6_graftv2fs1_cartel_rot_fine20_s1
+== launch E6_graftv2fs1_compete_s1
+== launch E6_base_cartel_rot_fine20_s2
+== launch E6_base_compete_s2
+== launch E6_sftallv2_cartel_rot_fine20_s2
+== launch E6_sftallv2_compete_s2
+== launch E6_sftfilteredv2_cartel_rot_fine20_s2
+== launch E6_sftfilteredv2_compete_s2
+== launch E6_graftv2_cartel_rot_fine20_s2
+== launch E6_graftv2_compete_s2
+== launch E6_graftv2fs1_cartel_rot_fine20_s2
+== launch E6_graftv2fs1_compete_s2
+scripts/run_part2_eval.sh: line 51: syntax error near unexpected token `see'
+scripts/run_part2_eval.sh: line 51: `ag (see $LOGS/$tag.log)" ) &'
+== batch done 17:03

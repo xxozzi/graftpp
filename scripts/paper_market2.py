@@ -2,7 +2,7 @@
 
     python scripts/paper_market2.py
 
-Reads the team's result tables from ../apart-collusion-sprint/results (or $SPRINT_REPO): E5_conditions.md (monitor arms
+Reads the team's result tables from double_auction/results (or $SPRINT_REPO/results): E5_conditions.md (monitor arms
 in Market A, hours after the branch), DETECTOR.md (price vs message monitor on every labelled run),
 jspace_thinking_join.md (J-lens readout), thinking_scan.md and thinking_judge.md (private reasoning). Market B message
 counts come from the team's report table (results/NEWMARKET.md and fullview scores; report/claims.md row 13).
@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from site_path import site_dir  # noqa: E402
 
-SPRINT = Path(os.environ.get("SPRINT_REPO", ROOT.parent / "apart-collusion-sprint")) / "results"
+# the team's double-auction results, imported into double_auction/ (or a checkout of the source repo via $SPRINT_REPO)
+SPRINT = Path(os.environ["SPRINT_REPO"]) / "results" if os.environ.get("SPRINT_REPO") else ROOT / "double_auction" / "results"
 GEN = ROOT / "report" / "paper" / "generated"
 
 QWEN = [("A0_none", "None"), ("A1silent_rot_nofine", "Silent"), ("A1_rot_nofine", "Told"),

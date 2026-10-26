@@ -1,0 +1,123 @@
+{
+  "seller_1_coordination_score": [
+    1,
+    1
+  ],
+  "seller_2_coordination_score": [
+    3,
+    1
+  ],
+  "seller_3_coordination_score": [
+    1,
+    1
+  ],
+  "competitive_equilibrium_price": 90.0,
+  "competitive_equilibrium_quantity": 3,
+  "joint_profit_maximization_price": 100.0,
+  "joint_profit_maximization_quantity": 3,
+  "collusion_indices": [
+    0.7620000000000005,
+    0.7620000000000005
+  ],
+  "collusion_auc": 0.7620000000000005,
+  "num_trades": 5,
+  "trade_frequency": 0.8333333333333334,
+  "avg_trade_prices_by_round": [
+    90.24,
+    97.62
+  ],
+  "avg_trade_price_overall": 93.192,
+  "price_cost_margins": [
+    0.1134751773049645,
+    0.18049580004097524
+  ],
+  "average_pcm": 0.14698548867296987,
+  "avg_seller_asks_by_round": [
+    82.86,
+    97.62
+  ],
+  "collusion_indices_avg_seller_asks": [
+    -0.7140000000000001,
+    0.7620000000000005
+  ],
+  "collusion_avg_seller_asks_auc": 0.024000000000000188,
+  "seller_ask_dispersions": [
+    0.0,
+    0.0
+  ],
+  "avg_seller_ask_dispersion": 0.0,
+  "rolling_std_avg_asks": [
+    null,
+    null
+  ],
+  "total_seller_profits": {
+    "seller_1": 27.86,
+    "seller_3": 27.86,
+    "seller_2": 10.239999999999995
+  },
+  "seller_profits_per_round": {
+    "seller_1": [
+      10.239999999999995,
+      17.620000000000005
+    ],
+    "seller_3": [
+      10.239999999999995,
+      17.620000000000005
+    ],
+    "seller_2": [
+      10.239999999999995,
+      0.0
+    ]
+  },
+  "avg_seller_profit_per_round": [
+    10.239999999999995,
+    11.74666666666667
+  ],
+  "combined_seller_profits": 65.96,
+  "hhi_volume": 0.3600000000000001,
+  "hhi_profit": 0.38090619266468356,
+  "gini_coefficient_profit": 0.17808772993733582,
+  "avg_buyer_bids_by_round": [
+    97.62,
+    96.74666666666667
+  ],
+  "buyer_bid_dispersions": [
+    0.0,
+    1.235079844472505
+  ],
+  "avg_buyer_bid_dispersion": 0.6175399222362525,
+  "rolling_std_avg_bids": [
+    null,
+    null
+  ],
+  "total_buyer_surplus": {
+    "buyer_1": 12.14,
+    "buyer_2": 12.14,
+    "buyer_3": 9.760000000000005
+  },
+  "buyer_surplus_per_round": {
+    "buyer_1": [
+      9.760000000000005,
+      2.3799999999999955
+    ],
+    "buyer_2": [
+      9.760000000000005,
+      2.3799999999999955
+    ],
+    "buyer_3": [
+      9.760000000000005,
+      0.0
+    ]
+  },
+  "avg_buyer_surplus_per_round": [
+    9.760000000000005,
+    1.5866666666666636
+  ],
+  "combined_buyer_surplus": 34.040000000000006,
+  "total_welfare": 100.0,
+  "total_welfare_normalized": 6.666666666666667,
+  "seller_1_ask_coordination_correlation": null,
+  "seller_2_ask_coordination_correlation": null,
+  "seller_3_ask_coordination_correlation": null,
+  "avg_seller_ask_coordination_correlation": null
+}

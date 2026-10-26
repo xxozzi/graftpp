@@ -1,0 +1,10 @@
+== stop 16:20
+Are you sure you want to stop App 'caiac-serve-base' in the 'main' environment? This will immediately terminate 1 running container. [y/N]: Aborted!
+== deploy 16:20
+    └── https://fabianfrontera--caiac-serve-base-serve.us-east.modal.run 
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-base
+== test 16:20
+base serves: [('caiac/base', 'Qwen/Qwen3-1.7B')]
+== chat 16:20
+{"id":"chatcmpl-bcf756133a22013e","object":"chat.completion","created":1792873219,"model":"caiac/base","choices":[{"index":0,"message":{"role":"assistant","content":"<think>\nOkay, the user wants me to reply with the single word \"OK\". Let me make sure I understand the request correctly. They provided a","refusal":null,"annotations":null,"audio":null,"function_call":null,"reasoning":null},"logprobs":null,"finish_reason":"length","stop_reason":null,"token_ids":null,"routed_experts":null}],"service_tier":null,"system_fingerprint":"vllm-0.32.0-7a138611","usage":{"prompt_tokens":15,"total_tokens":45,"completion_tokens":30,"prompt_tokens_details":null,"completion_tokens_details":null},"prompt_logprobs":null,"prompt_token_ids":null,"prompt_text":null,"kv_transfer_params":null,"ec_transfer_params":null,"metrics":null}
+== done 16:20

@@ -1,0 +1,20 @@
+== deploy base
+    └── https://fabianfrontera--caiac-serve-base-serve.us-east.modal.run 
+✓ App deployed in 5.425s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-base
+== models test 16:09
+{"object":"list","data":[{"id":"caiac/graft","object":"model","created":1792872680,"owned_by":"vllm","root":"/ckpts/graft/merged","parent":null,"max_model_len":16384,"permission":[{"id":"modelperm-89cd9f8c7afb6a25","object":"model_permission","created":1792872680,"allow_create_engine":false,"allow_sampling":true,"allow_logprobs":true,"allow_search_indices":false,"allow_view":true,"allow_fine_tuning":false,"organization":"*","group":null,"is_blocking":false}]}]}
+HTTP 200
+== chat test 16:11
+{"error":{"message":"The model `caiac/base` does not exist. Valid aliases: caiac/graft.","type":"NotFoundError","param":"model","code":404}}
+== deploy sft_all_v2
+    └── https://fabianfrontera--caiac-serve-sft-all-v2-serve.us-east.modal.run 
+✓ App deployed in 1.118s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-sft_all_v2
+== deploy sft_filtered_v2
+✓ App deployed in 0.883s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-sft_filtered_v2
+== deploy graft_v2
+    └── https://fabianfrontera--caiac-serve-graft-v2-serve.us-east.modal.run 
+✓ App deployed in 1.456s! 🎉
+https://modal.com/apps/fabianfrontera/main/deployed/caiac-serve-graft_v2

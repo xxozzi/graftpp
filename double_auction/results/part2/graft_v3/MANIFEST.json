@@ -1,0 +1,22 @@
+{
+ "label_source": "within-prompt probe (14B), src/e8_directions.py, results/e8/directions.json",
+ "git_commit_at_manifest": "895ee64",
+ "files": {
+  "gr_eval_forget.jsonl": {
+   "sha256": "609039fe2159bc2ff79953bd551b3d648ab744c79eed988cb60a98a728be081b",
+   "records": 16
+  },
+  "gr_eval_retain.jsonl": {
+   "sha256": "4bc7adc58880a0452c54727d286cd6dbdd10f880dd57c3ad9a5302e6993c1f4f",
+   "records": 158
+  },
+  "gr_train_forget.jsonl": {
+   "sha256": "a7a769e8c7eec7a036bdb9d4f3c858c2da2851891977b7eb60eca427fd26609e",
+   "records": 799
+  },
+  "gr_train_retain.jsonl": {
+   "sha256": "a0f8fd056b4688f28cdb373b746ac6957b64b33b73947092976d85c2ebe0aae9",
+   "records": 949
+  }
+ }
+}
