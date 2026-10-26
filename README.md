@@ -2,6 +2,8 @@
 
 Apart Research — AI Collusion Research Sprint (Oct 23–25, 2026). Track 3, RQ 3.4 (+ 2.3).
 
+View the paper here: https://github.com/xxozzi/graftpp/blob/github-main/graftpp.pdf
+
 > The *Hawthorne effect*: people change their behaviour when they know they are being observed.
 > We ask the same question of LLM coalitions.
 
