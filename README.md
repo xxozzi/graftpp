@@ -1,6 +1,4 @@
-# HAWTHORNE: What does an LLM coalition do when it learns it is being watched?
-
-**GRAFT++: reducing collusive behaviour in agents via localized training and white-box (activation-probe) gradient routing.**
+#**GRAFT++: reducing collusive behaviour in agents via localized training and white-box (activation-probe) gradient routing.**
 
 Apart Research — AI Collusion Research Sprint (Oct 23–25, 2026). Track 3, RQ 3.4 (+ 2.3).
 
